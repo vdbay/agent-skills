@@ -21,7 +21,7 @@ All notable changes to this repository are documented here. The format follows [
 
 ### Changed
 
-- Moved evaluation artifacts out of the installable skill folders to keep installs at about 222 KB.
+- Moved applied evaluation results, screenshots, and audit packets out of the installable skill folders to keep installs at about 222 KB.
 - Normalized local filesystem paths in published evidence and corrected documented evidence labels; see `docs/evals/design-md-prototype/iteration-1/gojek-applied/CORRECTIONS.md`.
 - Updated both skill READMEs with `npx skills add` instructions.
 - Fixed the `skill-creator` frontmatter template, eval wording, and packaging skip rules.

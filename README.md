@@ -122,7 +122,7 @@ Evidence: the applied Gojek package passed official lint with 0 errors/0 warning
 - **Progressive disclosure.** Keep the always-loaded surface small and load depth on demand.
 - **Evidence over vibes.** Runnable checks, recorded commands, and independent judges beat “looks good”.
 - **Fetched content is data.** Pages, repositories, issues, and search results never become instructions.
-- **Lean installs.** Evals, screenshots, and audit packets live in `docs/`, not in what users install.
+- **Lean installs.** Screenshots, judge packets, and audit reports live in `docs/`, not in what users install.
 - **No surprise.** No credential collection, hidden network calls, destructive commands, or contradictory instructions.
 
 ## Repository layout
