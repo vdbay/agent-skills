@@ -1,0 +1,71 @@
+{
+  "eval": "gojek-applied",
+  "run": "with_skill",
+  "assertion_results": [
+    {
+      "text": "Exactly one DESIGN.md exists and it contains a register matrix in the Overview section.",
+      "passed": true,
+      "evidence": "DESIGN.md contains one token core and an Overview register table with consumer and corporate/technology registers."
+    },
+    {
+      "text": "The design is one system, not two competing brands: one primary token and one shared type/spacing/radius core.",
+      "passed": true,
+      "evidence": "One colors block, one primary (#00880D), one Maison Neue family, one 4px spacing scale, one radius family; 58 colors and 53 components in one file."
+    },
+    {
+      "text": "DESIGN.md passes the official Google Labs linter with 0 errors.",
+      "passed": true,
+      "evidence": "evidence/lint.json: 0 errors, 0 warnings, 1 informational token-summary."
+    },
+    {
+      "text": "CSS token export succeeds.",
+      "passed": true,
+      "evidence": "evidence/export.css contains 140 lines of custom properties; fresh export matched."
+    },
+    {
+      "text": "The static artifact validator passes strict with no errors.",
+      "passed": true,
+      "evidence": "evidence/static-check.json: ok true, strict true, 0 errors, 0 warnings."
+    },
+    {
+      "text": "Both HTML files are standalone, cross-linked, and open from file://.",
+      "passed": true,
+      "evidence": "Both are single files with inline CSS/JS, no external app code; the 20-cell file:// matrix passed and the pages link to each other."
+    },
+    {
+      "text": "The responsive matrix passes at 320/390/768/1024/1440 in light and dark.",
+      "passed": true,
+      "evidence": "evidence/browser-matrix.json: 20/20 cells, 0 console/page errors, 0 page-level horizontal overflow, one h1, no duplicate IDs."
+    },
+    {
+      "text": "Accessibility audit passes at 95+ and has no critical automated finding.",
+      "passed": true,
+      "evidence": "evidence/lighthouse-index.json and lighthouse-design-md.json: 100/100 accessibility on both pages."
+    },
+    {
+      "text": "Official provenance is recorded and the gojek.io 429 is disclosed.",
+      "passed": true,
+      "evidence": "sources.md records Asphalt, gojek.design, live gojek.com CSS tokens, Brown PDF, GitHub stars/licenses, and the gojek.io 429; no clone is used as brand truth."
+    },
+    {
+      "text": "No copied logo, photography, proprietary font, fabricated metric, testimonial, or press quote.",
+      "passed": true,
+      "evidence": "Both pages use typographic wordmarks and original CSS/SVG; no font or image binaries; judge found no fabrication; unofficial-concept notice is visible."
+    },
+    {
+      "text": "An independent judge scores at least 85/100 with no critical fail.",
+      "passed": true,
+      "evidence": "with_skill/judge-report.md: PASS, 93/100, no critical fails."
+    }
+  ],
+  "summary": {
+    "passed": 11,
+    "failed": 0,
+    "total": 11,
+    "pass_rate": 1
+  },
+  "limitations": [
+    "No no-skill baseline was run for this applied real-brand task.",
+    "Manual screen-reader, Safari/Firefox, native mobile, literal 200% zoom, and real proprietary-font rendering were not run and are disclosed."
+  ]
+}

@@ -1,0 +1,276 @@
+{
+  "generatedAt": "2026-11-16T11:45:31.445Z",
+  "matrix": {
+    "index.html": {
+      "light": {
+        "320": {
+          "width": 320,
+          "sw": 320,
+          "overflow": false,
+          "h1": 1,
+          "ids": 36,
+          "dupes": [],
+          "missing": [],
+          "errors": [],
+          "pass": true
+        },
+        "390": {
+          "width": 390,
+          "sw": 390,
+          "overflow": false,
+          "h1": 1,
+          "ids": 36,
+          "dupes": [],
+          "missing": [],
+          "errors": [],
+          "pass": true
+        },
+        "768": {
+          "width": 768,
+          "sw": 768,
+          "overflow": false,
+          "h1": 1,
+          "ids": 36,
+          "dupes": [],
+          "missing": [],
+          "errors": [],
+          "pass": true
+        },
+        "1024": {
+          "width": 1024,
+          "sw": 1024,
+          "overflow": false,
+          "h1": 1,
+          "ids": 36,
+          "dupes": [],
+          "missing": [],
+          "errors": [],
+          "pass": true
+        },
+        "1440": {
+          "width": 1440,
+          "sw": 1440,
+          "overflow": false,
+          "h1": 1,
+          "ids": 36,
+          "dupes": [],
+          "missing": [],
+          "errors": [],
+          "pass": true
+        }
+      },
+      "dark": {
+        "320": {
+          "width": 320,
+          "sw": 320,
+          "overflow": false,
+          "h1": 1,
+          "ids": 36,
+          "dupes": [],
+          "missing": [],
+          "errors": [],
+          "pass": true
+        },
+        "390": {
+          "width": 390,
+          "sw": 390,
+          "overflow": false,
+          "h1": 1,
+          "ids": 36,
+          "dupes": [],
+          "missing": [],
+          "errors": [],
+          "pass": true
+        },
+        "768": {
+          "width": 768,
+          "sw": 768,
+          "overflow": false,
+          "h1": 1,
+          "ids": 36,
+          "dupes": [],
+          "missing": [],
+          "errors": [],
+          "pass": true
+        },
+        "1024": {
+          "width": 1024,
+          "sw": 1024,
+          "overflow": false,
+          "h1": 1,
+          "ids": 36,
+          "dupes": [],
+          "missing": [],
+          "errors": [],
+          "pass": true
+        },
+        "1440": {
+          "width": 1440,
+          "sw": 1440,
+          "overflow": false,
+          "h1": 1,
+          "ids": 36,
+          "dupes": [],
+          "missing": [],
+          "errors": [],
+          "pass": true
+        }
+      }
+    },
+    "design-md.html": {
+      "light": {
+        "320": {
+          "width": 320,
+          "sw": 320,
+          "overflow": false,
+          "h1": 1,
+          "ids": 46,
+          "dupes": [],
+          "missing": [],
+          "errors": [],
+          "pass": true
+        },
+        "390": {
+          "width": 390,
+          "sw": 390,
+          "overflow": false,
+          "h1": 1,
+          "ids": 46,
+          "dupes": [],
+          "missing": [],
+          "errors": [],
+          "pass": true
+        },
+        "768": {
+          "width": 768,
+          "sw": 768,
+          "overflow": false,
+          "h1": 1,
+          "ids": 46,
+          "dupes": [],
+          "missing": [],
+          "errors": [],
+          "pass": true
+        },
+        "1024": {
+          "width": 1024,
+          "sw": 1024,
+          "overflow": false,
+          "h1": 1,
+          "ids": 46,
+          "dupes": [],
+          "missing": [],
+          "errors": [],
+          "pass": true
+        },
+        "1440": {
+          "width": 1440,
+          "sw": 1440,
+          "overflow": false,
+          "h1": 1,
+          "ids": 46,
+          "dupes": [],
+          "missing": [],
+          "errors": [],
+          "pass": true
+        }
+      },
+      "dark": {
+        "320": {
+          "width": 320,
+          "sw": 320,
+          "overflow": false,
+          "h1": 1,
+          "ids": 46,
+          "dupes": [],
+          "missing": [],
+          "errors": [],
+          "pass": true
+        },
+        "390": {
+          "width": 390,
+          "sw": 390,
+          "overflow": false,
+          "h1": 1,
+          "ids": 46,
+          "dupes": [],
+          "missing": [],
+          "errors": [],
+          "pass": true
+        },
+        "768": {
+          "width": 768,
+          "sw": 768,
+          "overflow": false,
+          "h1": 1,
+          "ids": 46,
+          "dupes": [],
+          "missing": [],
+          "errors": [],
+          "pass": true
+        },
+        "1024": {
+          "width": 1024,
+          "sw": 1024,
+          "overflow": false,
+          "h1": 1,
+          "ids": 46,
+          "dupes": [],
+          "missing": [],
+          "errors": [],
+          "pass": true
+        },
+        "1440": {
+          "width": 1440,
+          "sw": 1440,
+          "overflow": false,
+          "h1": 1,
+          "ids": 46,
+          "dupes": [],
+          "missing": [],
+          "errors": [],
+          "pass": true
+        }
+      }
+    }
+  },
+  "interactions": {
+    "index": {
+      "theme": {
+        "pressed": "false",
+        "label": "Tema gelap",
+        "stable": true
+      },
+      "cardFocus": "panel-title",
+      "skipFocus": "main"
+    },
+    "indexErrors": [],
+    "mobile": {
+      "o": {
+        "expanded": "true",
+        "hidden": false
+      },
+      "closed": {
+        "expanded": "false",
+        "hidden": true
+      }
+    },
+    "toc900": {
+      "expanded": "false",
+      "hash": "#overview"
+    },
+    "sourceHover": {
+      "color": "rgb(0, 104, 10)"
+    }
+  },
+  "focusChecks": {
+    "darkCta": {
+      "outline": "rgb(17, 19, 19)",
+      "outlineWidth": "3px",
+      "halo": "5px white",
+      "panel": "rgb(0, 170, 19)",
+      "active": true
+    }
+  },
+  "failures": 0
+}

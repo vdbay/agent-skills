@@ -1,0 +1,20 @@
+---
+name: wrong-name
+description: Helps with things.
+metadata:
+  internal: true
+---
+
+# Broken practice skill
+
+Use this to review release notes.
+
+## Workflow
+
+1. Read the release notes.
+2. Check them against references/checklist.md.
+3. Return a summary.
+
+## Output
+
+A short summary.

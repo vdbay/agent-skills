@@ -1,0 +1,3464 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Konsep sistem desain Gojek: satu hijau, dua register. Prototipe konsumen berbahasa Indonesia dan register korporat/teknologi berbahasa Inggris.">
+  <meta name="theme-color" content="#FAFAFA" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111313" media="(prefers-color-scheme: dark)">
+  <title>Gojek — Sehari penuh, satu hijau | Konsep sistem desain</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%2300AA13'/%3E%3Cpath d='M16 44c8-20 16 4 24-16 3-8 6-10 8-8' fill='none' stroke='%231C1D1D' stroke-width='4' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='44' r='4' fill='%231C1D1D'/%3E%3Ccircle cx='48' cy='20' r='4' fill='%231C1D1D'/%3E%3C/svg%3E">
+  <script>
+    try {
+      var savedTheme = localStorage.getItem('gojek-concept-theme');
+      if (savedTheme === 'light' || savedTheme === 'dark') {
+        document.documentElement.dataset.theme = savedTheme;
+      }
+    } catch (error) {}
+  </script>
+  <style>
+    :root {
+      color-scheme: light;
+      --color-primary: #00880D;
+      --color-primary-hover: #00680A;
+      --color-primary-active: #004F08;
+      --color-brand: #00AA13;
+      --color-brand-soft: #EAFFEA;
+      --color-on-brand: #1C1D1D;
+      --color-on-primary: #FFFFFF;
+      --color-surface: #FFFFFF;
+      --color-surface-alt: #FAFAFA;
+      --color-surface-sunken: #E8E8E8;
+      --color-on-surface: #1C1D1D;
+      --color-on-surface-secondary: #494A4A;
+      --color-muted: #727272;
+      --color-border: #BDBDBD;
+      --color-border-strong: #727272;
+      --color-focus: #1C1D1D;
+      --color-focus-halo: #86AFFF;
+      --color-success: #00680A;
+      --color-success-soft: #EAFFEA;
+      --color-warning: #FFC41C;
+      --color-warning-soft: #FFF8E7;
+      --color-warning-text: #7A5D0E;
+      --color-on-warning: #1C1D1D;
+      --color-error: #EA001F;
+      --color-error-soft: #FFF3F3;
+      --color-error-text: #C60E26;
+      --color-info: #008BAB;
+      --color-info-soft: #E8FBFF;
+      --color-info-text: #006F89;
+      --color-inverse-surface: #1C1D1D;
+      --color-inverse-on-surface: #FFFFFF;
+      --color-surface-dark: #111313;
+      --color-surface-dark-raised: #1C1D1D;
+      --color-on-surface-dark: #F5F5F2;
+      --color-muted-dark: #B9B9B4;
+      --color-border-dark: #6B6D6D;
+      --color-primary-dark: #00AA13;
+      --color-on-primary-dark: #08210D;
+      --font-display: "Maison Neue Extended", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --font-body: "Maison Neue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --font-code: "Fira Code", ui-monospace, SFMono-Regular, Consolas, monospace;
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 24px;
+      --space-6: 32px;
+      --space-7: 40px;
+      --space-8: 48px;
+      --space-9: 64px;
+      --space-10: 96px;
+      --space-11: 128px;
+      --radius-xs: 6px;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --radius-2xl: 24px;
+      --radius-full: 992px;
+      --shadow-low: 0 2px 20px rgba(0, 0, 0, 0.08);
+      --shadow-mid: 0 4px 20px rgba(0, 0, 0, 0.10);
+      --shadow-high: 0 16px 64px rgba(0, 0, 0, 0.12);
+      --duration-fast: 120ms;
+      --duration-base: 200ms;
+      --duration-slow: 320ms;
+      --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+      --ease-out: cubic-bezier(0, 0, 0.2, 1);
+      --ease-in: cubic-bezier(0.4, 0, 1, 1);
+      --ease-overshoot: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --page-max: 1240px;
+      --header-height: 72px;
+    }
+
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --color-primary: #00AA13;
+      --color-primary-hover: #18C22A;
+      --color-primary-active: #33D944;
+      --color-brand: #00AA13;
+      --color-brand-soft: #13351B;
+      --color-on-brand: var(--color-on-primary-dark);
+      --color-on-primary: #08210D;
+      --color-surface: #111313;
+      --color-surface-alt: #1C1D1D;
+      --color-surface-sunken: #2A2C2C;
+      --color-on-surface: #F5F5F2;
+      --color-on-surface-secondary: #D6D6D1;
+      --color-muted: #B9B9B4;
+      --color-border: #6B6D6D;
+      --color-border-strong: #8A8C8C;
+      --color-focus: #F5F5F2;
+      --color-focus-halo: #86AFFF;
+      --color-success: #7DDB8A;
+      --color-success-soft: #12351A;
+      --color-warning: #FFD355;
+      --color-warning-soft: #332B12;
+      --color-warning-text: #FFE08A;
+      --color-error: #FF6B7A;
+      --color-error-soft: #3A1519;
+      --color-error-text: #FFB3BA;
+      --color-info: #5DD6F0;
+      --color-info-soft: #0E2F36;
+      --color-info-text: #9DEBFA;
+      --color-inverse-surface: #F5F5F2;
+      --color-inverse-on-surface: #111313;
+      --shadow-low: 0 2px 20px rgba(0, 0, 0, 0.42);
+      --shadow-mid: 0 4px 20px rgba(0, 0, 0, 0.52);
+      --shadow-high: 0 16px 64px rgba(0, 0, 0, 0.62);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        color-scheme: dark;
+        --color-primary: #00AA13;
+        --color-primary-hover: #18C22A;
+        --color-primary-active: #33D944;
+        --color-brand: #00AA13;
+        --color-brand-soft: #13351B;
+        --color-on-brand: var(--color-on-primary-dark);
+        --color-on-primary: #08210D;
+        --color-surface: #111313;
+        --color-surface-alt: #1C1D1D;
+        --color-surface-sunken: #2A2C2C;
+        --color-on-surface: #F5F5F2;
+        --color-on-surface-secondary: #D6D6D1;
+        --color-muted: #B9B9B4;
+        --color-border: #6B6D6D;
+        --color-border-strong: #8A8C8C;
+        --color-focus: #F5F5F2;
+        --color-focus-halo: #86AFFF;
+        --color-success: #7DDB8A;
+        --color-success-soft: #12351A;
+        --color-warning: #FFD355;
+        --color-warning-soft: #332B12;
+        --color-warning-text: #FFE08A;
+        --color-error: #FF6B7A;
+        --color-error-soft: #3A1519;
+        --color-error-text: #FFB3BA;
+        --color-info: #5DD6F0;
+        --color-info-soft: #0E2F36;
+        --color-info-text: #9DEBFA;
+        --color-inverse-surface: #F5F5F2;
+        --color-inverse-on-surface: #111313;
+        --shadow-low: 0 2px 20px rgba(0, 0, 0, 0.42);
+        --shadow-mid: 0 4px 20px rgba(0, 0, 0, 0.52);
+        --shadow-high: 0 16px 64px rgba(0, 0, 0, 0.62);
+      }
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: calc(var(--header-height) + 24px);
+    }
+
+    body {
+      margin: 0;
+      background: var(--color-surface);
+      color: var(--color-on-surface);
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.618;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body,
+    button,
+    input,
+    textarea,
+    select {
+      font-family: var(--font-body);
+    }
+
+    a {
+      color: var(--color-primary);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.18em;
+    }
+
+    a:hover {
+      color: var(--color-primary-hover);
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--color-focus);
+      outline-offset: 2px;
+      box-shadow: 0 0 0 5px var(--color-focus-halo);
+      border-radius: 4px;
+    }
+
+    .corporate-section :focus-visible,
+    .site-footer :focus-visible {
+      outline-color: #F5F5F2;
+      box-shadow: 0 0 0 5px #1C1D1D;
+    }
+
+    .cta-panel :focus-visible {
+      outline-color: #1C1D1D;
+      box-shadow: 0 0 0 5px #FFFFFF;
+    }
+
+    .cta-panel .button-secondary {
+      border-color: #1C1D1D;
+    }
+
+    ::selection {
+      background: var(--color-brand-soft);
+      color: var(--color-success);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    p {
+      margin-top: 0;
+    }
+
+    h1,
+    h2,
+    h3 {
+      text-wrap: balance;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    svg {
+      display: block;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 100;
+      padding: 12px 18px;
+      border-radius: var(--radius-full);
+      background: var(--color-inverse-surface);
+      color: var(--color-inverse-on-surface);
+      font-weight: 700;
+      transform: translateY(-160%);
+      transition: transform var(--duration-fast) var(--ease-standard);
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: var(--page-max);
+      margin-inline: auto;
+      padding-inline: clamp(20px, 5vw, 40px);
+    }
+
+    .concept-bar {
+      background: #1C1D1D;
+      color: #F5F5F2;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      line-height: 1.4;
+    }
+
+    .concept-bar .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 34px;
+      padding-block: 6px;
+    }
+
+    .concept-bar p {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .concept-bar .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: var(--radius-full);
+      background: #00AA13;
+      flex: none;
+    }
+
+    .concept-bar a {
+      color: #F5F5F2;
+      text-decoration-color: #00AA13;
+      text-decoration-thickness: 2px;
+      white-space: nowrap;
+    }
+
+    .concept-bar a:hover {
+      color: #FFFFFF;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      min-height: var(--header-height);
+    }
+
+    .brand-lockup {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--color-on-surface);
+      text-decoration: none;
+      flex: none;
+      min-height: 44px;
+    }
+
+    .brand-lockup:hover {
+      color: var(--color-on-surface);
+    }
+
+    .brand-mark {
+      width: 30px;
+      height: 30px;
+      border-radius: 9px;
+      background: var(--color-brand);
+      display: grid;
+      place-items: center;
+      flex: none;
+    }
+
+    .brand-mark svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .wordmark {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.055em;
+      line-height: 1;
+    }
+
+    .concept-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: 1px solid var(--color-border-strong);
+      border-radius: var(--radius-full);
+      padding: 4px 7px 3px;
+      color: var(--color-on-surface-secondary);
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .desktop-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-left: auto;
+    }
+
+    .desktop-nav a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 0 14px;
+      border-radius: var(--radius-full);
+      color: var(--color-on-surface);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .desktop-nav a:hover {
+      background: var(--color-surface-alt);
+      color: var(--color-primary-hover);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: none;
+    }
+
+    .icon-button {
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      display: inline-grid;
+      place-items: center;
+      border: 1px solid var(--color-border-strong);
+      border-radius: var(--radius-full);
+      background: transparent;
+      color: var(--color-on-surface);
+    }
+
+    .icon-button:hover {
+      background: var(--color-surface-alt);
+    }
+
+    .icon-button svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .icon-button .icon-moon {
+      display: none;
+    }
+
+    :root[data-theme="dark"] .icon-button .icon-sun {
+      display: none;
+    }
+
+    :root[data-theme="dark"] .icon-button .icon-moon {
+      display: block;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) .icon-button .icon-sun {
+        display: none;
+      }
+      :root:not([data-theme="light"]) .icon-button .icon-moon {
+        display: block;
+      }
+    }
+
+    .header-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 44px;
+      padding: 0 18px;
+      border-radius: var(--radius-full);
+      background: var(--color-on-surface);
+      color: var(--color-surface);
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .header-cta:hover {
+      background: var(--color-primary-hover);
+      color: var(--color-on-primary);
+    }
+
+    .menu-button {
+      display: none;
+    }
+
+    .mobile-nav {
+      border-top: 1px solid var(--color-border);
+      background: var(--color-surface);
+      padding: 12px clamp(20px, 5vw, 40px) 20px;
+    }
+
+    .mobile-nav[hidden] {
+      display: none;
+    }
+
+    .mobile-nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 4px;
+    }
+
+    .mobile-nav a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 48px;
+      padding: 0 14px;
+      border-radius: var(--radius-md);
+      color: var(--color-on-surface);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .mobile-nav a:hover {
+      background: var(--color-brand-soft);
+      color: var(--color-success);
+    }
+
+    .mobile-nav .mobile-note {
+      margin: 12px 0 0;
+      font-size: 12px;
+      color: var(--color-muted);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding-block: clamp(44px, 7vw, 92px) clamp(56px, 8vw, 104px);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle at 1px 1px, var(--color-border) 1px, transparent 0);
+      background-size: 24px 24px;
+      opacity: 0.28;
+      pointer-events: none;
+      mask-image: linear-gradient(to bottom, #000 0%, transparent 78%);
+    }
+
+    .hero .wrap {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+      gap: clamp(32px, 6vw, 72px);
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 20px;
+      padding: 6px 12px 6px 8px;
+      border: 1px solid var(--color-border-strong);
+      border-radius: var(--radius-full);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-on-surface-secondary);
+      background: var(--color-surface);
+    }
+
+    .eyebrow .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: var(--radius-full);
+      background: var(--color-brand);
+    }
+
+    .hero h1 {
+      margin: 0 0 24px;
+      font-family: var(--font-display);
+      font-size: clamp(44px, 6.8vw, 72px);
+      font-weight: 700;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      max-width: 10ch;
+    }
+
+    .hero h1 .green {
+      color: var(--color-brand);
+    }
+
+    .hero-lede {
+      max-width: 56ch;
+      margin: 0 0 28px;
+      font-size: clamp(16px, 1.8vw, 19px);
+      line-height: 1.65;
+      color: var(--color-on-surface-secondary);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 48px;
+      padding: 0 22px;
+      border-radius: var(--radius-full);
+      border: 2px solid transparent;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.2;
+      text-decoration: none;
+      transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-standard);
+    }
+
+    .button svg {
+      width: 18px;
+      height: 18px;
+      flex: none;
+    }
+
+    .button-primary {
+      background: var(--color-primary);
+      color: var(--color-on-primary);
+    }
+
+    .button-primary:hover {
+      background: var(--color-primary-hover);
+      color: var(--color-on-primary);
+    }
+
+    .button-secondary {
+      background: var(--color-surface);
+      color: var(--color-on-surface);
+      border-color: var(--color-border-strong);
+    }
+
+    .button-secondary:hover {
+      background: var(--color-surface-alt);
+      color: var(--color-primary-hover);
+    }
+
+    .button-ink {
+      background: var(--color-inverse-surface);
+      color: var(--color-inverse-on-surface);
+    }
+
+    .button-ink:hover {
+      background: var(--color-on-surface-secondary);
+      color: var(--color-inverse-on-surface);
+    }
+
+    .hero-note {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin: 22px 0 0;
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--color-muted);
+    }
+
+    .hero-note svg {
+      width: 15px;
+      height: 15px;
+      flex: none;
+      margin-top: 1px;
+    }
+
+    .hero-visual {
+      position: relative;
+      min-width: 0;
+      justify-self: end;
+      width: 100%;
+      max-width: 480px;
+      margin: 0;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      right: -34px;
+      top: -34px;
+      border-radius: 50%;
+      border: 2px solid var(--color-border);
+      opacity: 0.65;
+      pointer-events: none;
+    }
+
+    .day-poster {
+      position: relative;
+      z-index: 1;
+      background: var(--color-brand);
+      color: var(--color-on-brand);
+      border-radius: 32px;
+      padding: clamp(22px, 3.4vw, 32px);
+      box-shadow: var(--shadow-mid);
+      overflow: hidden;
+    }
+
+    .day-poster::after {
+      content: "";
+      position: absolute;
+      width: 210px;
+      height: 210px;
+      right: -110px;
+      bottom: -110px;
+      border: 2px solid currentColor;
+      border-radius: 50%;
+      opacity: 0.22;
+      pointer-events: none;
+    }
+
+    .poster-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(28, 29, 29, 0.28);
+      position: relative;
+      z-index: 1;
+    }
+
+    .poster-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .poster-hours {
+      font-family: var(--font-code);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    .poster-title {
+      position: relative;
+      z-index: 1;
+      margin: 22px 0 24px;
+      font-family: var(--font-display);
+      font-size: clamp(30px, 4.4vw, 42px);
+      font-weight: 700;
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+    }
+
+    .poster-route {
+      position: relative;
+      display: grid;
+      gap: 0;
+      z-index: 1;
+    }
+
+    .poster-route::before {
+      content: "";
+      position: absolute;
+      left: 61px;
+      top: 14px;
+      bottom: 14px;
+      width: 2px;
+      background: rgba(28, 29, 29, 0.4);
+      transform: scaleY(0);
+      transform-origin: top;
+      animation: routeGrow 1.1s var(--ease-out) 0.25s forwards;
+    }
+
+    .poster-stop {
+      display: grid;
+      grid-template-columns: 50px 24px minmax(0, 1fr);
+      align-items: center;
+      gap: 0;
+      min-height: 62px;
+    }
+
+    .poster-time {
+      font-family: var(--font-code);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      align-self: start;
+      padding-top: 21px;
+    }
+
+    .poster-node {
+      position: relative;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      justify-self: center;
+      box-shadow: 0 0 0 4px var(--color-brand);
+    }
+
+    .poster-stop:last-child .poster-node {
+      width: 17px;
+      height: 17px;
+      background: var(--color-on-brand);
+    }
+
+    .poster-stop-text {
+      padding: 9px 0 9px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      min-width: 0;
+    }
+
+    .poster-service {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    .poster-desc {
+      font-size: 12px;
+      line-height: 1.4;
+      font-weight: 600;
+    }
+
+    .poster-foot {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(28, 29, 29, 0.28);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .poster-foot a {
+      color: inherit;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration-thickness: 2px;
+      min-height: 32px;
+    }
+
+    .poster-foot a:hover {
+      color: inherit;
+    }
+
+    .service-strip {
+      border-block: 1px solid var(--color-border);
+      background: var(--color-surface-alt);
+    }
+
+    .service-strip .wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px 24px;
+      flex-wrap: wrap;
+      min-height: 58px;
+      padding-block: 10px;
+    }
+
+    .strip-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      margin: 0;
+    }
+
+    .strip-list {
+      display: flex;
+      align-items: center;
+      gap: 8px 22px;
+      flex-wrap: wrap;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .strip-list li {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--color-on-surface);
+    }
+
+    .strip-list li::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-brand);
+      flex: none;
+    }
+
+    .section {
+      padding-block: clamp(64px, 9vw, 112px);
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 24px 48px;
+      align-items: end;
+      margin-bottom: clamp(32px, 5vw, 56px);
+    }
+
+    .section-kicker {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 14px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+    }
+
+    .section-kicker::before {
+      content: "";
+      width: 28px;
+      height: 2px;
+      background: var(--color-brand);
+      flex: none;
+    }
+
+    .section h2 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(32px, 4.6vw, 52px);
+      font-weight: 700;
+      line-height: 1.02;
+      letter-spacing: -0.035em;
+      max-width: 14ch;
+    }
+
+    .section-intro {
+      max-width: 58ch;
+      margin: 0;
+      color: var(--color-on-surface-secondary);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .section-intro strong {
+      color: var(--color-on-surface);
+      font-weight: 700;
+    }
+
+    .day-section {
+      background: var(--color-surface-alt);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .day-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    .segmented {
+      display: inline-flex;
+      padding: 4px;
+      border: 1px solid var(--color-border-strong);
+      border-radius: var(--radius-full);
+      background: var(--color-surface);
+      gap: 4px;
+    }
+
+    .segmented button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 0 16px;
+      border: 1px solid transparent;
+      border-radius: var(--radius-full);
+      background: transparent;
+      color: var(--color-on-surface-secondary);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .segmented button svg {
+      width: 16px;
+      height: 16px;
+      flex: none;
+    }
+
+    .segmented button:hover {
+      background: var(--color-surface-alt);
+      color: var(--color-on-surface);
+    }
+
+    .segmented button[aria-pressed="true"] {
+      background: var(--color-on-surface);
+      border-color: var(--color-on-surface);
+      color: var(--color-surface);
+    }
+
+    .sample-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin: 0;
+      padding: 6px 11px;
+      border-radius: var(--radius-full);
+      background: var(--color-warning-soft);
+      color: var(--color-warning-text);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      line-height: 1.3;
+    }
+
+    .sample-badge svg {
+      width: 13px;
+      height: 13px;
+      flex: none;
+    }
+
+    .day-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 350px) minmax(0, 1fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .moment-list {
+      display: grid;
+      gap: 8px;
+      align-content: start;
+    }
+
+    .moment-button {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 54px minmax(0, 1fr);
+      gap: 12px;
+      align-items: start;
+      min-height: 76px;
+      padding: 14px 16px;
+      text-align: left;
+      border: 1px solid var(--color-border-strong);
+      border-left: 4px solid transparent;
+      border-radius: var(--radius-lg);
+      background: var(--color-surface);
+      color: var(--color-on-surface);
+      transition: border-color var(--duration-fast) var(--ease-standard), background-color var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-standard);
+    }
+
+    .moment-button:hover {
+      border-color: var(--color-border-strong);
+      background: var(--color-surface);
+      transform: translateX(2px);
+    }
+
+    .moment-button[aria-pressed="true"] {
+      border-color: var(--color-success);
+      border-left-color: var(--color-brand);
+      background: var(--color-brand-soft);
+    }
+
+    .moment-time {
+      font-family: var(--font-code);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--color-on-surface-secondary);
+      padding-top: 3px;
+    }
+
+    .moment-button[aria-pressed="true"] .moment-time {
+      color: var(--color-success);
+      font-weight: 700;
+    }
+
+    .moment-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      min-width: 0;
+    }
+
+    .moment-service {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+    }
+
+    .moment-button[aria-pressed="true"] .moment-service {
+      color: var(--color-success);
+    }
+
+    .moment-title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+
+    .moment-panel {
+      position: relative;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-2xl);
+      padding: clamp(22px, 3vw, 34px);
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .moment-panel::after {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      right: -90px;
+      top: -90px;
+      border-radius: 50%;
+      border: 2px solid var(--color-brand-soft);
+      pointer-events: none;
+    }
+
+    .moment-panel.is-swapping {
+      animation: panelSwap var(--duration-base) var(--ease-out);
+    }
+
+    .panel-topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .panel-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+      font-family: var(--font-code);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--color-on-surface-secondary);
+    }
+
+    .panel-kicker .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--color-brand);
+      flex: none;
+    }
+
+    .panel-register {
+      margin: 0;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+    }
+
+    .moment-panel h3 {
+      position: relative;
+      z-index: 1;
+      margin: 0 0 10px;
+      font-family: var(--font-display);
+      font-size: clamp(28px, 3.8vw, 40px);
+      font-weight: 700;
+      line-height: 1.02;
+      letter-spacing: -0.035em;
+    }
+
+    .panel-body {
+      position: relative;
+      z-index: 1;
+      margin: 0 0 22px;
+      max-width: 62ch;
+      color: var(--color-on-surface-secondary);
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    .panel-visual {
+      position: relative;
+      z-index: 1;
+      background: var(--color-surface-alt);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      margin-bottom: 20px;
+    }
+
+    .visual-route {
+      display: grid;
+      gap: 0;
+      position: relative;
+    }
+
+    .visual-route::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 11px;
+      bottom: 11px;
+      width: 2px;
+      background: var(--color-border-strong);
+    }
+
+    .visual-point {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-height: 38px;
+      padding-left: 0;
+    }
+
+    .visual-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--color-surface);
+      border: 2px solid var(--color-primary);
+      flex: none;
+      position: relative;
+      z-index: 1;
+    }
+
+    .visual-point:last-child .visual-dot {
+      background: var(--color-primary);
+    }
+
+    .visual-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-on-surface);
+    }
+
+    .visual-sub {
+      margin-left: auto;
+      font-family: var(--font-code);
+      font-size: 10px;
+      color: var(--color-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .visual-flow {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .flow-step {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 12px 10px;
+      min-width: 0;
+    }
+
+    .flow-index {
+      display: block;
+      font-family: var(--font-code);
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--color-primary-hover);
+      margin-bottom: 5px;
+    }
+
+    .flow-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--color-on-surface);
+      overflow-wrap: anywhere;
+    }
+
+    .panel-notes {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 8px;
+      margin: 0 0 24px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .panel-notes li {
+      display: flex;
+      gap: 9px;
+      align-items: flex-start;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--color-on-surface-secondary);
+    }
+
+    .panel-notes svg {
+      width: 15px;
+      height: 15px;
+      flex: none;
+      margin-top: 2px;
+      color: var(--color-success);
+    }
+
+    .panel-foot {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: auto;
+      padding-top: 18px;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .panel-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 44px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-primary);
+      text-decoration: none;
+    }
+
+    .panel-link:hover {
+      color: var(--color-primary-hover);
+      text-decoration: underline;
+    }
+
+    .panel-link svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .panel-caption {
+      font-size: 11px;
+      color: var(--color-muted);
+      margin: 0;
+    }
+
+    .services-section {
+      background: var(--color-surface);
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .service-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 260px;
+      padding: 24px;
+      border: 1px solid var(--color-border-strong);
+      border-radius: var(--radius-2xl);
+      background: var(--color-surface-alt);
+      color: var(--color-on-surface);
+      text-decoration: none;
+      transition: transform var(--duration-base) var(--ease-out), box-shadow var(--duration-base) var(--ease-out), border-color var(--duration-base) var(--ease-out);
+      overflow: hidden;
+    }
+
+    .service-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-mid);
+      border-color: var(--color-border-strong);
+      color: var(--color-on-surface);
+    }
+
+    .service-card--feature {
+      background: var(--color-brand);
+      border-color: var(--color-brand);
+      color: var(--color-on-brand);
+    }
+
+    .service-card--feature:hover {
+      color: var(--color-on-brand);
+      border-color: var(--color-on-brand);
+    }
+
+    .service-card--feature .service-category,
+    .service-card--feature .service-copy,
+    .service-card--feature .service-link {
+      color: var(--color-on-brand);
+    }
+
+    .service-card--feature .service-link {
+      text-decoration-color: currentColor;
+    }
+
+    .service-card--feature .service-icon {
+      color: var(--color-on-brand);
+      background: transparent;
+      border-color: rgba(28, 29, 29, 0.4);
+    }
+
+    .service-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 26px;
+    }
+
+    .service-icon {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      color: var(--color-primary);
+      background: var(--color-surface);
+      flex: none;
+    }
+
+    .service-icon svg {
+      width: 30px;
+      height: 30px;
+    }
+
+    .service-number {
+      font-family: var(--font-code);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--color-muted);
+      letter-spacing: 0.04em;
+      padding-top: 4px;
+    }
+
+    .service-card--feature .service-number {
+      color: var(--color-on-brand);
+    }
+
+    .service-category {
+      margin: 0 0 8px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+    }
+
+    .service-card h3 {
+      margin: 0 0 8px;
+      font-family: var(--font-display);
+      font-size: clamp(26px, 2.6vw, 34px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+    }
+
+    .service-copy {
+      margin: 0 0 22px;
+      max-width: 34ch;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--color-on-surface-secondary);
+    }
+
+    .service-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: auto;
+      min-height: 32px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--color-primary-hover);
+      text-decoration: underline;
+      text-underline-offset: 0.22em;
+      text-decoration-thickness: 2px;
+      width: fit-content;
+    }
+
+    .service-link svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    .corporate-section {
+      background: #111313;
+      color: #F5F5F2;
+      border-block: 1px solid #2A2C2C;
+      padding-block: clamp(64px, 9vw, 112px);
+      position: relative;
+      overflow: hidden;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .corporate-section::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(to right, rgba(245, 245, 242, 0.06) 1px, transparent 1px);
+      background-size: 80px 100%;
+      pointer-events: none;
+    }
+
+    .corporate-section .wrap {
+      position: relative;
+      z-index: 1;
+    }
+
+    .corporate-kicker {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 18px;
+      font-family: var(--font-code);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #00AA13;
+    }
+
+    .corporate-kicker::before {
+      content: "";
+      width: 28px;
+      height: 2px;
+      background: #00AA13;
+      flex: none;
+    }
+
+    .corporate-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      gap: 24px 56px;
+      align-items: end;
+      margin-bottom: 44px;
+    }
+
+    .corporate-section h2 {
+      margin: 0;
+      font-family: var(--font-body);
+      font-size: clamp(30px, 3.6vw, 36px);
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      max-width: 18ch;
+      color: #F5F5F2;
+    }
+
+    .corporate-lede {
+      margin: 0;
+      max-width: 52ch;
+      color: #D6D6D1;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .corporate-lede strong {
+      color: #FFFFFF;
+    }
+
+    .corporate-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 52px;
+    }
+
+    .capability {
+      border-top: 2px solid #00AA13;
+      padding-top: 16px;
+      min-width: 0;
+    }
+
+    .capability-index {
+      display: block;
+      font-family: var(--font-code);
+      font-size: 10px;
+      color: #B9B9B4;
+      margin-bottom: 10px;
+    }
+
+    .capability h3 {
+      margin: 0 0 8px;
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.2;
+      color: #F5F5F2;
+    }
+
+    .capability p {
+      margin: 0 0 12px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #D6D6D1;
+      max-width: 38ch;
+    }
+
+    .capability .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .capability .tag-list li {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #F5F5F2;
+      border: 1px solid #6B6D6D;
+      border-radius: var(--radius-full);
+      padding: 4px 8px;
+      line-height: 1.3;
+    }
+
+    .system-map {
+      list-style: none;
+      margin: 0 0 32px;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0;
+      border-top: 1px solid #6B6D6D;
+    }
+
+    .system-map li {
+      position: relative;
+      padding: 18px 18px 0 0;
+      min-width: 0;
+    }
+
+    .system-map li::before {
+      content: "";
+      position: absolute;
+      top: -5px;
+      left: 0;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #00AA13;
+    }
+
+    .map-index {
+      display: block;
+      font-family: var(--font-code);
+      font-size: 10px;
+      color: #B9B9B4;
+      margin-bottom: 8px;
+    }
+
+    .system-map h3 {
+      margin: 0 0 7px;
+      font-size: 17px;
+      font-weight: 600;
+      color: #F5F5F2;
+      line-height: 1.2;
+    }
+
+    .system-map p {
+      margin: 0;
+      font-size: 12px;
+      line-height: 1.55;
+      color: #B9B9B4;
+      max-width: 26ch;
+    }
+
+    .corporate-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      padding-top: 22px;
+      border-top: 1px solid #2A2C2C;
+    }
+
+    .register-note {
+      margin: 0;
+      max-width: 64ch;
+      font-size: 12px;
+      line-height: 1.6;
+      color: #B9B9B4;
+    }
+
+    .register-note strong {
+      color: #F5F5F2;
+    }
+
+    .button-green-dark {
+      background: #00AA13;
+      color: #08210D;
+      border-color: #00AA13;
+    }
+
+    .button-green-dark:hover {
+      background: #33D944;
+      color: #08210D;
+      border-color: #33D944;
+    }
+
+    .system-section {
+      background: var(--color-surface);
+    }
+
+    .system-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 24px 56px;
+      align-items: end;
+      margin-bottom: 36px;
+    }
+
+    .system-head h2 {
+      max-width: 16ch;
+    }
+
+    .system-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .system-card {
+      background: var(--color-surface-alt);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-xl);
+      padding: 22px;
+      min-width: 0;
+    }
+
+    .system-card h3 {
+      margin: 0 0 16px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+    }
+
+    .swatch-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .swatch {
+      width: 54px;
+      height: 54px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(28, 29, 29, 0.14);
+      position: relative;
+    }
+
+    .swatch--brand { background: #00AA13; }
+    .swatch--primary { background: #00880D; }
+    .swatch--soft { background: #EAFFEA; }
+
+    .token-line {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 7px 0;
+      border-top: 1px solid var(--color-border);
+      font-size: 12px;
+      color: var(--color-on-surface-secondary);
+    }
+
+    .token-line code {
+      font-family: var(--font-code);
+      font-size: 11px;
+      color: var(--color-on-surface);
+      overflow-wrap: anywhere;
+    }
+
+    .type-specimen {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 10px;
+    }
+
+    .type-specimen .big {
+      font-family: var(--font-display);
+      font-size: 64px;
+      font-weight: 700;
+      line-height: 0.9;
+      letter-spacing: -0.05em;
+      color: var(--color-on-surface);
+    }
+
+    .type-specimen .small {
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.4;
+      color: var(--color-on-surface-secondary);
+    }
+
+    .type-specimen .small strong {
+      display: block;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+    }
+
+    .shape-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .shape-sample {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-code);
+      font-size: 10px;
+      color: var(--color-muted);
+    }
+
+    .shape-sample span:first-child {
+      display: block;
+      width: 54px;
+      height: 34px;
+      background: var(--color-brand-soft);
+      border: 1px solid var(--color-success);
+    }
+
+    .shape-sample:nth-child(1) span:first-child { border-radius: 992px; }
+    .shape-sample:nth-child(2) span:first-child { border-radius: 24px; }
+    .shape-sample:nth-child(3) span:first-child { border-radius: 6px; }
+
+    .register-matrix {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .register-mini {
+      border-radius: var(--radius-xl);
+      padding: 22px;
+      min-width: 0;
+    }
+
+    .register-mini--consumer {
+      background: var(--color-brand);
+      color: var(--color-on-brand);
+    }
+
+    .register-mini--corporate {
+      background: #1C1D1D;
+      color: #F5F5F2;
+      border: 1px solid #3E3F3F;
+    }
+
+    .register-mini .mini-kicker {
+      margin: 0 0 10px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .register-mini h3 {
+      margin: 0 0 12px;
+      font-family: var(--font-display);
+      font-size: clamp(24px, 2.8vw, 34px);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+    }
+
+    .register-mini dl {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 4px 14px;
+      margin: 0;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .register-mini dt {
+      font-weight: 700;
+    }
+
+    .register-mini dd {
+      margin: 0;
+    }
+
+    .register-mini--consumer dl {
+      color: var(--color-on-brand);
+    }
+
+    .register-mini--corporate dl {
+      color: #D6D6D1;
+    }
+
+    .register-mini--corporate dt {
+      color: #F5F5F2;
+    }
+
+    .system-link-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-top: 26px;
+      padding-top: 22px;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .system-link-row p {
+      margin: 0;
+      max-width: 64ch;
+      font-size: 13px;
+      color: var(--color-on-surface-secondary);
+    }
+
+    .faq-section {
+      background: var(--color-surface-alt);
+      border-top: 1px solid var(--color-border);
+    }
+
+    .faq-head {
+      display: grid;
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      gap: 24px 56px;
+      align-items: start;
+      margin-bottom: 28px;
+    }
+
+    .faq-list {
+      border-top: 1px solid var(--color-border-strong);
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--color-border-strong);
+    }
+
+    .faq-item summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      min-height: 64px;
+      padding: 14px 0;
+      cursor: pointer;
+      font-family: var(--font-display);
+      font-size: 19px;
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      color: var(--color-on-surface);
+      list-style: none;
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-item summary::after {
+      content: "+";
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--color-border-strong);
+      border-radius: 50%;
+      font-family: var(--font-code);
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 1;
+      flex: none;
+      transition: transform var(--duration-fast) var(--ease-standard), background-color var(--duration-fast) var(--ease-standard);
+    }
+
+    .faq-item[open] summary::after {
+      content: "−";
+      background: var(--color-brand-soft);
+      color: var(--color-success);
+      transform: rotate(180deg);
+    }
+
+    .faq-item summary:hover {
+      color: var(--color-primary);
+    }
+
+    .faq-answer {
+      max-width: 72ch;
+      padding: 0 48px 24px 0;
+      color: var(--color-on-surface-secondary);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .faq-answer p {
+      margin: 0 0 12px;
+    }
+
+    .faq-answer p:last-child {
+      margin-bottom: 0;
+    }
+
+    .faq-answer a,
+    .sidebar-note a {
+      color: var(--color-primary-hover);
+      text-decoration-thickness: 1.5px;
+      text-underline-offset: 2px;
+    }
+
+    .faq-answer a:hover,
+    .sidebar-note a:hover {
+      color: var(--color-primary-active);
+    }
+
+    .cta-section {
+      padding-block: clamp(56px, 8vw, 96px);
+      background: var(--color-surface);
+    }
+
+    .cta-panel {
+      position: relative;
+      overflow: hidden;
+      background: var(--color-brand);
+      color: var(--color-on-brand);
+      border-radius: 32px;
+      padding: clamp(30px, 6vw, 64px);
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 32px;
+      align-items: center;
+    }
+
+    .cta-panel::after {
+      content: "";
+      position: absolute;
+      width: 320px;
+      height: 320px;
+      right: -150px;
+      bottom: -170px;
+      border: 2px solid currentColor;
+      border-radius: 50%;
+      opacity: 0.28;
+      pointer-events: none;
+    }
+
+    .cta-kicker {
+      margin: 0 0 14px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .cta-panel h2 {
+      margin: 0 0 14px;
+      font-family: var(--font-display);
+      font-size: clamp(32px, 4.6vw, 48px);
+      font-weight: 700;
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+      max-width: 14ch;
+      color: var(--color-on-brand);
+    }
+
+    .cta-copy {
+      margin: 0 0 24px;
+      max-width: 46ch;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .cta-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .cta-art {
+      position: relative;
+      z-index: 1;
+      min-height: 220px;
+      display: grid;
+      place-items: center;
+    }
+
+    .cta-art svg {
+      width: min(100%, 340px);
+      height: auto;
+    }
+
+    .site-footer {
+      background: #111313;
+      color: #F5F5F2;
+      padding-block: 56px 32px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 0.8fr));
+      gap: 32px 28px;
+      margin-bottom: 44px;
+    }
+
+    .footer-brand .brand-lockup {
+      color: #F5F5F2;
+      margin-bottom: 14px;
+    }
+
+    .footer-brand .brand-lockup:hover {
+      color: #FFFFFF;
+    }
+
+    .footer-brand .concept-tag {
+      color: #F5F5F2;
+      border-color: #6B6D6D;
+    }
+
+    .footer-descriptor {
+      margin: 0;
+      max-width: 36ch;
+      color: #B9B9B4;
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .footer-col h2 {
+      margin: 0 0 12px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #B9B9B4;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 2px;
+    }
+
+    .footer-col a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      color: #F5F5F2;
+      font-size: 13px;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+    }
+
+    .footer-col a:hover {
+      color: #00AA13;
+      border-bottom-color: #00AA13;
+    }
+
+    .footer-meta {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 22px;
+      flex-wrap: wrap;
+      padding-top: 22px;
+      border-top: 1px solid #2A2C2C;
+    }
+
+    .footer-disclaimer {
+      margin: 0;
+      max-width: 80ch;
+      color: #B9B9B4;
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    .footer-disclaimer strong {
+      color: #F5F5F2;
+    }
+
+    .footer-status {
+      margin: 0;
+      font-family: var(--font-code);
+      font-size: 10px;
+      line-height: 1.7;
+      color: #B9B9B4;
+      white-space: nowrap;
+    }
+
+    .footer-status span {
+      color: #00AA13;
+    }
+
+    @keyframes routeGrow {
+      to { transform: scaleY(1); }
+    }
+
+    @keyframes panelSwap {
+      from { opacity: 0.55; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (hover: hover) {
+      .button:hover {
+        transform: translateY(-1px);
+      }
+    }
+
+    @media (max-width: 1080px) {
+      .desktop-nav {
+        gap: 0;
+      }
+      .desktop-nav a {
+        padding-inline: 10px;
+        font-size: 13px;
+      }
+      .header-cta {
+        padding-inline: 14px;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .desktop-nav,
+      .header-cta {
+        display: none;
+      }
+      .menu-button {
+        display: inline-grid;
+      }
+      .hero-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 44px;
+      }
+      .hero h1 {
+        max-width: 12ch;
+      }
+      .hero-visual {
+        justify-self: start;
+        max-width: 540px;
+      }
+      .section-head,
+      .corporate-head,
+      .system-head,
+      .faq-head {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 18px;
+        align-items: start;
+      }
+      .section h2,
+      .system-head h2 {
+        max-width: 18ch;
+      }
+      .day-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .moment-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .corporate-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .corporate-grid .capability:last-child {
+        grid-column: 1 / -1;
+        max-width: 50%;
+      }
+      .system-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .system-grid .system-card:last-child {
+        grid-column: 1 / -1;
+      }
+      .footer-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 760px) {
+      :root {
+        --header-height: 64px;
+      }
+      .concept-bar .wrap {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 4px;
+        padding-block: 8px;
+      }
+      .concept-bar a {
+        white-space: normal;
+      }
+      .brand-mark {
+        width: 28px;
+        height: 28px;
+      }
+      .wordmark {
+        font-size: 24px;
+      }
+      .hero {
+        padding-block: 34px 56px;
+      }
+      .hero h1 {
+        font-size: clamp(44px, 12vw, 64px);
+      }
+      .hero-visual::before {
+        display: none;
+      }
+      .day-poster {
+        border-radius: 26px;
+      }
+      .poster-title {
+        font-size: clamp(28px, 7vw, 36px);
+      }
+      .section {
+        padding-block: 64px;
+      }
+      .day-toolbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+      .segmented {
+        width: 100%;
+      }
+      .segmented button {
+        flex: 1;
+        justify-content: center;
+        padding-inline: 10px;
+      }
+      .moment-list {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .moment-button {
+        min-height: 68px;
+      }
+      .service-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .service-card {
+        min-height: 230px;
+      }
+      .corporate-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .corporate-grid .capability:last-child {
+        grid-column: auto;
+        max-width: none;
+      }
+      .system-map {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px 0;
+        border-top: 0;
+      }
+      .system-map li {
+        border-top: 1px solid #6B6D6D;
+        padding-top: 16px;
+      }
+      .system-map li::before {
+        top: -5px;
+      }
+      .system-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .system-grid .system-card:last-child {
+        grid-column: auto;
+      }
+      .register-matrix {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .cta-panel {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 18px;
+      }
+      .cta-art {
+        min-height: 0;
+        justify-items: start;
+      }
+      .cta-art svg {
+        width: min(100%, 260px);
+      }
+      .footer-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .footer-brand {
+        grid-column: 1 / -1;
+      }
+      .footer-meta {
+        flex-direction: column;
+      }
+      .footer-status {
+        white-space: normal;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .concept-tag {
+        display: none;
+      }
+      .header-actions {
+        gap: 6px;
+      }
+      .hero h1 {
+        font-size: clamp(38px, 11.3vw, 44px);
+      }
+      .hero-lede {
+        font-size: 16px;
+      }
+      .hero-actions {
+        align-items: stretch;
+        flex-direction: column;
+      }
+      .hero-actions .button {
+        width: 100%;
+      }
+      .poster-stop {
+        grid-template-columns: 44px 22px minmax(0, 1fr);
+      }
+      .poster-route::before {
+        left: 54px;
+      }
+      .poster-service {
+        font-size: 18px;
+      }
+      .poster-desc {
+        font-size: 11px;
+      }
+      .panel-topline {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .panel-visual {
+        padding: 14px;
+      }
+      .visual-flow {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .flow-step {
+        display: grid;
+        grid-template-columns: 30px minmax(0, 1fr);
+        align-items: center;
+        gap: 6px;
+      }
+      .flow-index {
+        margin: 0;
+      }
+      .service-card {
+        padding: 20px;
+      }
+      .system-map {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .faq-item summary {
+        font-size: 17px;
+        gap: 12px;
+      }
+      .faq-answer {
+        padding-right: 0;
+      }
+      .cta-panel {
+        border-radius: 26px;
+        padding: 28px 22px;
+      }
+      .footer-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .footer-brand {
+        grid-column: auto;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .poster-route::before {
+        transform: scaleY(1);
+      }
+      .moment-panel.is-swapping {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Lewati ke konten utama</a>
+
+  <aside class="concept-bar" aria-label="Concept disclaimer">
+    <div class="wrap">
+      <p><span class="dot" aria-hidden="true"></span> Konsep tidak resmi · Tidak berafiliasi dengan Gojek atau PT GoTo Gojek Tokopedia Tbk</p>
+      <a href="#tanya">Baca catatan konsep <span aria-hidden="true">↓</span></a>
+    </div>
+  </aside>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand-lockup" href="#top" aria-label="Gojek concept — kembali ke atas">
+        <span class="brand-mark" aria-hidden="true">
+          <svg aria-hidden="true" viewBox="0 0 32 32" fill="none">
+            <path d="M6 23c4-10 8 2 12-8 1.5-4 3.4-5.4 5-4.3" stroke="#1C1D1D" stroke-width="2.4" stroke-linecap="round"/>
+            <circle cx="6" cy="23" r="2.3" fill="#1C1D1D"/>
+            <circle cx="26" cy="9" r="2.3" fill="#1C1D1D"/>
+          </svg>
+        </span>
+        <span class="wordmark">gojek</span>
+        <span class="concept-tag">Concept</span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Navigasi utama">
+        <a href="#satu-hari">Sehari-hari</a>
+        <a href="#layanan">Layanan</a>
+        <a href="#perusahaan" lang="en">Corporate</a>
+        <a href="#sistem">Sistem</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-button" type="button" id="theme-toggle" aria-pressed="false" aria-label="Tema gelap">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M20.5 14.2A8.5 8.5 0 1 1 9.8 3.5a7 7 0 0 0 10.7 10.7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <a class="header-cta" href="design-md.html">Buka living spec <span aria-hidden="true">↗</span></a>
+        <button class="icon-button menu-button" type="button" id="menu-toggle" aria-expanded="false" aria-controls="mobile-nav">
+          <span class="sr-only">Buka menu navigasi</span>
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M3 7h18M3 12h18M3 17h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Navigasi seluler" hidden>
+      <ul>
+        <li><a href="#satu-hari">Sehari-hari <span aria-hidden="true">↓</span></a></li>
+        <li><a href="#layanan">Layanan <span aria-hidden="true">↓</span></a></li>
+        <li><a href="#perusahaan" lang="en">Corporate <span aria-hidden="true">↓</span></a></li>
+        <li><a href="#sistem">Sistem <span aria-hidden="true">↓</span></a></li>
+        <li><a href="#tanya">Catatan konsep <span aria-hidden="true">↓</span></a></li>
+        <li><a href="design-md.html">Buka living spec <span aria-hidden="true">↗</span></a></li>
+      </ul>
+      <p class="mobile-note">Konsep tidak resmi. Tidak berafiliasi dengan Gojek.</p>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="wrap">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Satu sistem, dua register</p>
+            <h1 id="hero-title">Sehari penuh, satu <span class="green">hijau</span>.</h1>
+            <p class="hero-lede">Dari perjalanan pagi sampai pesanan tengah malam, satu aplikasi menghubungkan kebutuhan sehari-hari. Ini konsep sistem desain yang menyatukan sisi konsumen dan sisi teknologi Gojek — dengan identitas yang sama, bukan dua brand yang bersaing.</p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#satu-hari">Jelajahi satu hari
+                <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <a class="button button-secondary" href="design-md.html">Lihat sistem desain
+                <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M6 14 14 6M7 6h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+            <p class="hero-note">
+              <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.6"/><path d="M10 9v5M10 6.4v.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              Semua skenario di halaman ini adalah contoh, bukan data pengguna nyata.
+            </p>
+          </div>
+
+          <figure class="hero-visual">
+            <figcaption class="sr-only">Poster contoh satu hari dalam empat momen: GoRide, GoFood, GoSend, dan GoPay.</figcaption>
+            <div class="day-poster">
+              <div class="poster-top">
+                <span class="poster-label">Contoh hari</span>
+                <span class="poster-hours">06:45—20:30</span>
+              </div>
+              <p class="poster-title">Empat momen.<br>Satu rute.</p>
+              <div class="poster-route">
+                <div class="poster-stop">
+                  <span class="poster-time">06:45</span>
+                  <span class="poster-node" aria-hidden="true"></span>
+                  <span class="poster-stop-text"><span class="poster-service">GoRide</span><span class="poster-desc">Ke kantor</span></span>
+                </div>
+                <div class="poster-stop">
+                  <span class="poster-time">12:20</span>
+                  <span class="poster-node" aria-hidden="true"></span>
+                  <span class="poster-stop-text"><span class="poster-service">GoFood</span><span class="poster-desc">Makan siang</span></span>
+                </div>
+                <div class="poster-stop">
+                  <span class="poster-time">16:10</span>
+                  <span class="poster-node" aria-hidden="true"></span>
+                  <span class="poster-stop-text"><span class="poster-service">GoSend</span><span class="poster-desc">Kirim dokumen</span></span>
+                </div>
+                <div class="poster-stop">
+                  <span class="poster-time">20:30</span>
+                  <span class="poster-node" aria-hidden="true"></span>
+                  <span class="poster-stop-text"><span class="poster-service">GoPay</span><span class="poster-desc">Tutup hari</span></span>
+                </div>
+              </div>
+              <div class="poster-foot">
+                <span>Rute contoh · bukan data nyata</span>
+                <a href="#satu-hari">Lihat dua sisi <span aria-hidden="true">↓</span></a>
+              </div>
+            </div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="service-strip" aria-label="Layanan Gojek yang dirujuk dalam konsep">
+      <div class="wrap">
+        <p class="strip-label">Layanan yang dirujuk</p>
+        <ul class="strip-list">
+          <li>GoRide</li>
+          <li>GoCar</li>
+          <li>GoFood</li>
+          <li>GoSend</li>
+          <li>GoPay</li>
+          <li>GoMart</li>
+          <li>GoCorp</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section day-section" id="satu-hari" aria-labelledby="day-title">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">01 — Satu hari</p>
+            <h2 id="day-title">Satu hari, dua cara melihatnya.</h2>
+          </div>
+          <p class="section-intro">Pilih satu momen, lalu lihat dari sisi pengguna atau dari sisi sistem. Isi sisi sistem adalah <strong>ilustrasi yang disederhanakan</strong>, bukan arsitektur internal Gojek. Warna, tipe, jarak, dan bentuk tetap dari sistem yang sama.</p>
+        </div>
+
+        <div class="day-toolbar">
+          <div class="segmented" role="group" aria-label="Pilih sudut pandang">
+            <button type="button" data-register="consumer" aria-pressed="true" aria-controls="moment-panel">
+              <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="7" r="3" stroke="currentColor" stroke-width="1.8"/><path d="M4 17c.7-3.3 2.7-5 6-5s5.3 1.7 6 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              Dari sisi pengguna
+            </button>
+            <button type="button" data-register="system" aria-pressed="false" aria-controls="moment-panel">
+              <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="2.5" y="2.5" width="6" height="6" rx="1.2" stroke="currentColor" stroke-width="1.8"/><rect x="11.5" y="11.5" width="6" height="6" rx="1.2" stroke="currentColor" stroke-width="1.8"/><path d="M8.5 5.5h3a3 3 0 0 1 3 3v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              Dari sisi sistem
+            </button>
+          </div>
+          <p class="sample-badge">
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.5"/><path d="M8 7.2v4M8 5v.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            Skenario contoh
+          </p>
+        </div>
+
+        <div class="day-layout">
+          <div class="moment-list" role="group" aria-label="Momen dalam contoh hari">
+            <button class="moment-button" type="button" data-moment="ride" aria-pressed="true" aria-controls="moment-panel">
+              <span class="moment-time">06:45</span>
+              <span class="moment-copy"><span class="moment-service">GoRide</span><span class="moment-title">Berangkat kerja</span></span>
+            </button>
+            <button class="moment-button" type="button" data-moment="food" aria-pressed="false" aria-controls="moment-panel">
+              <span class="moment-time">12:20</span>
+              <span class="moment-copy"><span class="moment-service">GoFood</span><span class="moment-title">Makan siang</span></span>
+            </button>
+            <button class="moment-button" type="button" data-moment="send" aria-pressed="false" aria-controls="moment-panel">
+              <span class="moment-time">16:10</span>
+              <span class="moment-copy"><span class="moment-service">GoSend</span><span class="moment-title">Kirim dokumen</span></span>
+            </button>
+            <button class="moment-button" type="button" data-moment="pay" aria-pressed="false" aria-controls="moment-panel">
+              <span class="moment-time">20:30</span>
+              <span class="moment-copy"><span class="moment-service">GoPay</span><span class="moment-title">Bayar dan tutup hari</span></span>
+            </button>
+          </div>
+
+          <article class="moment-panel" id="moment-panel" aria-labelledby="panel-title" lang="id">
+            <div class="panel-topline">
+              <p class="panel-kicker"><span class="dot" aria-hidden="true"></span><span id="panel-kicker">06:45 · GoRide</span></p>
+              <p class="panel-register" id="panel-register">Register konsumen</p>
+            </div>
+            <h3 id="panel-title" tabindex="-1">Berangkat kerja</h3>
+            <p class="panel-body" id="panel-body">Motor datang ke titik jemput. Pengemudi dan pengguna sama-sama melihat rute yang sama, jadi tidak ada tebak-tebakan di trotoar.</p>
+
+            <div class="panel-visual" id="panel-visual">
+              <div class="visual-route" id="visual-route">
+                <div class="visual-point"><span class="visual-dot" aria-hidden="true"></span><span class="visual-label" id="visual-from">Rumah</span><span class="visual-sub" id="visual-from-sub">Jemput</span></div>
+                <div class="visual-point"><span class="visual-dot" aria-hidden="true"></span><span class="visual-label" id="visual-to">Kantor</span><span class="visual-sub" id="visual-to-sub">Tiba</span></div>
+              </div>
+              <div class="visual-flow" id="visual-flow" hidden></div>
+            </div>
+
+            <ul class="panel-notes" id="panel-notes">
+              <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m3 8 3 3 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Titik jemput dan tujuan terlihat sebelum berangkat.</li>
+              <li><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m3 8 3 3 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Status perjalanan diperbarui sampai tiba.</li>
+            </ul>
+
+            <div class="panel-foot">
+              <a class="panel-link" id="panel-link" href="#layanan-goride">Lihat layanan GoRide
+                <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <p class="panel-caption">Satu momen, dua lensa. Bukan data nyata.</p>
+            </div>
+          </article>
+        </div>
+        <p class="sr-only" id="day-status" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="section services-section" id="layanan" aria-labelledby="services-title">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">02 — Layanan</p>
+            <h2 id="services-title">Yang bisa kamu mulai hari ini.</h2>
+          </div>
+          <p class="section-intro">Empat layanan, satu pola interaksi. Setiap kartu membawamu kembali ke momen yang sesuai di atas, supaya hubungan antara layanan dan sistem terasa, bukan hanya dibaca.</p>
+        </div>
+
+        <div class="service-grid">
+          <a class="service-card service-card--feature" href="#satu-hari" id="layanan-goride" data-moment="ride">
+            <span class="service-card-top">
+              <span class="service-icon" aria-hidden="true">
+                <svg aria-hidden="true" viewBox="0 0 48 48" fill="none"><circle cx="14" cy="31" r="5" stroke="currentColor" stroke-width="2.2"/><circle cx="34" cy="31" r="5" stroke="currentColor" stroke-width="2.2"/><path d="M19 31h10M14 26l4-9h8l5 9M24 17v-4M30 17l3-4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </span>
+              <span class="service-number">01 / 04</span>
+            </span>
+            <p class="service-category">Transportasi</p>
+            <h3>GoRide</h3>
+            <p class="service-copy">Motor untuk jarak dekat. Titik jemput jelas, dan perjalanan bisa diikuti sampai tiba.</p>
+            <span class="service-link">Buka momen GoRide <span aria-hidden="true">→</span></span>
+          </a>
+
+          <a class="service-card" href="#satu-hari" id="layanan-gofood" data-moment="food">
+            <span class="service-card-top">
+              <span class="service-icon" aria-hidden="true">
+                <svg aria-hidden="true" viewBox="0 0 48 48" fill="none"><path d="M9 24h30c0 8-6.7 13-15 13S9 32 9 24Z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M18 18c-2-3 2-4 0-7M27 18c-2-3 2-4 0-7M36 18c-2-3 2-4 0-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+              </span>
+              <span class="service-number">02 / 04</span>
+            </span>
+            <p class="service-category">Makanan</p>
+            <h3>GoFood</h3>
+            <p class="service-copy">Pesanan dari merchant di sekitarmu, dengan status yang jelas dari dapur sampai pintu.</p>
+            <span class="service-link">Buka momen GoFood <span aria-hidden="true">→</span></span>
+          </a>
+
+          <a class="service-card" href="#satu-hari" id="layanan-gosend" data-moment="send">
+            <span class="service-card-top">
+              <span class="service-icon" aria-hidden="true">
+                <svg aria-hidden="true" viewBox="0 0 48 48" fill="none"><path d="M8 17 24 9l16 8-16 8-16-8Z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M8 17v14l16 8 16-8V17M24 25v14" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M32 22.5v7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+              </span>
+              <span class="service-number">03 / 04</span>
+            </span>
+            <p class="service-category">Logistik</p>
+            <h3>GoSend</h3>
+            <p class="service-copy">Paket kecil dijemput dan diantar. Setiap serah-terima punya status yang bisa dilihat.</p>
+            <span class="service-link">Buka momen GoSend <span aria-hidden="true">→</span></span>
+          </a>
+
+          <a class="service-card" href="#satu-hari" id="layanan-gopay" data-moment="pay">
+            <span class="service-card-top">
+              <span class="service-icon" aria-hidden="true">
+                <svg aria-hidden="true" viewBox="0 0 48 48" fill="none"><rect x="9" y="12" width="30" height="24" rx="5" stroke="currentColor" stroke-width="2.2"/><path d="M9 19h30M15 28h8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="33" cy="28" r="2.5" fill="currentColor"/></svg>
+              </span>
+              <span class="service-number">04 / 04</span>
+            </span>
+            <p class="service-category">Pembayaran</p>
+            <h3>GoPay</h3>
+            <p class="service-copy">Satu pemindaian QRIS untuk bayar, lalu temukan struknya kembali di riwayat.</p>
+            <span class="service-link">Buka momen GoPay <span aria-hidden="true">→</span></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="corporate-section" id="perusahaan" lang="en" aria-labelledby="corporate-title">
+      <div class="wrap">
+        <p class="corporate-kicker">03 — Corporate / technology register</p>
+        <div class="corporate-head">
+          <h2 id="corporate-title">The system behind the day.</h2>
+          <p class="corporate-lede">The same company that runs the consumer app also builds <strong>business tools</strong> and the <strong>design language</strong> behind them. This register speaks to partners, operators, and engineers: same green, same type family, denser grid, less theatre.</p>
+        </div>
+
+        <div class="corporate-grid">
+          <article class="capability">
+            <span class="capability-index">01 / SURFACE</span>
+            <h3>Consumer surface</h3>
+            <p>Rides, food, deliveries, and payments share one interaction vocabulary: clear status, a visible next step, and a human-readable receipt.</p>
+            <ul class="tag-list"><li>GoRide</li><li>GoFood</li><li>GoSend</li><li>GoPay</li></ul>
+          </article>
+          <article class="capability">
+            <span class="capability-index">02 / BUSINESS</span>
+            <h3>Business tools</h3>
+            <p>GoCorp brings transport, food, and logistics spending into one business dashboard. Merchant tools cover food operations and QRIS payments.</p>
+            <ul class="tag-list"><li>GoCorp</li><li>GoFood Merchant</li><li>GoPay Merchant</li></ul>
+          </article>
+          <article class="capability">
+            <span class="capability-index">03 / LANGUAGE</span>
+            <h3>Design language</h3>
+            <p>Asphalt Aloha publishes the foundations: colour roles, Maison Neue, a 4px spacing grid, elevation, and functional motion.</p>
+            <ul class="tag-list"><li>Asphalt Aloha</li><li>4px grid</li><li>AA contrast</li></ul>
+          </article>
+        </div>
+
+        <ol class="system-map" aria-label="A simplified system view of one day">
+          <li>
+            <span class="map-index">01</span>
+            <h3>Demand</h3>
+            <p>A person opens the app with a need: move, eat, send, or pay.</p>
+          </li>
+          <li>
+            <span class="map-index">02</span>
+            <h3>Match</h3>
+            <p>The platform connects that need to a driver, a merchant, or a payment rail.</p>
+          </li>
+          <li>
+            <span class="map-index">03</span>
+            <h3>Move</h3>
+            <p>The job is tracked through handoffs, with a state both sides can read.</p>
+          </li>
+          <li>
+            <span class="map-index">04</span>
+            <h3>Settle</h3>
+            <p>The transaction closes with a receipt and a record the user can find again.</p>
+          </li>
+        </ol>
+
+        <div class="corporate-foot">
+          <p class="register-note"><strong>Register delta:</strong> English, 14–36px type, ink surfaces, green as a signal, 16px data cards, 120–200ms functional motion. Not a different brand — a different job.</p>
+          <a class="button button-green-dark" href="design-md.html">Read the system spec
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section system-section" id="sistem" lang="en" aria-labelledby="system-title">
+      <div class="wrap">
+        <div class="system-head">
+          <div>
+            <p class="section-kicker">04 — One spec</p>
+            <h2 id="system-title">One green. Two registers. One spec.</h2>
+          </div>
+          <p class="section-intro">The prototype uses the same tokens as DESIGN.md. The consumer register spends green on a field; the corporate register spends it on a signal. The core — colour roles, type family, 4px rhythm, radius family, focus treatment — does not move.</p>
+        </div>
+
+        <div class="system-grid">
+          <article class="system-card">
+            <h3>Color</h3>
+            <div class="swatch-row" aria-hidden="true">
+              <span class="swatch swatch--brand"></span>
+              <span class="swatch swatch--primary"></span>
+              <span class="swatch swatch--soft"></span>
+            </div>
+            <div class="token-line"><span>brand</span><code>#00AA13</code></div>
+            <div class="token-line"><span>primary</span><code>#00880D</code></div>
+            <div class="token-line"><span>brand-soft</span><code>#EAFFEA</code></div>
+          </article>
+
+          <article class="system-card">
+            <h3>Typography</h3>
+            <div class="type-specimen">
+              <span class="big">Aa</span>
+              <span class="small"><strong>Maison Neue</strong>Extended for display<br>Fallback: Helvetica / Arial</span>
+            </div>
+            <div class="token-line"><span>display</span><code>72 / 0.95</code></div>
+            <div class="token-line"><span>body</span><code>16 / 1.618</code></div>
+            <div class="token-line"><span>label</span><code>12 / 600</code></div>
+          </article>
+
+          <article class="system-card">
+            <h3>Shape</h3>
+            <div class="shape-row">
+              <span class="shape-sample"><span></span>992px</span>
+              <span class="shape-sample"><span></span>24px</span>
+              <span class="shape-sample"><span></span>6px</span>
+            </div>
+            <div class="token-line"><span>action</span><code>pill</code></div>
+            <div class="token-line"><span>card</span><code>16–24px</code></div>
+            <div class="token-line"><span>input</span><code>6–8px</code></div>
+          </article>
+        </div>
+
+        <div class="register-matrix">
+          <article class="register-mini register-mini--consumer">
+            <p class="mini-kicker">Register 01 / Consumer</p>
+            <h3>Warm at the surface.</h3>
+            <dl>
+              <dt>Language</dt><dd>Bahasa Indonesia</dd>
+              <dt>Type</dt><dd>72px display, 24px cards</dd>
+              <dt>Accent</dt><dd>Green as a field</dd>
+              <dt>Motion</dt><dd>200–320ms, one overshoot</dd>
+            </dl>
+          </article>
+          <article class="register-mini register-mini--corporate">
+            <p class="mini-kicker">Register 02 / Corporate + technology</p>
+            <h3>Precise underneath.</h3>
+            <dl>
+              <dt>Language</dt><dd>English</dd>
+              <dt>Type</dt><dd>36px title, 16px cards</dd>
+              <dt>Accent</dt><dd>Green as a signal</dd>
+              <dt>Motion</dt><dd>120–200ms, no overshoot</dd>
+            </dl>
+          </article>
+        </div>
+
+        <div class="system-link-row">
+          <p>The living spec shows every token, contrast ratio, component state, motion curve, do/don't pair, and the actual DESIGN.md source excerpt.</p>
+          <a class="button button-primary" href="design-md.html">Open the living spec
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section faq-section" id="tanya" aria-labelledby="faq-title">
+      <div class="wrap">
+        <div class="faq-head">
+          <div>
+            <p class="section-kicker">05 — Catatan</p>
+            <h2 id="faq-title">Pertanyaan yang wajar.</h2>
+          </div>
+          <div class="faq-list">
+            <details class="faq-item" open>
+              <summary>Apakah ini situs resmi Gojek?</summary>
+              <div class="faq-answer">
+                <p><strong>Bukan.</strong> Ini konsep sistem desain dan prototipe yang dibuat untuk studi. Tidak ada afiliasi, dukungan, atau produksi oleh Gojek maupun PT GoTo Gojek Tokopedia Tbk. Nama dan merek tetap milik pemiliknya.</p>
+                <p>Halaman ini sengaja memakai wordmark tipografis dan geometri orisinal, bukan logo, foto, atau tangkapan layar produk Gojek.</p>
+              </div>
+            </details>
+            <details class="faq-item">
+              <summary>Dari mana warna dan tipografinya?</summary>
+              <div class="faq-answer">
+                <p>Warna brand <code>#00AA13</code> diambil dari <a href="https://gojek.design/colors">gojek.design</a>. Warna UI <code>#00880D</code>, neutrals, radius, shadow, dan skala tipe diambil dari CSS <a href="https://www.gojek.com/id-id">gojek.com</a> yang dapat diperiksa publik. Maison Neue dan Maison Neue Extended adalah font resmi; tidak ada file font yang disertakan, dan halaman memakai fallback Helvetica/Arial.</p>
+                <p>Sumber lengkap, tanggal pengambilan, dan catatan konflik ada di <a href="sources.md">sources.md</a>.</p>
+              </div>
+            </details>
+            <details class="faq-item">
+              <summary>Kenapa konsumen berbahasa Indonesia dan korporat berbahasa Inggris?</summary>
+              <div class="faq-answer">
+                <p>Register konsumen menyapa pengguna harian di Indonesia dan mengikuti tone Gojek yang clear, casual, witty, dan empathetic. Register korporat/teknologi menyapa mitra, operator, dan engineer dengan bahasa yang lebih padat dan terukur.</p>
+                <p>Keduanya tetap satu sistem: hijau yang sama, keluarga tipe yang sama, grid 4px yang sama, dan bentuk aksi yang sama.</p>
+              </div>
+            </details>
+            <details class="faq-item">
+              <summary>Apa yang bisa saya coba di halaman ini?</summary>
+              <div class="faq-answer">
+                <p>Ganti tema terang/gelap, buka menu di layar ponsel, pilih momen di bagian “Satu hari”, ubah sudut pandang pengguna/sistem, lalu buka kartu layanan untuk kembali ke momen yang sesuai. Semua kontrol bisa dijangkau dengan keyboard.</p>
+                <p>Untuk token, kontras, komponen, dan bukti validasi, buka <a href="design-md.html">design-md.html</a>.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section" aria-labelledby="cta-title">
+      <div class="wrap">
+        <div class="cta-panel">
+          <div>
+            <p class="cta-kicker">Satu sistem · dua register</p>
+            <h2 id="cta-title">Mulai dari satu hari.</h2>
+            <p class="cta-copy">Lihat bagaimana satu momen bisa dibaca sebagai pengalaman manusia dan sebagai sistem yang bekerja di belakangnya. Lalu buka spesifikasi yang menyatukan keduanya.</p>
+            <div class="cta-actions">
+              <a class="button button-ink" href="design-md.html">Buka living spec
+                <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <a class="button button-secondary" href="#satu-hari">Kembali ke satu hari</a>
+            </div>
+          </div>
+          <div class="cta-art" aria-hidden="true">
+            <svg aria-hidden="true" viewBox="0 0 340 220" fill="none">
+              <path d="M18 184c44 0 42-72 86-72s44 44 86 44 44-88 92-88" stroke="#1C1D1D" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="1 9"/>
+              <circle cx="18" cy="184" r="9" fill="#1C1D1D"/>
+              <circle cx="104" cy="112" r="6" fill="#1C1D1D"/>
+              <circle cx="190" cy="156" r="6" fill="#1C1D1D"/>
+              <circle cx="282" cy="68" r="9" fill="#1C1D1D"/>
+              <circle cx="282" cy="68" r="22" stroke="#1C1D1D" stroke-width="2"/>
+              <path d="M274 68h16M282 60v16" stroke="#1C1D1D" stroke-width="2" stroke-linecap="round"/>
+              <text x="18" y="207" fill="#1C1D1D" font-family="Arial, sans-serif" font-size="10" font-weight="700" letter-spacing="1.4">PAGI</text>
+              <text x="270" y="25" fill="#1C1D1D" font-family="Arial, sans-serif" font-size="10" font-weight="700" letter-spacing="1.4">MALAM</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand-lockup" href="#top" aria-label="Gojek concept — kembali ke atas">
+            <span class="brand-mark" aria-hidden="true">
+              <svg aria-hidden="true" viewBox="0 0 32 32" fill="none">
+                <path d="M6 23c4-10 8 2 12-8 1.5-4 3.4-5.4 5-4.3" stroke="#1C1D1D" stroke-width="2.4" stroke-linecap="round"/>
+                <circle cx="6" cy="23" r="2.3" fill="#1C1D1D"/>
+                <circle cx="26" cy="9" r="2.3" fill="#1C1D1D"/>
+              </svg>
+            </span>
+            <span class="wordmark">gojek</span>
+            <span class="concept-tag">Concept</span>
+          </a>
+          <p class="footer-descriptor">Satu sistem desain untuk sisi konsumen, korporat, dan teknologi Gojek. Dibuat sebagai konsep yang dapat diperiksa, bukan materi resmi.</p>
+        </div>
+
+        <div class="footer-col">
+          <h2>Jelajahi</h2>
+          <ul>
+            <li><a href="#satu-hari">Satu hari</a></li>
+            <li><a href="#layanan">Layanan</a></li>
+            <li><a href="#perusahaan" lang="en">Corporate register</a></li>
+            <li><a href="#sistem">Sistem</a></li>
+            <li><a href="#tanya">Catatan konsep</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h2>Dokumen</h2>
+          <ul>
+            <li><a href="design-md.html">Design system hidup</a></li>
+            <li><a href="sources.md">Sumber</a></li>
+            <li><a href="README.md">README</a></li>
+            <li><a href="evidence/lint.json">Lint evidence</a></li>
+            <li><a href="evidence/static-check.json">Static check</a></li>
+            <li><a href="evidence/browser-check.md">Browser check</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h2>Sumber resmi</h2>
+          <ul>
+            <li><a href="https://asphalt.gojek.io/">Asphalt Aloha</a></li>
+            <li><a href="https://gojek.design/">gojek.design</a></li>
+            <li><a href="https://www.gojek.com/id-id">gojek.com</a></li>
+            <li><a href="https://www.gojek.com/id-id/gocorp">GoCorp</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-meta">
+        <p class="footer-disclaimer"><strong>Konsep tidak resmi.</strong> Tidak berafiliasi dengan, tidak didukung oleh, dan tidak diproduksi oleh Gojek atau PT GoTo Gojek Tokopedia Tbk. Gojek adalah merek milik pemiliknya. Tidak ada logo, foto, testimoni, atau file font proprietary yang disalin. Maison Neue dan Maison Neue Extended hanya disebut sebagai font resmi; halaman memakai fallback. Nama layanan dipakai untuk konteks dan bukan klaim kemitraan.</p>
+        <p class="footer-status">Lint: <span>0 error / 0 warning</span><br>Diperbarui 16 Nov 2026<br>Konsep, bukan rilis resmi</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var root = document.documentElement;
+      var themeToggle = document.getElementById('theme-toggle');
+      var menuToggle = document.getElementById('menu-toggle');
+      var mobileNav = document.getElementById('mobile-nav');
+      var dayStatus = document.getElementById('day-status');
+      var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      function effectiveTheme() {
+        if (root.dataset.theme === 'light' || root.dataset.theme === 'dark') {
+          return root.dataset.theme;
+        }
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+
+      function syncTheme() {
+        var dark = effectiveTheme() === 'dark';
+        themeToggle.setAttribute('aria-pressed', String(dark));
+        themeToggle.setAttribute('aria-label', 'Tema gelap');
+      }
+
+      themeToggle.addEventListener('click', function () {
+        var next = effectiveTheme() === 'dark' ? 'light' : 'dark';
+        root.dataset.theme = next;
+        try {
+          localStorage.setItem('gojek-concept-theme', next);
+        } catch (error) {}
+        syncTheme();
+      });
+
+      syncTheme();
+      var schemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      if (typeof schemeQuery.addEventListener === 'function') {
+        schemeQuery.addEventListener('change', syncTheme);
+      }
+
+      function closeMenu(returnFocus) {
+        mobileNav.hidden = true;
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.setAttribute('aria-label', 'Buka menu navigasi');
+        if (returnFocus) {
+          menuToggle.focus();
+        }
+      }
+
+      menuToggle.addEventListener('click', function () {
+        var isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
+        if (isOpen) {
+          closeMenu(false);
+        } else {
+          mobileNav.hidden = false;
+          menuToggle.setAttribute('aria-expanded', 'true');
+          menuToggle.setAttribute('aria-label', 'Tutup menu navigasi');
+          var firstLink = mobileNav.querySelector('a');
+          if (firstLink) {
+            firstLink.focus();
+          }
+        }
+      });
+
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && !mobileNav.hidden) {
+          closeMenu(true);
+        }
+      });
+
+      document.addEventListener('click', function (event) {
+        if (mobileNav.hidden) return;
+        if (!mobileNav.contains(event.target) && !menuToggle.contains(event.target)) {
+          closeMenu(false);
+        }
+      });
+
+      mobileNav.addEventListener('click', function (event) {
+        if (event.target.closest('a')) {
+          closeMenu(false);
+        }
+      });
+
+      window.addEventListener('resize', function () {
+        if (window.innerWidth > 980 && !mobileNav.hidden) {
+          closeMenu(false);
+        }
+      });
+
+      var moments = {
+        ride: {
+          time: '06:45',
+          service: 'GoRide',
+          sysLabel: 'Dispatch',
+          userTitle: 'Berangkat kerja',
+          userBody: 'Motor datang ke titik jemput. Pengemudi dan pengguna sama-sama melihat rute yang sama, jadi tidak ada tebak-tebakan di trotoar.',
+          userNotes: ['Titik jemput dan tujuan terlihat sebelum berangkat.', 'Status perjalanan diperbarui sampai tiba.'],
+          from: 'Rumah',
+          to: 'Kantor',
+          fromLabel: 'Jemput',
+          toLabel: 'Tiba',
+          sysTitle: 'Demand meets supply',
+          sysBody: 'A ride request becomes a match. The app has to show a clear pickup, a credible ETA, and a state that the rider and the driver can both trust.',
+          sysNotes: ['One request, two people, one shared state.', 'A simplified view, not Gojek’s internal architecture.'],
+          flow: ['Request', 'Match', 'Confirm'],
+          serviceId: 'layanan-goride',
+          linkText: 'Lihat layanan GoRide'
+        },
+        food: {
+          time: '12:20',
+          service: 'GoFood',
+          sysLabel: 'Marketplace',
+          userTitle: 'Makan siang',
+          userBody: 'Pesanan masuk ke merchant, lalu diproses dan diantar. Status pesanan membuat antrean terasa lebih tenang, bahkan saat jam makan siang.',
+          userNotes: ['Merchant, kurir, dan pengguna melihat status pesanan yang sama.', 'Menu dan ketersediaan adalah bagian dari keputusan.'],
+          from: 'Warung',
+          to: 'Meja kantor',
+          fromLabel: 'Pesan',
+          toLabel: 'Diantar',
+          sysTitle: 'One order, three operators',
+          sysBody: 'A food order is a small coordination problem: merchant availability, preparation time, courier capacity, and a handoff at the door.',
+          sysNotes: ['Availability is part of the promise.', 'The handoff is a designed moment, not an afterthought.'],
+          flow: ['Order', 'Prepare', 'Deliver'],
+          serviceId: 'layanan-gofood',
+          linkText: 'Lihat layanan GoFood'
+        },
+        send: {
+          time: '16:10',
+          service: 'GoSend',
+          sysLabel: 'Logistics',
+          userTitle: 'Kirim dokumen',
+          userBody: 'Paket kecil dijemput, lalu diantar ke penerima. Setiap serah-terima punya status yang bisa dilihat, jadi pengirim tidak perlu menebak.',
+          userNotes: ['Pickup dan drop-off adalah dua langkah yang terlihat.', 'Penerima mendapat titik serah-terima yang jelas.'],
+          from: 'Kantor',
+          to: 'Penerima',
+          fromLabel: 'Jemput',
+          toLabel: 'Diterima',
+          sysTitle: 'A package becomes a job',
+          sysBody: 'A delivery is a chain of custody. The system has to make pickup, transit, and proof of delivery legible to people who are not in the same place.',
+          sysNotes: ['A job has an owner at every step.', 'Proof closes the loop.'],
+          flow: ['Pickup', 'Handoff', 'Proof'],
+          serviceId: 'layanan-gosend',
+          linkText: 'Lihat layanan GoSend'
+        },
+        pay: {
+          time: '20:30',
+          service: 'GoPay',
+          sysLabel: 'Payments',
+          userTitle: 'Bayar dan tutup hari',
+          userBody: 'Satu pemindaian QRIS menyelesaikan pembayaran. Riwayatnya tersimpan, jadi pengeluaran hari ini tidak hilang di kepala.',
+          userNotes: ['Pembayaran adalah konfirmasi, bukan misteri.', 'Struk adalah bagian dari pengalaman.'],
+          from: 'Meja makan',
+          to: 'Riwayat',
+          fromLabel: 'Pindai',
+          toLabel: 'Selesai',
+          sysTitle: 'Authorise, settle, receipt',
+          sysBody: 'A payment has to answer three questions quickly: did it work, what did it cost, and where is the record? The interface is the last mile of that answer.',
+          sysNotes: ['State changes need words, not just colour.', 'A receipt is a user-facing API.'],
+          flow: ['Authorise', 'Settle', 'Receipt'],
+          serviceId: 'layanan-gopay',
+          linkText: 'Lihat layanan GoPay'
+        }
+      };
+
+      var dayState = { moment: 'ride', register: 'consumer' };
+      var momentButtons = Array.prototype.slice.call(document.querySelectorAll('[data-moment][aria-pressed]'));
+      var registerButtons = Array.prototype.slice.call(document.querySelectorAll('[data-register][aria-pressed]'));
+      var panel = document.getElementById('moment-panel');
+      var panelKicker = document.getElementById('panel-kicker');
+      var panelRegister = document.getElementById('panel-register');
+      var panelTitle = document.getElementById('panel-title');
+      var panelBody = document.getElementById('panel-body');
+      var panelNotes = document.getElementById('panel-notes');
+      var panelLink = document.getElementById('panel-link');
+      var visualRoute = document.getElementById('visual-route');
+      var visualFlow = document.getElementById('visual-flow');
+      var fromLabel = document.getElementById('visual-from');
+      var toLabel = document.getElementById('visual-to');
+      var fromSub = document.getElementById('visual-from-sub');
+      var toSub = document.getElementById('visual-to-sub');
+
+      function setPressed(buttons, attr, value) {
+        buttons.forEach(function (button) {
+          button.setAttribute('aria-pressed', String(button.dataset[attr] === value));
+        });
+      }
+
+      function buildNotes(notes) {
+        panelNotes.textContent = '';
+        notes.forEach(function (note) {
+          var li = document.createElement('li');
+          var icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+          icon.setAttribute('viewBox', '0 0 16 16');
+          icon.setAttribute('fill', 'none');
+          icon.setAttribute('aria-hidden', 'true');
+          var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          path.setAttribute('d', 'm3 8 3 3 7-7');
+          path.setAttribute('stroke', 'currentColor');
+          path.setAttribute('stroke-width', '1.8');
+          path.setAttribute('stroke-linecap', 'round');
+          path.setAttribute('stroke-linejoin', 'round');
+          icon.appendChild(path);
+          li.appendChild(icon);
+          li.appendChild(document.createTextNode(note));
+          panelNotes.appendChild(li);
+        });
+      }
+
+      function renderDay(announce) {
+        var data = moments[dayState.moment];
+        var isSystem = dayState.register === 'system';
+
+        setPressed(momentButtons, 'moment', dayState.moment);
+        setPressed(registerButtons, 'register', dayState.register);
+
+        panelKicker.textContent = data.time + ' · ' + (isSystem ? data.sysLabel : data.service);
+        panelRegister.textContent = isSystem ? 'System view · simplified' : 'Register konsumen';
+        panelTitle.textContent = isSystem ? data.sysTitle : data.userTitle;
+        panelBody.textContent = isSystem ? data.sysBody : data.userBody;
+        panel.lang = isSystem ? 'en' : 'id';
+        buildNotes(isSystem ? data.sysNotes : data.userNotes);
+
+        if (isSystem) {
+          visualRoute.hidden = true;
+          visualFlow.hidden = false;
+          visualFlow.textContent = '';
+          data.flow.forEach(function (label, index) {
+            var step = document.createElement('div');
+            step.className = 'flow-step';
+            var idx = document.createElement('span');
+            idx.className = 'flow-index';
+            idx.textContent = '0' + (index + 1);
+            var text = document.createElement('span');
+            text.className = 'flow-label';
+            text.textContent = label;
+            step.appendChild(idx);
+            step.appendChild(text);
+            visualFlow.appendChild(step);
+          });
+          panelLink.textContent = '';
+          panelLink.href = '#sistem';
+          panelLink.appendChild(document.createTextNode('Read the system notes '));
+          var arrow = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+          arrow.setAttribute('viewBox', '0 0 20 20');
+          arrow.setAttribute('fill', 'none');
+          arrow.setAttribute('aria-hidden', 'true');
+          var arrowPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          arrowPath.setAttribute('d', 'M4 10h12M11 5l5 5-5 5');
+          arrowPath.setAttribute('stroke', 'currentColor');
+          arrowPath.setAttribute('stroke-width', '2');
+          arrowPath.setAttribute('stroke-linecap', 'round');
+          arrowPath.setAttribute('stroke-linejoin', 'round');
+          arrow.appendChild(arrowPath);
+          panelLink.appendChild(arrow);
+        } else {
+          visualFlow.hidden = true;
+          visualRoute.hidden = false;
+          fromLabel.textContent = data.from;
+          toLabel.textContent = data.to;
+          fromSub.textContent = data.fromLabel;
+          toSub.textContent = data.toLabel;
+          panelLink.textContent = '';
+          panelLink.href = '#' + data.serviceId;
+          panelLink.appendChild(document.createTextNode(data.linkText));
+          var arrow2 = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+          arrow2.setAttribute('viewBox', '0 0 20 20');
+          arrow2.setAttribute('fill', 'none');
+          arrow2.setAttribute('aria-hidden', 'true');
+          var arrowPath2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          arrowPath2.setAttribute('d', 'M4 10h12M11 5l5 5-5 5');
+          arrowPath2.setAttribute('stroke', 'currentColor');
+          arrowPath2.setAttribute('stroke-width', '2');
+          arrowPath2.setAttribute('stroke-linecap', 'round');
+          arrowPath2.setAttribute('stroke-linejoin', 'round');
+          arrow2.appendChild(arrowPath2);
+          panelLink.appendChild(arrow2);
+        }
+
+        if (!reducedMotion.matches) {
+          panel.classList.remove('is-swapping');
+          void panel.offsetWidth;
+          panel.classList.add('is-swapping');
+        }
+
+        if (announce) {
+          var view = isSystem ? 'tampilan sistem' : 'tampilan pengguna';
+          dayStatus.textContent = data.time + ', ' + data.service + ', ' + view + '.';
+        }
+      }
+
+      momentButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          dayState.moment = button.dataset.moment;
+          renderDay(true);
+        });
+      });
+
+      registerButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          dayState.register = button.dataset.register;
+          renderDay(true);
+        });
+        button.addEventListener('keydown', function (event) {
+          if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+          event.preventDefault();
+          var index = registerButtons.indexOf(button);
+          var nextIndex = event.key === 'ArrowRight' ? (index + 1) % registerButtons.length : (index - 1 + registerButtons.length) % registerButtons.length;
+          registerButtons[nextIndex].focus();
+          registerButtons[nextIndex].click();
+        });
+      });
+
+      Array.prototype.forEach.call(document.querySelectorAll('.service-card[data-moment]'), function (card) {
+        card.addEventListener('click', function (event) {
+          event.preventDefault();
+          dayState.moment = card.dataset.moment;
+          dayState.register = 'consumer';
+          renderDay(true);
+          document.getElementById('satu-hari').scrollIntoView({
+            behavior: reducedMotion.matches ? 'auto' : 'smooth',
+            block: 'start'
+          });
+          window.setTimeout(function () {
+            panelTitle.focus({ preventScroll: true });
+          }, reducedMotion.matches ? 0 : 260);
+        });
+      });
+
+      renderDay(false);
+    }());
+  </script>
+  <script>
+    document.querySelectorAll('.skip-link').forEach(function (link) {
+      link.addEventListener('click', function () {
+        var main = document.getElementById('main');
+        if (main) window.setTimeout(function () { main.focus({ preventScroll: true }); }, 0);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+{
+  "skill_name": "skill-creator",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Turn our weekly release checklist into a reusable skill for the team. It should ask for the release branch, run the checks in order, stop on a failing check, and produce a short release note. We use git, npm, and a staging URL. Make it usable by an agent that has never seen our repo.",
+      "expected_output": "A valid skill folder with a focused SKILL.md, an actionable release workflow, a validator or explicit checks, 2 realistic evals, and a fresh-context test plan. No generic filler.",
+      "files": [],
+      "assertions": [
+        "The skill folder contains a valid SKILL.md whose name matches the directory and whose description is under 1024 characters",
+        "The workflow is specific to the release process and includes failure handling and a final release-note output",
+        "The skill includes at least two realistic evaluation prompts and a way to verify the output"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Please audit this skill folder. It has a `SKILL.md` (stored as `SKILL.md.fixture`; copy it to a scratch folder as `SKILL.md` first) with a name that doesn't match the folder, a vague one-sentence description, a reference to references/checklist.md that doesn't exist, and no evals. Fix the structure without changing what the skill is trying to do.",
+      "expected_output": "Concrete findings tied to the spec, corrected frontmatter and paths, preserved intent, and a validation/fresh-context test. The reviewer should not invent a new skill.",
+      "files": [
+        "evals/files/broken-skill"
+      ],
+      "notes": "The fixture is stored as SKILL.md.fixture so the skills CLI and packaging never treat it as a real skill. Copy the folder to a scratch directory and rename the file to SKILL.md before auditing.",
+      "assertions": [
+        "The audit identifies the name mismatch, missing reference, description weakness, and missing evaluation evidence",
+        "The fixes preserve the original job and are validated against the Agent Skills format",
+        "The response distinguishes must-fix errors from optional improvements"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "My skill for reviewing API design docs almost never gets used, even when I ask for an API review. The body is detailed but the description says 'Helps with APIs.' How do I make it trigger reliably without making it fire on every API question?",
+      "expected_output": "A trigger diagnosis, a revised description that names API design review and its boundary, a 20-query train/validation set including near-misses, and a measured iteration plan.",
+      "files": [],
+      "assertions": [
+        "The revised description names the task and concrete trigger contexts, and remains under 1024 characters",
+        "The plan includes both should-trigger and near-miss should-not-trigger queries with a train/validation split",
+        "The advice includes measuring trigger rate and avoiding overfitting to individual queries"
+      ]
+    }
+  ]
+}

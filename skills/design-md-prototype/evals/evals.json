@@ -1,0 +1,83 @@
+{
+  "skill_name": "design-md-prototype",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We're launching a workflow automation product for mid-market operations teams. Build the design system and a launch site. The only official brand inputs are our public marketing site and our engineering blog's design notes. We need a DESIGN.md, a standalone index.html, a design-md.html showcase, sources.md, README.md, and the verification evidence. Don't invent customer logos, testimonials, or metrics. We have a proprietary display font but only a web license, so use a documented fallback or stand-in in the demo. The files will be opened directly from disk.",
+      "expected_output": "A complete handoff package with one DESIGN.md that passes official lint with 0 errors, a polished standalone launch page, a living spec page, provenance, and evidence. The proprietary font is named in DESIGN.md but not bundled; a fallback/stand-in is documented. No fake proof or unlicensed assets.",
+      "files": [],
+      "assertions": [
+        "DESIGN.md, index.html, design-md.html, README.md, sources.md, and evidence/ exist.",
+        "The official DESIGN.md lint exits with 0 errors.",
+        "All eight canonical DESIGN.md sections are present in order and no heading is duplicated.",
+        "Every token reference resolves and no top-level YAML key is duplicated.",
+        "Both HTML files contain no external app scripts or stylesheets and no runtime fetch/module imports.",
+        "Both HTML files link to each other and contain a light/dark theme mechanism.",
+        "sources.md cites at least two Tier-1 sources with retrieval dates and records rights for fonts/assets.",
+        "The proprietary font is named in DESIGN.md; no font binary is present; a fallback/stand-in is documented in README and the showcase.",
+        "No lorem ipsum, placeholder copy, or invented customer logos/metrics/testimonials appear in the final artifacts.",
+        "scripts/validate-artifacts.mjs passes with no errors.",
+        "evidence/ includes lint.json, export.css, static-check.json, and browser-check.md that records the 320/390/768/1024/1440 matrix or a 'not run' reason."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "A holding company owns three customer-facing properties: an enterprise logistics platform, a consumer mobile app, and a corporate/investor site. They share one master brand but each property has a distinct audience and job. Build ONE unified design system with explicit registers, not three competing brands. Show at least two registers in the prototype and all of them in the design-system showcase. Use official sources from all three properties; for any first-party GitHub repository used, record the repo, stars, license, and what you used. Deliver DESIGN.md, index.html, design-md.html, README.md, sources.md, and evidence.",
+      "expected_output": "One DESIGN.md with a shared token core and a register matrix covering the three properties. The prototype demonstrates at least two registers; the showcase documents all three. No duplicate primaries or parallel brand systems. Official provenance and GitHub evidence are recorded.",
+      "files": [],
+      "assertions": [
+        "Exactly one DESIGN.md exists and it contains a register matrix in the Overview section.",
+        "The three registers are named and differentiated by audience, job, and expression deltas.",
+        "There is one primary token and one shared type/spacing/radius core; no competing brand palettes.",
+        "index.html demonstrates at least two registers in labeled sections or a register switcher.",
+        "design-md.html documents all three registers.",
+        "DESIGN.md lint has 0 errors; no duplicate keys or section headings.",
+        "Every color/type decision is traceable to a source or marked as an assumption in sources.md.",
+        "GitHub entries record repository, stars, license, last push, and what was used.",
+        "Both HTML files are standalone, cross-linked, and use the same token core.",
+        "The static validator passes; evidence records the browser matrix or a 'not run' reason.",
+        "No invented property names, claims, or assets that contradict the official sources."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Audit and fix the existing artifacts in ./input. The DESIGN.md fails the official linter: it repeats a top-level colors key, has a broken token reference, and places the Components section out of order. The index.html has a horizontal scrollbar at 390px, two duplicate IDs, and a low-contrast hero button. Preserve the existing brand direction and any truthful copy. Do not invent sources or metrics. Produce a corrected DESIGN.md, a repaired index.html, a design-md.html showcase if one is missing, README.md, sources.md, and before/after verification evidence. Explain each fix and state anything you could not verify.",
+      "expected_output": "A repaired package with official lint at 0 errors, resolved references, canonical section order, no duplicate IDs, no horizontal overflow at 390px, and a contrast fix that preserves the brand color where possible. The README documents before/after evidence and any remaining warnings or unverified checks.",
+      "files": [
+        "input/DESIGN.md",
+        "input/index.html"
+      ],
+      "notes": "The evaluator supplies input/DESIGN.md and input/index.html with the described defects; the run repairs them rather than inventing a new brand.",
+      "assertions": [
+        "The duplicate top-level colors key is removed or merged, and official lint reports 0 errors.",
+        "The broken token reference is resolved and every remaining reference resolves.",
+        "All canonical sections appear in order and no heading is duplicated.",
+        "The two duplicate IDs are removed and all internal anchors still resolve.",
+        "The 390px horizontal overflow is fixed at the layout source, not hidden with overflow-x:hidden.",
+        "The hero button contrast is at least 4.5:1 for normal text, with the original brand value and the accessible variant documented if it changed.",
+        "A design-md.html showcase exists and covers tokens, typography, layout, elevation, shapes, components, motion, do's/don'ts, and a source excerpt.",
+        "README.md explains each fix and distinguishes verified from not verified.",
+        "sources.md is not fabricated; existing sources are preserved with retrieval dates and rights notes.",
+        "scripts/validate-artifacts.mjs passes; evidence includes lint, export, static, and browser results or reasons for missing checks."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Can you make our brand feel more premium? We're a regional hospitality group with a hotel, a members club, and a restaurant. We don't have a formal brand book. Here's our public site: [URL]. I need something I can show the leadership team next week — a design system and a homepage concept, not a 60-page deck. Keep it practical, and don't make up awards or reviews. We may not have rights to all the photos on the site, so don't copy them.",
+      "expected_output": "A clearly labeled concept direction because no formal brand book exists, with assumptions recorded. One system with three registers, a practical homepage prototype, a living spec page, and honest evidence. No copied photos, fake awards, or invented reviews.",
+      "files": [],
+      "assertions": [
+        "The README labels the work as a concept direction because no official brand book was available.",
+        "Assumptions and missing sources are recorded in sources.md.",
+        "One DESIGN.md covers the hotel, club, and restaurant as registers with a shared core.",
+        "The prototype shows at least two registers and the showcase documents all three.",
+        "No copied photography, logo, award, or review is present; placeholders or original abstract visuals are used.",
+        "Official lint has 0 errors; the static validator passes.",
+        "Both HTML files are standalone and cross-linked.",
+        "Light/dark and 320/390/768/1024/1440 checks are recorded or explicitly marked not run.",
+        "The README states what is verified and what remains unverified.",
+        "No fabricated source, star count, license, testimonial, or metric appears."
+      ]
+    }
+  ]
+}

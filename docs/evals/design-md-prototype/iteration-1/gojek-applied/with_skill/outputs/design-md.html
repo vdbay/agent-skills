@@ -1,0 +1,3414 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Living DESIGN.md for Gojek: one green, two registers. Tokens, contrast, type, layout, components, motion, and evidence.">
+  <meta name="theme-color" content="#FAFAFA" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111313" media="(prefers-color-scheme: dark)">
+  <title>Gojek — One Green, Two Registers | Living design system</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%2300AA13'/%3E%3Cpath d='M16 44c8-20 16 4 24-16 3-8 6-10 8-8' fill='none' stroke='%231C1D1D' stroke-width='4' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='44' r='4' fill='%231C1D1D'/%3E%3Ccircle cx='48' cy='20' r='4' fill='%231C1D1D'/%3E%3C/svg%3E">
+  <script>
+    try {
+      var savedTheme = localStorage.getItem('gojek-concept-theme');
+      if (savedTheme === 'light' || savedTheme === 'dark') {
+        document.documentElement.dataset.theme = savedTheme;
+      }
+    } catch (error) {}
+  </script>
+  <style>
+    :root {
+      color-scheme: light;
+      --color-primary: #00880D;
+      --color-primary-hover: #00680A;
+      --color-primary-active: #004F08;
+      --color-brand: #00AA13;
+      --color-brand-soft: #EAFFEA;
+      --color-on-brand: #1C1D1D;
+      --color-on-primary: #FFFFFF;
+      --color-surface: #FFFFFF;
+      --color-surface-alt: #FAFAFA;
+      --color-surface-sunken: #E8E8E8;
+      --color-on-surface: #1C1D1D;
+      --color-on-surface-secondary: #494A4A;
+      --color-muted: #727272;
+      --color-border: #BDBDBD;
+      --color-border-strong: #727272;
+      --color-focus: #1C1D1D;
+      --color-focus-halo: #86AFFF;
+      --color-success: #00680A;
+      --color-success-soft: #EAFFEA;
+      --color-warning: #FFC41C;
+      --color-warning-soft: #FFF8E7;
+      --color-warning-text: #7A5D0E;
+      --color-on-warning: #1C1D1D;
+      --color-error: #EA001F;
+      --color-error-soft: #FFF3F3;
+      --color-error-text: #C60E26;
+      --color-info: #008BAB;
+      --color-info-soft: #E8FBFF;
+      --color-info-text: #006F89;
+      --color-inverse-surface: #1C1D1D;
+      --color-inverse-on-surface: #FFFFFF;
+      --color-surface-dark: #111313;
+      --color-surface-dark-raised: #1C1D1D;
+      --color-on-surface-dark: #F5F5F2;
+      --color-muted-dark: #B9B9B4;
+      --color-border-dark: #6B6D6D;
+      --color-primary-dark: #00AA13;
+      --color-on-primary-dark: #08210D;
+      --font-display: "Maison Neue Extended", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --font-body: "Maison Neue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --font-code: "Fira Code", ui-monospace, SFMono-Regular, Consolas, monospace;
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 24px;
+      --space-6: 32px;
+      --space-7: 40px;
+      --space-8: 48px;
+      --space-9: 64px;
+      --space-10: 96px;
+      --space-11: 128px;
+      --radius-xs: 6px;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --radius-2xl: 24px;
+      --radius-full: 992px;
+      --shadow-low: 0 2px 20px rgba(0, 0, 0, 0.08);
+      --shadow-mid: 0 4px 20px rgba(0, 0, 0, 0.10);
+      --shadow-high: 0 16px 64px rgba(0, 0, 0, 0.12);
+      --duration-fast: 120ms;
+      --duration-base: 200ms;
+      --duration-slow: 320ms;
+      --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+      --ease-out: cubic-bezier(0, 0, 0.2, 1);
+      --ease-in: cubic-bezier(0.4, 0, 1, 1);
+      --ease-overshoot: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --page-max: 1240px;
+      --header-height: 64px;
+    }
+
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --color-primary: #00AA13;
+      --color-primary-hover: #18C22A;
+      --color-primary-active: #33D944;
+      --color-brand: #00AA13;
+      --color-brand-soft: #13351B;
+      --color-on-brand: var(--color-on-primary-dark);
+      --color-on-primary: #08210D;
+      --color-surface: #111313;
+      --color-surface-alt: #1C1D1D;
+      --color-surface-sunken: #2A2C2C;
+      --color-on-surface: #F5F5F2;
+      --color-on-surface-secondary: #D6D6D1;
+      --color-muted: #B9B9B4;
+      --color-border: #6B6D6D;
+      --color-border-strong: #8A8C8C;
+      --color-focus: #F5F5F2;
+      --color-focus-halo: #86AFFF;
+      --color-success: #7DDB8A;
+      --color-success-soft: #12351A;
+      --color-warning: #FFD355;
+      --color-warning-soft: #332B12;
+      --color-warning-text: #FFE08A;
+      --color-error: #FF6B7A;
+      --color-error-soft: #3A1519;
+      --color-error-text: #FFB3BA;
+      --color-info: #5DD6F0;
+      --color-info-soft: #0E2F36;
+      --color-info-text: #9DEBFA;
+      --color-inverse-surface: #F5F5F2;
+      --color-inverse-on-surface: #111313;
+      --shadow-low: 0 2px 20px rgba(0, 0, 0, 0.42);
+      --shadow-mid: 0 4px 20px rgba(0, 0, 0, 0.52);
+      --shadow-high: 0 16px 64px rgba(0, 0, 0, 0.62);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        color-scheme: dark;
+        --color-primary: #00AA13;
+        --color-primary-hover: #18C22A;
+        --color-primary-active: #33D944;
+        --color-brand: #00AA13;
+        --color-brand-soft: #13351B;
+        --color-on-brand: var(--color-on-primary-dark);
+        --color-on-primary: #08210D;
+        --color-surface: #111313;
+        --color-surface-alt: #1C1D1D;
+        --color-surface-sunken: #2A2C2C;
+        --color-on-surface: #F5F5F2;
+        --color-on-surface-secondary: #D6D6D1;
+        --color-muted: #B9B9B4;
+        --color-border: #6B6D6D;
+        --color-border-strong: #8A8C8C;
+        --color-focus: #F5F5F2;
+        --color-focus-halo: #86AFFF;
+        --color-success: #7DDB8A;
+        --color-success-soft: #12351A;
+        --color-warning: #FFD355;
+        --color-warning-soft: #332B12;
+        --color-warning-text: #FFE08A;
+        --color-error: #FF6B7A;
+        --color-error-soft: #3A1519;
+        --color-error-text: #FFB3BA;
+        --color-info: #5DD6F0;
+        --color-info-soft: #0E2F36;
+        --color-info-text: #9DEBFA;
+        --color-inverse-surface: #F5F5F2;
+        --color-inverse-on-surface: #111313;
+        --shadow-low: 0 2px 20px rgba(0, 0, 0, 0.42);
+        --shadow-mid: 0 4px 20px rgba(0, 0, 0, 0.52);
+        --shadow-high: 0 16px 64px rgba(0, 0, 0, 0.62);
+      }
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 88px;
+    }
+
+    body {
+      margin: 0;
+      background: var(--color-surface);
+      color: var(--color-on-surface);
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.618;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    p {
+      margin-top: 0;
+    }
+
+    h1,
+    h2,
+    h3 {
+      text-wrap: balance;
+    }
+
+    a {
+      color: var(--color-primary);
+      text-underline-offset: 0.18em;
+      text-decoration-thickness: 1px;
+    }
+
+    a:hover {
+      color: var(--color-primary-hover);
+    }
+
+    button,
+    input {
+      font-family: var(--font-body);
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--color-focus);
+      outline-offset: 2px;
+      box-shadow: 0 0 0 5px var(--color-focus-halo);
+      border-radius: 4px;
+    }
+
+    .mini-panel.corporate :focus-visible,
+    .site-footer :focus-visible,
+    .corporate-strip :focus-visible {
+      outline-color: #F5F5F2;
+      box-shadow: 0 0 0 5px #1C1D1D;
+    }
+
+    ::selection {
+      background: var(--color-brand-soft);
+      color: var(--color-success);
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 100;
+      padding: 12px 18px;
+      border-radius: var(--radius-full);
+      background: var(--color-inverse-surface);
+      color: var(--color-inverse-on-surface);
+      font-weight: 700;
+      transform: translateY(-160%);
+      transition: transform var(--duration-fast) var(--ease-standard);
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: var(--page-max);
+      margin-inline: auto;
+      padding-inline: clamp(20px, 4vw, 40px);
+    }
+
+    .concept-bar {
+      background: #1C1D1D;
+      color: #F5F5F2;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      line-height: 1.4;
+    }
+
+    .concept-bar .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 34px;
+      padding-block: 6px;
+    }
+
+    .concept-bar p {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .concept-bar .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: var(--radius-full);
+      background: #00AA13;
+      flex: none;
+    }
+
+    .concept-bar a {
+      color: #F5F5F2;
+      text-decoration-color: #00AA13;
+      text-decoration-thickness: 2px;
+      white-space: nowrap;
+    }
+
+    .concept-bar a:hover {
+      color: #FFFFFF;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      min-height: var(--header-height);
+    }
+
+    .brand-lockup {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--color-on-surface);
+      text-decoration: none;
+      flex: none;
+      min-height: 44px;
+    }
+
+    .brand-lockup:hover {
+      color: var(--color-on-surface);
+    }
+
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--color-brand);
+      display: grid;
+      place-items: center;
+      flex: none;
+    }
+
+    .brand-mark svg {
+      width: 19px;
+      height: 19px;
+    }
+
+    .wordmark {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.055em;
+      line-height: 1;
+    }
+
+    .spec-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      border: 1px solid var(--color-border-strong);
+      border-radius: var(--radius-full);
+      padding: 4px 7px 3px;
+      color: var(--color-on-surface-secondary);
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: none;
+    }
+
+    .header-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 44px;
+      padding: 0 14px;
+      border-radius: var(--radius-full);
+      color: var(--color-on-surface);
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      border: 1px solid var(--color-border-strong);
+    }
+
+    .header-link:hover {
+      background: var(--color-surface-alt);
+      color: var(--color-primary-hover);
+    }
+
+    .icon-button {
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      display: inline-grid;
+      place-items: center;
+      border: 1px solid var(--color-border-strong);
+      border-radius: var(--radius-full);
+      background: transparent;
+      color: var(--color-on-surface);
+    }
+
+    .icon-button:hover {
+      background: var(--color-surface-alt);
+    }
+
+    .icon-button svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .icon-button .icon-moon {
+      display: none;
+    }
+
+    :root[data-theme="dark"] .icon-button .icon-sun {
+      display: none;
+    }
+
+    :root[data-theme="dark"] .icon-button .icon-moon {
+      display: block;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) .icon-button .icon-sun {
+        display: none;
+      }
+      :root:not([data-theme="light"]) .icon-button .icon-moon {
+        display: block;
+      }
+    }
+
+    .toc-toggle {
+      display: none;
+    }
+
+    .spec-shell {
+      display: grid;
+      grid-template-columns: 236px minmax(0, 1fr);
+      gap: clamp(28px, 4vw, 56px);
+      max-width: var(--page-max);
+      margin-inline: auto;
+      padding-inline: clamp(20px, 4vw, 40px);
+      align-items: start;
+    }
+
+    .spec-sidebar {
+      position: sticky;
+      top: calc(var(--header-height) + 20px);
+      align-self: start;
+      max-height: calc(100vh - var(--header-height) - 40px);
+      overflow-y: auto;
+      padding-block: 32px;
+      border-right: 1px solid var(--color-border);
+      padding-right: 18px;
+    }
+
+    .spec-sidebar .sidebar-title {
+      margin: 0 0 12px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+    }
+
+    .spec-nav {
+      display: grid;
+      gap: 1px;
+    }
+
+    .spec-nav a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      min-height: 38px;
+      padding: 6px 10px;
+      border-left: 2px solid transparent;
+      color: var(--color-on-surface-secondary);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      line-height: 1.3;
+    }
+
+    .spec-nav a:hover {
+      background: var(--color-surface-alt);
+      color: var(--color-on-surface);
+    }
+
+    .spec-nav a[aria-current="location"] {
+      border-left-color: var(--color-brand);
+      background: var(--color-brand-soft);
+      color: var(--color-success);
+      font-weight: 700;
+    }
+
+    .spec-nav .nav-num {
+      font-family: var(--font-code);
+      font-size: 10px;
+      color: var(--color-muted);
+    }
+
+    .spec-nav a[aria-current="location"] .nav-num {
+      color: var(--color-success);
+    }
+
+    .sidebar-note {
+      margin: 22px 0 0;
+      padding: 14px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      background: var(--color-surface-alt);
+      font-size: 11px;
+      line-height: 1.6;
+      color: var(--color-on-surface-secondary);
+    }
+
+    .sidebar-note strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--color-on-surface);
+    }
+
+    .sidebar-note a {
+      color: var(--color-primary-hover);
+      text-decoration-thickness: 1.5px;
+      text-underline-offset: 2px;
+    }
+
+    .sidebar-note a:hover {
+      color: var(--color-primary-active);
+    }
+
+    .spec-main {
+      min-width: 0;
+      padding-block: 40px 80px;
+    }
+
+    .spec-hero {
+      padding-bottom: clamp(40px, 6vw, 64px);
+      border-bottom: 1px solid var(--color-border-strong);
+    }
+
+    .spec-kicker {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 16px;
+      font-family: var(--font-code);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+    }
+
+    .spec-kicker::before {
+      content: "";
+      width: 28px;
+      height: 2px;
+      background: var(--color-brand);
+      flex: none;
+    }
+
+    .spec-hero h1 {
+      margin: 0 0 18px;
+      font-family: var(--font-display);
+      font-size: clamp(42px, 6.8vw, 72px);
+      font-weight: 700;
+      line-height: 0.94;
+      letter-spacing: -0.05em;
+      max-width: 13ch;
+    }
+
+    .spec-hero h1 .green {
+      color: var(--color-brand);
+    }
+
+    .spec-thesis {
+      margin: 0 0 24px;
+      max-width: 62ch;
+      color: var(--color-on-surface-secondary);
+      font-size: clamp(16px, 2vw, 19px);
+      line-height: 1.65;
+    }
+
+    .spec-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 10px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+      background: var(--color-surface-alt);
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--color-on-surface-secondary);
+    }
+
+    .meta-pill .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-brand);
+      flex: none;
+    }
+
+    .meta-pill code {
+      font-family: var(--font-code);
+      font-size: 10px;
+      color: var(--color-on-surface);
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      align-items: center;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 44px;
+      padding: 0 18px;
+      border: 2px solid transparent;
+      border-radius: var(--radius-full);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.2;
+      text-decoration: none;
+      transition: background-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard);
+    }
+
+    .button svg {
+      width: 16px;
+      height: 16px;
+      flex: none;
+    }
+
+    .button-primary {
+      background: var(--color-primary);
+      color: var(--color-on-primary);
+    }
+
+    .button-primary:hover {
+      background: var(--color-primary-hover);
+      color: var(--color-on-primary);
+    }
+
+    .button-secondary {
+      background: var(--color-surface);
+      color: var(--color-on-surface);
+      border-color: var(--color-border-strong);
+    }
+
+    .button-secondary:hover {
+      background: var(--color-surface-alt);
+      color: var(--color-primary-hover);
+    }
+
+    .button-corporate {
+      background: var(--color-inverse-surface);
+      color: var(--color-inverse-on-surface);
+      border-color: var(--color-inverse-surface);
+    }
+
+    .button-corporate:hover {
+      background: var(--color-on-surface-secondary);
+      color: var(--color-inverse-on-surface);
+      border-color: var(--color-on-surface-secondary);
+    }
+
+    .button-danger {
+      background: var(--color-error);
+      color: var(--color-on-primary);
+    }
+
+    .button-danger:hover {
+      background: var(--color-error-text);
+      color: var(--color-on-primary);
+    }
+
+    .button:disabled {
+      background: var(--color-surface-sunken);
+      color: var(--color-on-surface-secondary);
+      border-color: var(--color-border);
+      cursor: not-allowed;
+      opacity: 1;
+    }
+
+    .button-small {
+      min-height: 34px;
+      padding: 0 12px;
+      font-size: 11px;
+    }
+
+    .spec-section {
+      padding-block: clamp(40px, 6vw, 64px);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .spec-section:last-of-type {
+      border-bottom: 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+      gap: 18px 36px;
+      align-items: end;
+      margin-bottom: 28px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(30px, 4vw, 44px);
+      font-weight: 700;
+      line-height: 1.02;
+      letter-spacing: -0.035em;
+      max-width: 18ch;
+    }
+
+    .section-lede {
+      margin: 0;
+      max-width: 60ch;
+      color: var(--color-on-surface-secondary);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .prose {
+      max-width: 72ch;
+      margin: 0 0 18px;
+      color: var(--color-on-surface-secondary);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .prose strong {
+      color: var(--color-on-surface);
+    }
+
+    .prose code,
+    .inline-code {
+      font-family: var(--font-code);
+      font-size: 0.92em;
+      background: var(--color-surface-alt);
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      padding: 1px 5px;
+      color: var(--color-on-surface);
+      overflow-wrap: anywhere;
+    }
+
+    .principle-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .principle {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      background: var(--color-surface-alt);
+      min-width: 0;
+    }
+
+    .principle .num {
+      display: block;
+      font-family: var(--font-code);
+      font-size: 10px;
+      color: var(--color-primary-hover);
+      margin-bottom: 8px;
+    }
+
+    .principle h3 {
+      margin: 0 0 6px;
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .principle p {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--color-on-surface-secondary);
+    }
+
+    .table-scroll {
+      overflow-x: auto;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      background: var(--color-surface);
+      margin-bottom: 14px;
+    }
+
+    .table-scroll:focus-visible {
+      outline-offset: 2px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 640px;
+      font-size: 12px;
+      line-height: 1.5;
+      font-variant-numeric: tabular-nums;
+    }
+
+    caption {
+      text-align: left;
+      padding: 12px 14px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    th,
+    td {
+      text-align: left;
+      vertical-align: top;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    thead th {
+      background: var(--color-surface-alt);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      font-weight: 700;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    td code,
+    th code {
+      font-family: var(--font-code);
+      font-size: 11px;
+      overflow-wrap: anywhere;
+    }
+
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(152px, 1fr));
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .swatch-card {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--color-surface);
+      min-width: 0;
+    }
+
+    .swatch-color {
+      height: 62px;
+      border-bottom: 1px solid rgba(28, 29, 29, 0.12);
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 6px;
+    }
+
+    .swatch-color .ratio {
+      font-family: var(--font-code);
+      font-size: 9px;
+      font-weight: 500;
+      padding: 2px 5px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #1C1D1D;
+      line-height: 1.2;
+    }
+
+    .swatch-body {
+      padding: 9px 10px 10px;
+    }
+
+    .swatch-name {
+      display: block;
+      font-family: var(--font-code);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--color-on-surface);
+      overflow-wrap: anywhere;
+    }
+
+    .swatch-value {
+      display: block;
+      font-family: var(--font-code);
+      font-size: 10px;
+      color: var(--color-muted);
+      margin-top: 1px;
+    }
+
+    .swatch-role {
+      display: block;
+      font-size: 11px;
+      line-height: 1.4;
+      color: var(--color-on-surface-secondary);
+      margin-top: 6px;
+    }
+
+    .group-label {
+      margin: 24px 0 10px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+    }
+
+    .group-label:first-of-type {
+      margin-top: 0;
+    }
+
+    .callout {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      border: 1px solid var(--color-border);
+      border-left: 4px solid var(--color-warning);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      background: var(--color-warning-soft);
+      color: var(--color-warning-text);
+      margin: 18px 0;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .callout svg {
+      width: 18px;
+      height: 18px;
+      flex: none;
+      margin-top: 2px;
+    }
+
+    .callout strong {
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .pair-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin: 16px 0;
+    }
+
+    .pair {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    .pair .pair-swatch {
+      height: 46px;
+    }
+
+    .pair .pair-copy {
+      padding: 8px 10px;
+      font-size: 10px;
+      line-height: 1.4;
+      color: var(--color-on-surface-secondary);
+      background: var(--color-surface);
+    }
+
+    .pair .pair-copy code {
+      display: block;
+      font-family: var(--font-code);
+      font-size: 9px;
+      color: var(--color-on-surface);
+    }
+
+    .type-list {
+      display: grid;
+      gap: 2px;
+    }
+
+    .type-row {
+      display: grid;
+      grid-template-columns: minmax(0, 150px) minmax(0, 1fr);
+      gap: 16px;
+      align-items: baseline;
+      padding: 14px 0;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .type-meta {
+      min-width: 0;
+    }
+
+    .type-meta code {
+      display: block;
+      font-family: var(--font-code);
+      font-size: 11px;
+      color: var(--color-on-surface);
+      margin-bottom: 3px;
+      overflow-wrap: anywhere;
+    }
+
+    .type-meta span {
+      display: block;
+      font-family: var(--font-code);
+      font-size: 9px;
+      line-height: 1.5;
+      color: var(--color-muted);
+    }
+
+    .type-sample {
+      min-width: 0;
+      color: var(--color-on-surface);
+      overflow-wrap: anywhere;
+    }
+
+    .type-hero {
+      font-family: var(--font-display);
+      font-size: clamp(42px, 8vw, 72px);
+      font-weight: 700;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+    }
+
+    .type-display {
+      font-family: var(--font-display);
+      font-size: clamp(34px, 5vw, 48px);
+      font-weight: 700;
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+    }
+
+    .type-40 {
+      font-family: var(--font-display);
+      font-size: clamp(30px, 4vw, 40px);
+      font-weight: 700;
+      line-height: 1.618;
+      letter-spacing: -0.01em;
+    }
+
+    .type-32 {
+      font-family: var(--font-body);
+      font-size: clamp(26px, 3vw, 32px);
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    .type-28 {
+      font-family: var(--font-body);
+      font-size: clamp(24px, 2.6vw, 28px);
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    .type-24 {
+      font-family: var(--font-body);
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    .type-36 {
+      font-family: var(--font-body);
+      font-size: clamp(30px, 3.4vw, 36px);
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+    }
+
+    .type-18 {
+      font-family: var(--font-body);
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 1.618;
+    }
+
+    .type-16 {
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.618;
+    }
+
+    .type-14 {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.618;
+    }
+
+    .type-label {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.5;
+      letter-spacing: 0.01em;
+    }
+
+    .type-overline {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .type-code {
+      font-family: var(--font-code);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.618;
+    }
+
+    .font-note {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      background: var(--color-surface-alt);
+      padding: 14px 16px;
+      margin-bottom: 18px;
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--color-on-surface-secondary);
+    }
+
+    .font-note strong {
+      color: var(--color-on-surface);
+    }
+
+    .font-note code {
+      font-family: var(--font-code);
+      font-size: 11px;
+      overflow-wrap: anywhere;
+    }
+
+    .spacing-list {
+      display: grid;
+      gap: 4px;
+      margin-bottom: 22px;
+    }
+
+    .space-row {
+      display: grid;
+      grid-template-columns: 54px minmax(0, 1fr) 60px;
+      align-items: center;
+      gap: 10px;
+      min-height: 28px;
+      font-family: var(--font-code);
+      font-size: 10px;
+      color: var(--color-muted);
+    }
+
+    .space-bar {
+      height: 10px;
+      width: min(var(--w), 100%);
+      min-width: 4px;
+      background: var(--color-brand);
+      border-radius: 2px;
+    }
+
+    .space-row:nth-child(3n) .space-bar {
+      background: var(--color-primary);
+    }
+
+    .grid-demo {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      gap: 6px;
+      padding: 14px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      background: var(--color-surface-alt);
+      margin-bottom: 14px;
+    }
+
+    .grid-demo span {
+      height: 46px;
+      background: var(--color-brand-soft);
+      border: 1px solid var(--color-success);
+      border-radius: 4px;
+    }
+
+    .grid-demo span:nth-child(3n) {
+      background: var(--color-brand);
+      border-color: var(--color-brand);
+    }
+
+    .layout-facts {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin: 16px 0;
+    }
+
+    .fact {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      background: var(--color-surface);
+    }
+
+    .fact span {
+      display: block;
+      font-family: var(--font-code);
+      font-size: 10px;
+      color: var(--color-muted);
+      margin-bottom: 3px;
+    }
+
+    .fact strong {
+      display: block;
+      font-size: 14px;
+      line-height: 1.3;
+    }
+
+    .elevation-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin: 18px 0;
+    }
+
+    .elevation-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      min-height: 138px;
+    }
+
+    .elevation-card.low { box-shadow: var(--shadow-low); }
+    .elevation-card.mid { box-shadow: var(--shadow-mid); }
+    .elevation-card.high { box-shadow: var(--shadow-high); }
+
+    .elevation-card h3 {
+      margin: 0 0 6px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .elevation-card p {
+      margin: 0;
+      font-size: 11px;
+      line-height: 1.5;
+      color: var(--color-on-surface-secondary);
+    }
+
+    .elevation-card code {
+      display: block;
+      margin-top: 8px;
+      font-family: var(--font-code);
+      font-size: 9px;
+      line-height: 1.5;
+      color: var(--color-muted);
+      overflow-wrap: anywhere;
+    }
+
+    .dark-panel {
+      background: #111313;
+      color: #F5F5F2;
+      border: 1px solid #6B6D6D;
+      border-radius: var(--radius-lg);
+      padding: 18px;
+    }
+
+    .dark-panel h3 {
+      color: #F5F5F2;
+      font-size: 14px;
+      margin: 0 0 6px;
+    }
+
+    .dark-panel p {
+      color: #B9B9B4;
+      font-size: 12px;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .dark-panel code {
+      color: #00AA13;
+      font-family: var(--font-code);
+      font-size: 11px;
+    }
+
+    .radius-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 8px;
+      margin: 18px 0;
+    }
+
+    .radius-card {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 10px;
+      background: var(--color-surface);
+    }
+
+    .radius-box {
+      height: 54px;
+      background: var(--color-brand-soft);
+      border: 1px solid var(--color-success);
+      margin-bottom: 8px;
+    }
+
+    .radius-card code {
+      display: block;
+      font-family: var(--font-code);
+      font-size: 10px;
+      color: var(--color-on-surface);
+    }
+
+    .radius-card span {
+      display: block;
+      font-size: 10px;
+      color: var(--color-muted);
+      line-height: 1.4;
+      margin-top: 2px;
+    }
+
+    .component-block {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      background: var(--color-surface-alt);
+      padding: 18px;
+      margin-bottom: 12px;
+    }
+
+    .component-block h3 {
+      margin: 0 0 12px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .component-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .component-note {
+      margin: 0;
+      font-size: 11px;
+      line-height: 1.5;
+      color: var(--color-muted);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 9px;
+      border-radius: var(--radius-full);
+      background: var(--color-brand-soft);
+      color: var(--color-success);
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .badge-neutral {
+      background: var(--color-surface-sunken);
+      color: var(--color-on-surface-secondary);
+    }
+
+    .badge-warning {
+      background: var(--color-warning-soft);
+      color: var(--color-warning-text);
+    }
+
+    .alert {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      font-size: 12px;
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+
+    .alert svg {
+      width: 16px;
+      height: 16px;
+      flex: none;
+      margin-top: 1px;
+    }
+
+    .alert strong {
+      display: block;
+      margin-bottom: 1px;
+    }
+
+    .alert-success { background: var(--color-success-soft); color: var(--color-success); }
+    .alert-warning { background: var(--color-warning); color: var(--color-on-warning); }
+    .alert-warning-subtle { background: var(--color-warning-soft); color: var(--color-warning-text); }
+    .alert-error { background: var(--color-error-soft); color: var(--color-error-text); }
+    .alert-info { background: var(--color-info-soft); color: var(--color-info-text); }
+
+    .field {
+      max-width: 420px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .field input {
+      width: 100%;
+      min-height: 48px;
+      padding: 10px 12px;
+      border: 1px solid var(--color-border-strong);
+      border-radius: var(--radius-xs);
+      background: var(--color-surface);
+      color: var(--color-on-surface);
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    .field input::placeholder {
+      color: var(--color-muted);
+      opacity: 1;
+    }
+
+    .field input:focus-visible {
+      border-color: var(--color-primary);
+    }
+
+    .field input[aria-invalid="true"] {
+      border-color: var(--color-error);
+      border-width: 2px;
+    }
+
+    .field .hint {
+      margin: 5px 0 0;
+      font-size: 11px;
+      line-height: 1.5;
+      color: var(--color-muted);
+    }
+
+    .field .error-text {
+      margin: 5px 0 0;
+      font-size: 11px;
+      line-height: 1.5;
+      color: var(--color-error-text);
+      font-weight: 700;
+    }
+
+    .tablist {
+      display: inline-flex;
+      gap: 4px;
+      padding: 4px;
+      border: 1px solid var(--color-border-strong);
+      border-radius: var(--radius-full);
+      background: var(--color-surface);
+      max-width: 100%;
+      flex-wrap: wrap;
+    }
+
+    .tablist [role="tab"] {
+      min-height: 38px;
+      padding: 0 14px;
+      border: 1px solid transparent;
+      border-radius: var(--radius-full);
+      background: transparent;
+      color: var(--color-on-surface-secondary);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .tablist [role="tab"]:hover {
+      background: var(--color-surface-alt);
+      color: var(--color-on-surface);
+    }
+
+    .tablist [role="tab"][aria-selected="true"] {
+      background: var(--color-on-surface);
+      color: var(--color-surface);
+      border-color: var(--color-on-surface);
+    }
+
+    .tabpanel {
+      margin-top: 12px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      background: var(--color-surface);
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--color-on-surface-secondary);
+    }
+
+    .tabpanel h4 {
+      margin: 0 0 4px;
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--color-on-surface);
+    }
+
+    .tabpanel[lang="id"] h4 {
+      font-family: var(--font-display);
+      letter-spacing: -0.02em;
+    }
+
+    .demo-toast {
+      position: fixed;
+      left: 20px;
+      bottom: 20px;
+      z-index: 80;
+      max-width: min(360px, calc(100% - 40px));
+      background: var(--color-inverse-surface);
+      color: var(--color-inverse-on-surface);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      font-size: 12px;
+      line-height: 1.5;
+      box-shadow: var(--shadow-high);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity var(--duration-base) var(--ease-out), transform var(--duration-base) var(--ease-out);
+    }
+
+    .demo-toast.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .motion-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin: 18px 0;
+    }
+
+    .motion-card {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      background: var(--color-surface);
+    }
+
+    .motion-card h3 {
+      margin: 0 0 2px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .motion-card p {
+      margin: 0 0 8px;
+      font-size: 10px;
+      line-height: 1.4;
+      color: var(--color-muted);
+    }
+
+    .motion-track {
+      position: relative;
+      height: 40px;
+      width: min(100%, 250px);
+      background: var(--color-surface-alt);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      margin-bottom: 6px;
+    }
+
+    .motion-dot {
+      position: absolute;
+      left: 8px;
+      top: 50%;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      transform: translate(0, -50%);
+    }
+
+    .motion-card.is-playing .motion-dot {
+      animation: moveDot 800ms var(--ease-standard) forwards;
+    }
+
+    .motion-card:nth-child(2).is-playing .motion-dot {
+      animation-timing-function: var(--ease-in);
+    }
+
+    .motion-card:nth-child(3).is-playing .motion-dot {
+      animation-timing-function: var(--ease-out);
+    }
+
+    .motion-card:nth-child(4).is-playing .motion-dot {
+      animation-timing-function: var(--ease-overshoot);
+    }
+
+    .motion-card code {
+      font-family: var(--font-code);
+      font-size: 9px;
+      line-height: 1.4;
+      color: var(--color-muted);
+      overflow-wrap: anywhere;
+    }
+
+    .motion-principles {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin: 18px 0;
+    }
+
+    .motion-principle {
+      border-top: 2px solid var(--color-brand);
+      padding-top: 9px;
+    }
+
+    .motion-principle strong {
+      display: block;
+      font-size: 12px;
+      margin-bottom: 3px;
+    }
+
+    .motion-principle span {
+      display: block;
+      font-size: 10px;
+      line-height: 1.5;
+      color: var(--color-muted);
+    }
+
+    .dos-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .do-pair {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 10px;
+    }
+
+    .do-card,
+    .dont-card {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      min-width: 0;
+      background: var(--color-surface);
+    }
+
+    .do-card {
+      border-top: 3px solid var(--color-success);
+    }
+
+    .dont-card {
+      border-top: 3px solid var(--color-error);
+    }
+
+    .do-label,
+    .dont-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .do-label { color: var(--color-success); }
+    .dont-label { color: var(--color-error-text); }
+
+    .do-card h3,
+    .dont-card h3 {
+      margin: 0 0 5px;
+      font-size: 14px;
+      line-height: 1.3;
+    }
+
+    .do-card p,
+    .dont-card p {
+      margin: 0;
+      font-size: 11px;
+      line-height: 1.5;
+      color: var(--color-on-surface-secondary);
+    }
+
+    .mini-visual {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: var(--radius-sm);
+      background: var(--color-surface-alt);
+      border: 1px solid var(--color-border);
+      font-size: 10px;
+      line-height: 1.4;
+    }
+
+    .mini-visual .big-type {
+      font-family: var(--font-display);
+      font-size: clamp(26px, 4vw, 36px);
+      font-weight: 700;
+      line-height: 0.98;
+      letter-spacing: -0.03em;
+      color: var(--color-on-brand);
+    }
+
+    .mini-visual--field {
+      background: var(--color-brand);
+      border-color: var(--color-brand);
+    }
+
+    .bad-swatch {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--color-error-text);
+      font-weight: 700;
+    }
+
+    .bad-swatch span {
+      width: 20px;
+      height: 12px;
+      border-radius: 2px;
+      background: var(--color-brand);
+      flex: none;
+    }
+
+    .bad-meta {
+      margin-top: 4px;
+      font-family: var(--font-code);
+      font-size: 9px;
+      color: var(--color-error-text);
+    }
+
+    .mini-visual .mini-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .mini-panel {
+      border-radius: var(--radius-sm);
+      padding: 10px;
+      min-height: 58px;
+    }
+
+    .mini-panel.consumer {
+      background: var(--color-brand);
+      color: var(--color-on-brand);
+    }
+
+    .mini-panel.corporate {
+      background: #1C1D1D;
+      color: #F5F5F2;
+      border: 1px solid #3E3F3F;
+    }
+
+    .mini-panel strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 18px;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .mini-panel span {
+      display: block;
+      font-size: 9px;
+      margin-top: 3px;
+    }
+
+    .evidence-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .evidence-card {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      background: var(--color-surface-alt);
+    }
+
+    .evidence-card .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-success);
+      margin-bottom: 6px;
+    }
+
+    .evidence-card .status .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .evidence-card h3 {
+      margin: 0 0 4px;
+      font-size: 14px;
+    }
+
+    .evidence-card p {
+      margin: 0;
+      font-size: 11px;
+      line-height: 1.5;
+      color: var(--color-on-surface-secondary);
+    }
+
+    .evidence-card a {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 7px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--color-primary-hover);
+    }
+
+    .source-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .source-toolbar p {
+      margin: 0;
+      font-size: 11px;
+      color: var(--color-muted);
+    }
+
+    .source-block {
+      max-height: 540px;
+      overflow: auto;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      background: var(--color-surface-alt);
+      padding: 16px;
+      tab-size: 2;
+    }
+
+    .source-block pre {
+      margin: 0;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      font-family: var(--font-code);
+      font-size: 11px;
+      line-height: 1.65;
+      color: var(--color-on-surface);
+    }
+
+    .source-block::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+
+    .source-block::-webkit-scrollbar-thumb {
+      background: var(--color-border-strong);
+      border-radius: var(--radius-full);
+    }
+
+    .copy-status {
+      position: fixed;
+      left: 20px;
+      bottom: 20px;
+      z-index: 90;
+      max-width: min(380px, calc(100% - 40px));
+      background: var(--color-inverse-surface);
+      color: var(--color-inverse-on-surface);
+      border-radius: var(--radius-md);
+      padding: 10px 14px;
+      font-size: 12px;
+      line-height: 1.4;
+      box-shadow: var(--shadow-high);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out);
+      pointer-events: none;
+    }
+
+    .copy-status.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .site-footer {
+      background: #111313;
+      color: #F5F5F2;
+      padding-block: 44px 28px;
+    }
+
+    .footer-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 28px;
+      margin-bottom: 28px;
+    }
+
+    .footer-brand .brand-lockup {
+      color: #F5F5F2;
+      margin-bottom: 10px;
+    }
+
+    .footer-brand .brand-lockup:hover {
+      color: #FFFFFF;
+    }
+
+    .footer-brand .spec-label {
+      color: #F5F5F2;
+      border-color: #6B6D6D;
+    }
+
+    .footer-brand p {
+      margin: 0;
+      max-width: 56ch;
+      color: #B9B9B4;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .footer-links {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .footer-links h2 {
+      margin: 0 0 8px;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #B9B9B4;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 1px;
+    }
+
+    .footer-links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      color: #F5F5F2;
+      font-size: 12px;
+      text-decoration: none;
+    }
+
+    .footer-links a:hover {
+      color: #00AA13;
+    }
+
+    .footer-disclaimer {
+      margin: 0;
+      padding-top: 18px;
+      border-top: 1px solid #2A2C2C;
+      color: #B9B9B4;
+      font-size: 10px;
+      line-height: 1.6;
+      max-width: 100ch;
+    }
+
+    .footer-disclaimer strong {
+      color: #F5F5F2;
+    }
+
+    @keyframes moveDot {
+      to {
+        transform: translate(190px, -50%);
+      }
+    }
+
+    @media (max-width: 1080px) {
+      .spec-shell {
+        grid-template-columns: 210px minmax(0, 1fr);
+        gap: 28px;
+      }
+      .spec-sidebar {
+        padding-right: 12px;
+      }
+      .spec-nav a {
+        font-size: 12px;
+      }
+      .pair-grid,
+      .elevation-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .elevation-grid .elevation-card:last-child {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .spec-shell {
+        display: block;
+        padding-inline: 0;
+      }
+      .spec-sidebar {
+        display: none;
+        position: static;
+        max-height: none;
+        border-right: 0;
+        border-bottom: 1px solid var(--color-border);
+        padding: 16px clamp(20px, 4vw, 40px);
+        background: var(--color-surface);
+      }
+      .spec-sidebar.is-open {
+        display: block;
+      }
+      .spec-sidebar .sidebar-title {
+        margin-bottom: 8px;
+      }
+      .spec-nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .sidebar-note {
+        margin-top: 14px;
+      }
+      .spec-main {
+        padding-inline: clamp(20px, 4vw, 40px);
+        padding-top: 28px;
+      }
+      .toc-toggle {
+        display: inline-grid;
+      }
+      .section-head,
+      .footer-inner {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .section-head {
+        align-items: start;
+      }
+      .type-row {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 8px;
+      }
+      .type-meta {
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+      }
+      .type-meta code,
+      .type-meta span {
+        display: inline;
+        margin: 0;
+      }
+      .principle-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 760px) {
+      .concept-bar .wrap {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 3px;
+        padding-block: 8px;
+      }
+      .concept-bar a {
+        white-space: normal;
+      }
+      .spec-label,
+      .header-link {
+        display: none;
+      }
+      .spec-hero h1 {
+        font-size: clamp(42px, 13vw, 60px);
+      }
+      .pair-grid,
+      .elevation-grid,
+      .layout-facts,
+      .motion-grid,
+      .motion-principles,
+      .evidence-grid,
+      .do-pair,
+      .footer-links {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .elevation-grid .elevation-card:last-child {
+        grid-column: auto;
+      }
+      .grid-demo {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+      .spacing-list {
+        max-width: 100%;
+      }
+      .motion-track {
+        width: 100%;
+      }
+      .source-toolbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .spec-nav {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .spec-hero h1 {
+        font-size: clamp(40px, 13vw, 52px);
+      }
+      .btn-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .btn-row .button {
+        width: 100%;
+      }
+      .space-row {
+        grid-template-columns: 42px minmax(0, 1fr) 50px;
+      }
+      .swatch-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .tablist {
+        width: 100%;
+      }
+      .tablist [role="tab"] {
+        flex: 1;
+        padding-inline: 8px;
+        font-size: 11px;
+      }
+      .source-block {
+        max-height: 420px;
+        padding: 12px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to the specification</a>
+
+  <aside class="concept-bar" aria-label="Concept disclaimer">
+    <div class="wrap">
+      <p><span class="dot" aria-hidden="true"></span> Unofficial concept · not affiliated with Gojek or PT GoTo Gojek Tokopedia Tbk</p>
+      <a href="index.html">Open the prototype <span aria-hidden="true">↗</span></a>
+    </div>
+  </aside>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand-lockup" href="index.html" aria-label="Gojek concept — Living spec — open the prototype">
+        <span class="brand-mark" aria-hidden="true">
+          <svg aria-hidden="true" viewBox="0 0 32 32" fill="none">
+            <path d="M6 23c4-10 8 2 12-8 1.5-4 3.4-5.4 5-4.3" stroke="#1C1D1D" stroke-width="2.4" stroke-linecap="round"/>
+            <circle cx="6" cy="23" r="2.3" fill="#1C1D1D"/>
+            <circle cx="26" cy="9" r="2.3" fill="#1C1D1D"/>
+          </svg>
+        </span>
+        <span class="wordmark">gojek</span>
+        <span class="spec-label">Living spec</span>
+      </a>
+
+      <div class="header-actions">
+        <button class="icon-button toc-toggle" type="button" id="toc-toggle" aria-expanded="false" aria-controls="spec-sidebar" aria-label="Open section navigation">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+        <button class="icon-button" type="button" id="theme-toggle" aria-pressed="false" aria-label="Dark theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M19.07 4.93l-1.41 1.41M6.34 17.66l-1.41 1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M20.5 14.2A8.5 8.5 0 1 1 9.8 3.5a7 7 0 0 0 10.7 10.7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <a class="header-link" href="index.html">Prototype <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </header>
+
+  <div class="spec-shell">
+    <aside class="spec-sidebar" id="spec-sidebar">
+      <p class="sidebar-title">On this page</p>
+      <nav class="spec-nav" aria-label="Sections in this specification">
+        <a href="#overview"><span>Overview</span><span class="nav-num">00</span></a>
+        <a href="#principles"><span>Principles</span><span class="nav-num">01</span></a>
+        <a href="#registers"><span>Registers</span><span class="nav-num">02</span></a>
+        <a href="#color"><span>Color tokens</span><span class="nav-num">03</span></a>
+        <a href="#typography"><span>Typography</span><span class="nav-num">04</span></a>
+        <a href="#layout"><span>Layout and spacing</span><span class="nav-num">05</span></a>
+        <a href="#elevation"><span>Elevation and depth</span><span class="nav-num">06</span></a>
+        <a href="#shapes"><span>Shapes and radii</span><span class="nav-num">07</span></a>
+        <a href="#components"><span>Components</span><span class="nav-num">08</span></a>
+        <a href="#motion"><span>Motion</span><span class="nav-num">09</span></a>
+        <a href="#dos"><span>Do's and Don'ts</span><span class="nav-num">10</span></a>
+        <a href="#source"><span>Source excerpt</span><span class="nav-num">11</span></a>
+        <a href="#evidence"><span>Evidence</span><span class="nav-num">12</span></a>
+      </nav>
+      <p class="sidebar-note"><strong>Unofficial concept</strong>Values are sourced in <a href="sources.md">sources.md</a>. Maison Neue is proprietary and is not shipped. The HTML uses a fallback stack.</p>
+    </aside>
+
+    <main class="spec-main" id="main" tabindex="-1">
+      <section class="spec-hero" id="overview" aria-labelledby="system-title">
+        <p class="spec-kicker">Gojek / design system / v1.0 concept</p>
+        <h1 id="system-title">One green.<br>Two <span class="green">registers</span>.</h1>
+        <p class="spec-thesis">A unified system for the consumer app and the corporate/technology platform: warm at the surface, precise underneath. One token core, two documented expression deltas, and no second brand.</p>
+        <div class="spec-meta">
+          <span class="meta-pill"><span class="dot" aria-hidden="true"></span> 16 Nov 2026</span>
+          <span class="meta-pill">Lint <code>0 errors / 0 warnings</code></span>
+          <span class="meta-pill">Register <code>consumer + corporate</code></span>
+          <span class="meta-pill">Source <code>DESIGN.md</code></span>
+        </div>
+        <div class="btn-row">
+          <a class="button button-primary" href="index.html">Open the prototype
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="button button-secondary" href="sources.md">Read the sources</a>
+          <a class="button button-secondary" href="DESIGN.md" download>Download DESIGN.md</a>
+        </div>
+      </section>
+
+      <section class="spec-section" id="principles" aria-labelledby="principles-title">
+        <div class="section-head">
+          <h2 id="principles-title">Principles with consequences</h2>
+          <p class="section-lede">A principle that cannot change a decision is decoration. Each of these changes what the prototype does, not only how it looks.</p>
+        </div>
+        <div class="principle-grid">
+          <article class="principle">
+            <span class="num">01</span>
+            <h3>One core, two registers</h3>
+            <p>One primary, one type family, one 4px grid. Registers vary density, accent proportion, type scale, tone, and motion intensity — never the core identity.</p>
+          </article>
+          <article class="principle">
+            <span class="num">02</span>
+            <h3>Brand green is a field</h3>
+            <p>#00AA13 is for large graphics, fills, and display type. #00880D carries 14–16px labels and links. The brighter green measures 3.11:1 on white; the product green measures 4.64:1.</p>
+          </article>
+          <article class="principle">
+            <span class="num">03</span>
+            <h3>The route line connects</h3>
+            <p>Draw the 2px route only between real moments. It is a narrative device, not a background texture. If it does not connect two stops, it does not belong.</p>
+          </article>
+          <article class="principle">
+            <span class="num">04</span>
+            <h3>Motion explains state</h3>
+            <p>120ms for feedback, 200ms for a state change, 320ms for a route reveal. Transform and opacity only. Reduced motion becomes an immediate swap.</p>
+          </article>
+          <article class="principle">
+            <span class="num">05</span>
+            <h3>Evidence over vibes</h3>
+            <p>Every colour value is traceable to a first-party source or marked as an assumption. The prototype labels sample scenarios and illustrative system views.</p>
+          </article>
+          <article class="principle">
+            <span class="num">06</span>
+            <h3>Density is a register decision</h3>
+            <p>Consumer sections breathe at 96–128px; corporate sections compress to 64–96px. The spacing unit stays 4px; only the rhythm changes.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="spec-section" id="registers" aria-labelledby="registers-title">
+        <div class="section-head">
+          <h2 id="registers-title">Two registers, one brand</h2>
+          <p class="section-lede">gojek.com and gojek.io are treated as one company with two audiences. The register matrix is normative: it explains what changes and what must not.</p>
+        </div>
+        <div class="table-scroll" tabindex="0" role="region" aria-label="Register matrix, scroll horizontally if needed">
+          <table>
+            <caption>Register matrix</caption>
+            <thead>
+              <tr>
+                <th scope="col">Register</th>
+                <th scope="col">Audience and job</th>
+                <th scope="col">Type</th>
+                <th scope="col">Accent</th>
+                <th scope="col">Density</th>
+                <th scope="col">Motion</th>
+                <th scope="col">Language</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Consumer</strong><br><code>register-consumer</code></td>
+                <td>Indonesian everyday users; recognise a service, trust the next step, feel the day move.</td>
+                <td>72px hero, 24–34px cards, 1.618 body.</td>
+                <td>Green as a large field; one accent per viewport.</td>
+                <td>96–128px sections, 24px card padding.</td>
+                <td>200–320ms, one overshoot for a human confirmation.</td>
+                <td>Bahasa Indonesia; clear, casual, witty, empathetic.</td>
+              </tr>
+              <tr>
+                <td><strong>Corporate / technology</strong><br><code>register-corporate</code></td>
+                <td>Business buyers, partners, operators, engineers; understand the platform and the system behind it.</td>
+                <td>36px title, 20–24px cards, 1.5 body.</td>
+                <td>Green as a signal; ink surfaces dominate.</td>
+                <td>64–96px sections, 16–20px card padding.</td>
+                <td>120–200ms, no overshoot.</td>
+                <td>English; plain, evidence-led, unsentimental.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="prose"><strong>Shared core:</strong> <code>colors.primary</code>, Maison Neue / Maison Neue Extended, the 4px spacing scale, the radius family, the 3px ink focus ring plus 5px blue halo, and the 44px primary target. The registers do not get their own palettes, typefaces, or logos.</p>
+      </section>
+
+      <section class="spec-section" id="color" aria-labelledby="color-title">
+        <div class="section-head">
+          <h2 id="color-title">Color tokens</h2>
+          <p class="section-lede">The brand palette and the semantic roles are separate. Components reference roles; the brand green remains a primitive with a documented, limited job.</p>
+        </div>
+
+        <p class="group-label">Brand and primary</p>
+        <div class="swatch-grid">
+          <article class="swatch-card">
+            <div class="swatch-color" style="background:#00AA13;"><span class="ratio">3.11:1 on white</span></div>
+            <div class="swatch-body"><code class="swatch-name">brand</code><span class="swatch-value">#00AA13</span><span class="swatch-role">Large fields, display, route lines. Not small text.</span></div>
+          </article>
+          <article class="swatch-card">
+            <div class="swatch-color" style="background:#00880D;"><span class="ratio">4.64:1 on white</span></div>
+            <div class="swatch-body"><code class="swatch-name">primary</code><span class="swatch-value">#00880D</span><span class="swatch-role">Primary actions, links, normal-size green text.</span></div>
+          </article>
+          <article class="swatch-card">
+            <div class="swatch-color" style="background:#00680A;"><span class="ratio">7.04:1 white</span></div>
+            <div class="swatch-body"><code class="swatch-name">primary-hover</code><span class="swatch-value">#00680A</span><span class="swatch-role">Text-safe hover and active; official active green.</span></div>
+          </article>
+          <article class="swatch-card">
+            <div class="swatch-color" style="background:#EAFFEA;"><span class="ratio">6.70:1 text</span></div>
+            <div class="swatch-body"><code class="swatch-name">brand-soft</code><span class="swatch-value">#EAFFEA</span><span class="swatch-role">Selected and success tint; pair with success #00680A.</span></div>
+          </article>
+        </div>
+
+        <p class="group-label">Neutrals and surfaces</p>
+        <div class="swatch-grid">
+          <article class="swatch-card">
+            <div class="swatch-color" style="background:#FFFFFF; border-bottom:1px solid #BDBDBD;"></div>
+            <div class="swatch-body"><code class="swatch-name">surface</code><span class="swatch-value">#FFFFFF</span><span class="swatch-role">Page surface; body ink is 16.90:1.</span></div>
+          </article>
+          <article class="swatch-card">
+            <div class="swatch-color" style="background:#FAFAFA;"></div>
+            <div class="swatch-body"><code class="swatch-name">surface-alt</code><span class="swatch-value">#FAFAFA</span><span class="swatch-role">Cards, strips, quiet sections.</span></div>
+          </article>
+          <article class="swatch-card">
+            <div class="swatch-color" style="background:#E8E8E8;"></div>
+            <div class="swatch-body"><code class="swatch-name">surface-sunken</code><span class="swatch-value">#E8E8E8</span><span class="swatch-role">Disabled fills, neutral chips, dividers.</span></div>
+          </article>
+          <article class="swatch-card">
+            <div class="swatch-color" style="background:#1C1D1D;"><span class="ratio">16.90:1</span></div>
+            <div class="swatch-body"><code class="swatch-name">on-surface</code><span class="swatch-value">#1C1D1D</span><span class="swatch-role">Primary ink; 16.90:1 on white.</span></div>
+          </article>
+          <article class="swatch-card">
+            <div class="swatch-color" style="background:#494A4A;"><span class="ratio">8.89:1</span></div>
+            <div class="swatch-body"><code class="swatch-name">on-surface-secondary</code><span class="swatch-value">#494A4A</span><span class="swatch-role">Secondary body; 8.89:1 on white.</span></div>
+          </article>
+          <article class="swatch-card">
+            <div class="swatch-color" style="background:#727272;"><span class="ratio">4.81:1</span></div>
+            <div class="swatch-body"><code class="swatch-name">muted</code><span class="swatch-value">#727272</span><span class="swatch-role">Helper text and accessible control border.</span></div>
+          </article>
+          <article class="swatch-card">
+            <div class="swatch-color" style="background:#BDBDBD;"><span class="ratio">1.88:1</span></div>
+            <div class="swatch-body"><code class="swatch-name">border</code><span class="swatch-value">#BDBDBD</span><span class="swatch-role">Decorative divider only. Never a control boundary.</span></div>
+          </article>
+          <article class="swatch-card">
+            <div class="swatch-color" style="background:#727272;"><span class="ratio">4.81:1</span></div>
+            <div class="swatch-body"><code class="swatch-name">border-strong</code><span class="swatch-value">#727272</span><span class="swatch-role">Input and secondary-button boundary.</span></div>
+          </article>
+        </div>
+
+        <p class="group-label">Semantic and focus</p>
+        <div class="swatch-grid">
+          <article class="swatch-card">
+            <div class="swatch-color" style="background:#00680A;"><span class="ratio">6.70:1</span></div>
+            <div class="swatch-body"><code class="swatch-name">success</code><span class="swatch-value">#00680A</span><span class="swatch-role">Text on success-soft; not the fill. Fill uses primary.</span></div>
+          </article>
+          <article class="swatch-card">
+            <div class="swatch-color" style="background:#EAFFEA;"><span class="ratio">6.70:1</span></div>
+            <div class="swatch-body"><code class="swatch-name">success-soft</code><span class="swatch-value">#EAFFEA</span><span class="swatch-role">Success surface; pair with success text.</span></div>
+          </article>
+          <article class="swatch-card">
+            <div class="swatch-color" style="background:#FFC41C;"><span class="ratio">10.59:1 ink</span></div>
+            <div class="swatch-body"><code class="swatch-name">warning</code><span class="swatch-value">#FFC41C</span><span class="swatch-role">Warning fill; always with ink and an icon.</span></div>
+          </article>
+          <article class="swatch-card">
+            <div class="swatch-color" style="background:#FFF8E7;"><span class="ratio">5.83:1 text</span></div>
+            <div class="swatch-body"><code class="swatch-name">warning-soft</code><span class="swatch-value">#FFF8E7</span><span class="swatch-role">Warning tint; pair with warning-text #7A5D0E.</span></div>
+          </article>
+          <article class="swatch-card">
+            <div class="swatch-color" style="background:#7A5D0E;"><span class="ratio">5.83:1</span></div>
+            <div class="swatch-body"><code class="swatch-name">warning-text</code><span class="swatch-value">#7A5D0E</span><span class="swatch-role">Accessible warning text on the tint.</span></div>
+          </article>
+          <article class="swatch-card">
+            <div class="swatch-color" style="background:#EA001F;"><span class="ratio">4.65:1 white</span></div>
+            <div class="swatch-body"><code class="swatch-name">error</code><span class="swatch-value">#EA001F</span><span class="swatch-role">Destructive fill; white label passes at 4.65:1.</span></div>
+          </article>
+          <article class="swatch-card">
+            <div class="swatch-color" style="background:#FFF3F3;"><span class="ratio">5.55:1 text</span></div>
+            <div class="swatch-body"><code class="swatch-name">error-soft</code><span class="swatch-value">#FFF3F3</span><span class="swatch-role">Error surface; pair with error-text #C60E26.</span></div>
+          </article>
+          <article class="swatch-card">
+            <div class="swatch-color" style="background:#C60E26;"><span class="ratio">5.55:1</span></div>
+            <div class="swatch-body"><code class="swatch-name">error-text</code><span class="swatch-value">#C60E26</span><span class="swatch-role">Error text on error-soft.</span></div>
+          </article>
+          <article class="swatch-card">
+            <div class="swatch-color" style="background:#008BAB;"><span class="ratio">3.98:1 white</span></div>
+            <div class="swatch-body"><code class="swatch-name">info</code><span class="swatch-value">#008BAB</span><span class="swatch-role">Info dot and graphic accent; not small text on white.</span></div>
+          </article>
+          <article class="swatch-card">
+            <div class="swatch-color" style="background:#E8FBFF;"><span class="ratio">5.41:1 text</span></div>
+            <div class="swatch-body"><code class="swatch-name">info-soft</code><span class="swatch-value">#E8FBFF</span><span class="swatch-role">Info surface; pair with info-text #006F89.</span></div>
+          </article>
+          <article class="swatch-card">
+            <div class="swatch-color" style="background:#006F89;"><span class="ratio">5.41:1</span></div>
+            <div class="swatch-body"><code class="swatch-name">info-text</code><span class="swatch-value">#006F89</span><span class="swatch-role">Info text on info-soft.</span></div>
+          </article>
+          <article class="swatch-card">
+            <div class="swatch-color" style="background:#1C1D1D;"><span class="ratio">16.90:1</span></div>
+            <div class="swatch-body"><code class="swatch-name">focus</code><span class="swatch-value">#1C1D1D</span><span class="swatch-role">3px focus ring; the ring carries contrast.</span></div>
+          </article>
+          <article class="swatch-card">
+            <div class="swatch-color" style="background:#86AFFF;"><span class="ratio">2.19:1 white</span></div>
+            <div class="swatch-body"><code class="swatch-name">focus-halo</code><span class="swatch-value">#86AFFF</span><span class="swatch-role">5px outer halo; 7.72:1 against ink, never alone.</span></div>
+          </article>
+        </div>
+
+        <div class="callout">
+          <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.6"/><path d="M10 9v5M10 6.4v.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <div><strong>Do not use brand green for small text.</strong> #00AA13 on white is 3.11:1: large text and graphics only. Use #00880D for normal-size links and labels. The original brand value stays in the system; the role changes.</div>
+        </div>
+
+        <p class="group-label">Light and dark roles</p>
+        <div class="pair-grid">
+          <div class="pair"><div class="pair-swatch" style="background:#FFFFFF; border-bottom:1px solid #BDBDBD;"></div><div class="pair-copy"><code>surface</code>Light #FFFFFF</div></div>
+          <div class="pair"><div class="pair-swatch" style="background:#111313;"></div><div class="pair-copy"><code>surface-dark</code>Dark #111313</div></div>
+          <div class="pair"><div class="pair-swatch" style="background:#1C1D1D;"></div><div class="pair-copy"><code>on-surface</code>Light #1C1D1D</div></div>
+          <div class="pair"><div class="pair-swatch" style="background:#F5F5F2;"></div><div class="pair-copy"><code>on-surface-dark</code>Dark #F5F5F2</div></div>
+          <div class="pair"><div class="pair-swatch" style="background:#00880D;"></div><div class="pair-copy"><code>primary</code>Light #00880D</div></div>
+          <div class="pair"><div class="pair-swatch" style="background:#00AA13;"></div><div class="pair-copy"><code>primary-dark</code>Dark #00AA13</div></div>
+        </div>
+
+        <p class="group-label">Reserved and dark primitives</p>
+        <div class="pair-grid">
+          <div class="pair"><div class="pair-swatch" style="background:#004F08;"></div><div class="pair-copy"><code>primary-active</code>Light #004F08</div></div>
+          <div class="pair"><div class="pair-swatch" style="background:#1C1D1D;"></div><div class="pair-copy"><code>on-brand</code>Ink #1C1D1D</div></div>
+          <div class="pair"><div class="pair-swatch" style="background:#FFFFFF; border-bottom:1px solid #BDBDBD;"></div><div class="pair-copy"><code>on-primary</code>White #FFFFFF</div></div>
+          <div class="pair"><div class="pair-swatch" style="background:#1C1D1D;"></div><div class="pair-copy"><code>on-warning</code>Ink #1C1D1D</div></div>
+          <div class="pair"><div class="pair-swatch" style="background:#1C1D1D;"></div><div class="pair-copy"><code>inverse-surface</code>Ink #1C1D1D</div></div>
+          <div class="pair"><div class="pair-swatch" style="background:#FFFFFF; border-bottom:1px solid #BDBDBD;"></div><div class="pair-copy"><code>inverse-on-surface</code>White #FFFFFF</div></div>
+          <div class="pair"><div class="pair-swatch" style="background:#1C1D1D;"></div><div class="pair-copy"><code>surface-dark-raised</code>Dark #1C1D1D</div></div>
+          <div class="pair"><div class="pair-swatch" style="background:#B9B9B4;"></div><div class="pair-copy"><code>muted-dark</code>Dark #B9B9B4</div></div>
+          <div class="pair"><div class="pair-swatch" style="background:#6B6D6D;"></div><div class="pair-copy"><code>border-dark</code>Dark #6B6D6D</div></div>
+          <div class="pair"><div class="pair-swatch" style="background:#08210D;"></div><div class="pair-copy"><code>on-primary-dark</code>Dark #08210D</div></div>
+        </div>
+
+        <p class="group-label">Derived dark role tokens</p>
+        <div class="table-scroll" tabindex="0" role="region" aria-label="Derived dark role tokens, scroll horizontally if needed">
+          <table>
+            <caption>Dark role extensions (implementation-derived, explicit in the token core)</caption>
+            <thead><tr><th scope="col">Token</th><th scope="col">Value</th><th scope="col">Role</th></tr></thead>
+            <tbody>
+              <tr><td><code>surface-sunken-dark</code></td><td>#2A2C2C</td><td>Disabled fills and inset dark surfaces</td></tr>
+              <tr><td><code>on-surface-secondary-dark</code></td><td>#D6D6D1</td><td>Secondary body in dark</td></tr>
+              <tr><td><code>border-strong-dark</code></td><td>#8A8C8C</td><td>Control boundary in dark</td></tr>
+              <tr><td><code>focus-dark</code></td><td>#F5F5F2</td><td>Focus ring on dark surfaces</td></tr>
+              <tr><td><code>primary-hover-dark</code></td><td>#18C22A</td><td>Dark primary hover</td></tr>
+              <tr><td><code>primary-active-dark</code></td><td>#33D944</td><td>Dark primary active</td></tr>
+              <tr><td><code>brand-soft-dark</code></td><td>#13351B</td><td>Selected tint in dark</td></tr>
+              <tr><td><code>success-dark</code></td><td>#7DDB8A</td><td>Success text and status</td></tr>
+              <tr><td><code>success-soft-dark</code></td><td>#12351A</td><td>Success surface</td></tr>
+              <tr><td><code>warning-dark</code></td><td>#FFD355</td><td>Warning status</td></tr>
+              <tr><td><code>warning-soft-dark</code></td><td>#332B12</td><td>Warning surface</td></tr>
+              <tr><td><code>warning-text-dark</code></td><td>#FFE08A</td><td>Warning text on the tint</td></tr>
+              <tr><td><code>error-dark</code></td><td>#FF6B7A</td><td>Error status</td></tr>
+              <tr><td><code>error-soft-dark</code></td><td>#3A1519</td><td>Error surface</td></tr>
+              <tr><td><code>error-text-dark</code></td><td>#FFB3BA</td><td>Error text on the tint</td></tr>
+              <tr><td><code>info-dark</code></td><td>#5DD6F0</td><td>Info status</td></tr>
+              <tr><td><code>info-soft-dark</code></td><td>#0E2F36</td><td>Info surface</td></tr>
+              <tr><td><code>info-text-dark</code></td><td>#9DEBFA</td><td>Info text on the tint</td></tr>
+              <tr><td><code>inverse-surface-dark</code></td><td>#F5F5F2</td><td>Inverse toast surface in dark</td></tr>
+              <tr><td><code>inverse-on-surface-dark</code></td><td>#111313</td><td>Ink on the inverse surface</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="group-label">Contrast spot checks</p>
+        <div class="table-scroll" tabindex="0" role="region" aria-label="Contrast spot checks, scroll horizontally if needed">
+          <table>
+            <caption>Measured WCAG 2.2 contrast ratios</caption>
+            <thead><tr><th scope="col">Foreground</th><th scope="col">Background</th><th scope="col">Ratio</th><th scope="col">Use</th><th scope="col">Result</th></tr></thead>
+            <tbody>
+              <tr><td><code>#1C1D1D</code></td><td><code>#FFFFFF</code></td><td>16.90:1</td><td>Body and headings</td><td>AA normal text</td></tr>
+              <tr><td><code>#727272</code></td><td><code>#FFFFFF</code></td><td>4.81:1</td><td>Muted and helper text</td><td>AA normal text</td></tr>
+              <tr><td><code>#00880D</code></td><td><code>#FFFFFF</code></td><td>4.64:1</td><td>Primary links</td><td>AA normal text</td></tr>
+              <tr><td><code>#FFFFFF</code></td><td><code>#00880D</code></td><td>4.64:1</td><td>Primary button</td><td>AA normal text</td></tr>
+              <tr><td><code>#1C1D1D</code></td><td><code>#00AA13</code></td><td>5.44:1</td><td>Large brand panel</td><td>AA normal text</td></tr>
+              <tr><td><code>#00680A</code></td><td><code>#EAFFEA</code></td><td>6.70:1</td><td>Success on soft green</td><td>AA normal text</td></tr>
+              <tr><td><code>#7A5D0E</code></td><td><code>#FFF8E7</code></td><td>5.83:1</td><td>Warning on soft yellow</td><td>AA normal text</td></tr>
+              <tr><td><code>#C60E26</code></td><td><code>#FFF3F3</code></td><td>5.55:1</td><td>Error on soft red</td><td>AA normal text</td></tr>
+              <tr><td><code>#F5F5F2</code></td><td><code>#111313</code></td><td>17.07:1</td><td>Dark theme body</td><td>AA normal text</td></tr>
+              <tr><td><code>#08210D</code></td><td><code>#00AA13</code></td><td>5.48:1</td><td>Dark primary button</td><td>AA normal text</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="group-label">Copy a core value</p>
+        <div class="component-row">
+          <button class="button button-secondary button-small" type="button" data-copy="#00AA13">Copy #00AA13</button>
+          <button class="button button-secondary button-small" type="button" data-copy="#00880D">Copy #00880D</button>
+          <button class="button button-secondary button-small" type="button" data-copy="#EAFFEA">Copy #EAFFEA</button>
+          <button class="button button-secondary button-small" type="button" data-copy="#1C1D1D">Copy #1C1D1D</button>
+        </div>
+      </section>
+
+      <section class="spec-section" id="typography" aria-labelledby="typography-title">
+        <div class="section-head">
+          <h2 id="typography-title">Typography</h2>
+          <p class="section-lede">Maison Neue is the official family. The HTML names it, ships no binary, and renders a deliberate fallback. Specimens show the fallback as it actually appears.</p>
+        </div>
+        <div class="font-note"><strong>Font status: proprietary, not shipped.</strong> Display stack: <code>"Maison Neue Extended", "Helvetica Neue", Helvetica, Arial, sans-serif</code>. Text stack: <code>"Maison Neue", "Helvetica Neue", Helvetica, Arial, sans-serif</code>. Code stack: <code>"Fira Code", ui-monospace, SFMono-Regular, Consolas, monospace</code>. The fallback is not a metric clone; layouts use generous space to absorb the difference.</div>
+
+        <div class="type-list">
+          <div class="type-row">
+            <div class="type-meta"><code>brand-hero</code><span>72px / 700 / 0.95 / −0.03em</span></div>
+            <div class="type-sample type-hero" lang="id">Sehari penuh, satu hijau.</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta"><code>brand-display</code><span>48px / 700 / 1.02 / −0.02em</span></div>
+            <div class="type-sample type-display" lang="en">The system behind the day.</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta"><code>display-2xl</code><span>40px / 700 / 1.618 / −0.01em</span></div>
+            <div class="type-sample type-40" lang="id">Satu aplikasi, sehari penuh.</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta"><code>display-lg</code><span>32px / 700 / 1.618 / −0.005em</span></div>
+            <div class="type-sample" style="font-family:var(--font-display);font-size:clamp(28px,3.4vw,32px);font-weight:700;line-height:1.618;letter-spacing:-0.005em;" lang="en">The system behind the day.</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta"><code>corporate-title</code><span>36px / 600 / 1.15 / −0.01em</span></div>
+            <div class="type-sample type-36" lang="en">Built for the work behind the day.</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta"><code>heading-lg</code><span>32px / 600 / 1.5 / 0</span></div>
+            <div class="type-sample type-32" lang="id">Satu hari, dua cara melihatnya.</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta"><code>heading-md</code><span>28px / 600 / 1.5 / 0</span></div>
+            <div class="type-sample type-28" lang="en">One platform, many daily needs.</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta"><code>heading-sm</code><span>24px / 600 / 1.5 / 0</span></div>
+            <div class="type-sample type-24" lang="id">Yang bisa kamu mulai hari ini.</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta"><code>body-lg</code><span>18px / 500 / 1.618 / 0</span></div>
+            <div class="type-sample type-18" lang="id">Dari perjalanan pagi sampai pesanan tengah malam, satu aplikasi menghubungkan kebutuhan sehari-hari.</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta"><code>body-md</code><span>16px / 500 / 1.618 / 0</span></div>
+            <div class="type-sample type-16" lang="en">The same green, type family, and 4px rhythm carry both registers.</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta"><code>body-sm</code><span>14px / 500 / 1.618 / 0</span></div>
+            <div class="type-sample type-14" lang="id">Contoh skenario, bukan data pengguna nyata.</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta"><code>label-md</code><span>14px / 600 / 1.5 / 0.01em</span></div>
+            <div class="type-sample type-label" lang="en">Primary action label</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta"><code>label-sm</code><span>12px / 600 / 1.5 / 0.02em</span></div>
+            <div class="type-sample" style="font-family:var(--font-body);font-size:12px;font-weight:600;line-height:1.5;letter-spacing:0.02em;" lang="en">Metadata label</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta"><code>overline</code><span>12px / 600 / 1.2 / 0.12em</span></div>
+            <div class="type-sample type-overline" lang="en">Register / consumer</div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta"><code>code-md</code><span>14px / 400 / 1.618 / 0</span></div>
+            <div class="type-sample type-code" lang="en">--color-primary: #00880D;</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="spec-section" id="layout" aria-labelledby="layout-title">
+        <div class="section-head">
+          <h2 id="layout-title">Layout and spacing</h2>
+          <p class="section-lede">A 4px base, a 1240px shell, and a 24px gutter. Sections use task-specific 7/5, 6/6, 2-, 3-, and 4-column arrangements; the 12-column model is a planning guide, not a literal CSS grid.</p>
+        </div>
+
+        <div class="spacing-list" aria-label="Spacing scale">
+          <div class="space-row"><span>4</span><span class="space-bar" style="--w:4px;"></span><span>2xs</span></div>
+          <div class="space-row"><span>8</span><span class="space-bar" style="--w:8px;"></span><span>xs</span></div>
+          <div class="space-row"><span>12</span><span class="space-bar" style="--w:12px;"></span><span>sm</span></div>
+          <div class="space-row"><span>16</span><span class="space-bar" style="--w:16px;"></span><span>md</span></div>
+          <div class="space-row"><span>24</span><span class="space-bar" style="--w:24px;"></span><span>lg</span></div>
+          <div class="space-row"><span>32</span><span class="space-bar" style="--w:32px;"></span><span>xl</span></div>
+          <div class="space-row"><span>40</span><span class="space-bar" style="--w:40px;"></span><span>2xl</span></div>
+          <div class="space-row"><span>48</span><span class="space-bar" style="--w:48px;"></span><span>3xl</span></div>
+          <div class="space-row"><span>64</span><span class="space-bar" style="--w:64px;"></span><span>4xl</span></div>
+          <div class="space-row"><span>96</span><span class="space-bar" style="--w:96px;"></span><span>section</span></div>
+          <div class="space-row"><span>128</span><span class="space-bar" style="--w:128px;"></span><span>section-lg</span></div>
+        </div>
+
+        <div class="grid-demo" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <p class="prose">Sections use 7/5, 6/6, 2-, 3-, and 4-column arrangements as the content requires; the 12-column model is a planning guide, not a literal CSS grid. Gutters are 24px on desktop and 16px on mobile. Content width is 720px for prose and 560px for forms; the shell caps at 1240px. At 1440px the extra space becomes margin, not wider paragraphs.</p>
+
+        <div class="layout-facts">
+          <div class="fact"><span>Base unit</span><strong>4px</strong></div>
+          <div class="fact"><span>Page shell</span><strong>1240px</strong></div>
+          <div class="fact"><span>Prose width</span><strong>720px</strong></div>
+          <div class="fact"><span>Breakpoints</span><strong>480 / 760 / 980 / 1080</strong></div>
+          <div class="fact"><span>Consumer section</span><strong>96–128px</strong></div>
+          <div class="fact"><span>Corporate section</span><strong>64–96px</strong></div>
+        </div>
+      </section>
+
+      <section class="spec-section" id="elevation" aria-labelledby="elevation-title">
+        <div class="section-head">
+          <h2 id="elevation-title">Elevation and depth</h2>
+          <p class="section-lede">A perpendicular light source, three shadow levels, and a dark theme that uses value steps and borders instead of black drops.</p>
+        </div>
+        <div class="elevation-grid">
+          <article class="elevation-card low"><h3>Low</h3><p>Resting cards, sticky bars, the day panel.</p><code>0 2px 20px rgba(0,0,0,.08)</code></article>
+          <article class="elevation-card mid"><h3>Mid</h3><p>Hovered cards, popovers, active detail.</p><code>0 4px 20px rgba(0,0,0,.10)</code></article>
+          <article class="elevation-card high"><h3>High</h3><p>Dialogs, mobile sheet, toast. One at a time.</p><code>0 16px 64px rgba(0,0,0,.12)</code></article>
+        </div>
+        <div class="dark-panel">
+          <h3>Dark theme is not an inversion</h3>
+          <p>Base <code>#111313</code>, raised <code>#1C1D1D</code>, border <code>#6B6D6D</code>. The value step and the 1px border do the work; shadows drop to 42–62% opacity. The green accent becomes <code>#00AA13</code> with <code>#08210D</code> label text.</p>
+        </div>
+      </section>
+
+      <section class="spec-section" id="shapes" aria-labelledby="shapes-title">
+        <div class="section-head">
+          <h2 id="shapes-title">Shapes and radii</h2>
+          <p class="section-lede">Pill actions, soft containers, circular route nodes. A sharp corner is reserved for data, not used as a second personality.</p>
+        </div>
+        <div class="radius-grid">
+          <div class="radius-card"><div class="radius-box" style="border-radius:0;"></div><code>none / 0</code><span>Tables, code</span></div>
+          <div class="radius-card"><div class="radius-box" style="border-radius:6px;"></div><code>xs / 6px</code><span>Inputs</span></div>
+          <div class="radius-card"><div class="radius-box" style="border-radius:8px;"></div><code>sm / 8px</code><span>Small surfaces</span></div>
+          <div class="radius-card"><div class="radius-box" style="border-radius:12px;"></div><code>md / 12px</code><span>Menus, chips</span></div>
+          <div class="radius-card"><div class="radius-box" style="border-radius:16px;"></div><code>lg / 16px</code><span>Feedback, data cards</span></div>
+          <div class="radius-card"><div class="radius-box" style="border-radius:20px;"></div><code>xl / 20px</code><span>Medium cards</span></div>
+          <div class="radius-card"><div class="radius-box" style="border-radius:24px;"></div><code>2xl / 24px</code><span>Editorial panels</span></div>
+          <div class="radius-card"><div class="radius-box" style="border-radius:992px;"></div><code>full / 992px</code><span>Actions, nodes</span></div>
+        </div>
+        <p class="prose">Action controls are always full-radius pills with a 2px border on secondary actions. Container radii run 16–24px; a card's radius should not exceed its padding. Inputs use 6–8px. Tables and code blocks use 0px. Icons are 24px on a 4px grid, 2px stroke, rounded caps. Route nodes are circles; a selected node may grow, but the line stays 2px.</p>
+      </section>
+
+      <section class="spec-section" id="components" aria-labelledby="components-title">
+        <div class="section-head">
+          <h2 id="components-title">Components</h2>
+          <p class="section-lede">A live core gallery using the real classes and tokens. Default, hover, focus, disabled, and error states are visible. The full 53-component token contract, including dark variants, lives in DESIGN.md.</p>
+        </div>
+
+        <div class="component-block">
+          <h3>Buttons</h3>
+          <div class="component-row">
+            <button class="button button-primary" type="button">Primary action</button>
+            <button class="button button-secondary" type="button">Secondary</button>
+            <button class="button button-corporate" type="button">Corporate</button>
+            <button class="button button-danger" type="button">Delete</button>
+            <button class="button button-primary" type="button" disabled>Disabled</button>
+          </div>
+          <p class="component-note">Primary is the only green fill per viewport. Hover uses #00680A, not the official #269A31, because white 14px text on #269A31 is 3.65:1. Focus is a 3px ink ring plus a 5px blue halo.</p>
+        </div>
+
+        <div class="component-block">
+          <h3>Input and validation</h3>
+          <div class="field" lang="id">
+            <label for="demo-name">Nama penerima</label>
+            <input id="demo-name" name="demo-name" type="text" placeholder="Contoh: Ayu" aria-describedby="name-hint">
+            <p class="hint" id="name-hint">Nama akan muncul di halaman penerima. Ini contoh, bukan data nyata.</p>
+          </div>
+          <div class="field" style="margin-top:14px;" lang="id">
+            <label for="demo-phone">Nomor telepon</label>
+            <input id="demo-phone" name="demo-phone" type="tel" value="0812" aria-invalid="true" aria-describedby="phone-error">
+            <p class="error-text" id="phone-error">Nomor belum lengkap. Masukkan 10–13 digit.</p>
+          </div>
+          <p class="component-note" style="margin-top:10px;">The error is text plus a 2px border, never colour alone. The label is visible; the placeholder is not the label.</p>
+        </div>
+
+        <div class="component-block">
+          <h3>Register tabs</h3>
+          <div class="tablist" role="tablist" aria-label="Register examples">
+            <button type="button" role="tab" id="tab-consumer" aria-selected="true" aria-controls="panel-consumer" tabindex="0">Consumer</button>
+            <button type="button" role="tab" id="tab-corporate" aria-selected="false" aria-controls="panel-corporate" tabindex="-1">Corporate</button>
+            <button type="button" role="tab" id="tab-system" aria-selected="false" aria-controls="panel-system" tabindex="-1">System</button>
+          </div>
+          <div class="tabpanel" role="tabpanel" id="panel-consumer" aria-labelledby="tab-consumer" tabindex="0" lang="id">
+            <h4>Sehari penuh, satu hijau.</h4>
+            <p>Register konsumen memakai bidang hijau, tipe 72px, kartu 24px, dan bahasa Indonesia. Aksen hijau boleh lebih besar karena ceritanya tentang manusia, bukan data.</p>
+          </div>
+          <div class="tabpanel" role="tabpanel" id="panel-corporate" aria-labelledby="tab-corporate" tabindex="0" lang="en" hidden>
+            <h4>Built for the work behind the day.</h4>
+            <p>The corporate register uses ink surfaces, 36px titles, 16px cards, and English. Green becomes a signal — a 2px rule, a status dot, one action — not a field.</p>
+          </div>
+          <div class="tabpanel" role="tabpanel" id="panel-system" aria-labelledby="tab-system" tabindex="0" lang="en" hidden>
+            <h4>One token core.</h4>
+            <p>Both registers reference <code>colors.primary</code>, the Maison Neue family, the 4px scale, and the radius family. The register class changes density and accent proportion; it never swaps the palette.</p>
+          </div>
+        </div>
+
+        <div class="component-block">
+          <h3>Badges and alerts</h3>
+          <div lang="id">
+          <div class="component-row">
+            <span class="badge">Contoh</span>
+            <span class="badge badge-neutral">Draft</span>
+            <span class="badge badge-warning">Perlu dicek</span>
+          </div>
+          <div class="alert alert-success"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m3 8 3 3 7-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Tersimpan</strong>Perubahan masuk ke draf konsep.</div></div>
+          <div class="alert alert-warning"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2 15 14H1L8 2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6v4M8 12v.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><div><strong>Perlu perhatian</strong>Warna kuning selalu hadir bersama ikon dan teks.</div></div>
+          <div class="alert alert-warning-subtle"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.5"/><path d="M8 7.2v4M8 5v.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><div><strong>Catatan</strong>Teks peringatan memakai #7A5D0E di atas #FFF8E7.</div></div>
+          <div class="alert alert-error"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.5"/><path d="m5.5 5.5 5 5M10.5 5.5l-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><div><strong>Tidak bisa dikirim</strong>Periksa nomor telepon lalu coba lagi.</div></div>
+          <div class="alert alert-info"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.5"/><path d="M8 7.2v4M8 5v.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><div><strong>Info</strong>Status ini memakai ikon dan label, bukan warna saja.</div></div>
+          </div>
+        </div>
+
+        <div class="component-block">
+          <h3>Toast</h3>
+          <div class="component-row">
+            <button class="button button-secondary button-small" type="button" id="toast-demo">Show toast</button>
+          </div>
+          <p class="component-note">The toast uses <code>role="status"</code>, appears for four seconds, and can be dismissed by waiting. It is a live region, not a decoration.</p>
+        </div>
+
+        <div class="component-block">
+          <h3>Focus ring</h3>
+          <p class="component-note">Tab to any button, tab, or link on this page. The ring is 3px: ink on light surfaces, light on dark surfaces, and ink with a white halo on brand-green panels. The halo alone is not the focus signal; the 3px ring carries the contrast requirement.</p>
+        </div>
+      </section>
+
+      <section class="spec-section" id="motion" aria-labelledby="motion-title">
+        <div class="section-head">
+          <h2 id="motion-title">Motion</h2>
+          <p class="section-lede">Functional motion: explain the state, keep the rhythm, respect the preference. The curves are official; interface durations are scaled for the task.</p>
+        </div>
+        <div class="motion-grid">
+          <article class="motion-card">
+            <h3>Standard</h3><p>Default state change</p>
+            <div class="motion-track"><span class="motion-dot"></span></div>
+            <code>cubic-bezier(0.4, 0, 0.2, 1)</code>
+          </article>
+          <article class="motion-card">
+            <h3>Ease in</h3><p>Exit and release</p>
+            <div class="motion-track"><span class="motion-dot"></span></div>
+            <code>cubic-bezier(0.4, 0, 1, 1)</code>
+          </article>
+          <article class="motion-card">
+            <h3>Ease out</h3><p>Enter and reveal</p>
+            <div class="motion-track"><span class="motion-dot"></span></div>
+            <code>cubic-bezier(0, 0, 0.2, 1)</code>
+          </article>
+          <article class="motion-card">
+            <h3>Overshoot</h3><p>One playful confirmation</p>
+            <div class="motion-track"><span class="motion-dot"></span></div>
+            <code>cubic-bezier(0.34, 1.56, 0.64, 1)</code>
+          </article>
+        </div>
+        <div class="btn-row" style="margin-bottom:16px;">
+          <button class="button button-primary button-small" type="button" id="play-motion">Play all four</button>
+          <span class="component-note">800ms per demo; interface motion is 120 / 200 / 320ms.</span>
+        </div>
+        <div class="motion-principles">
+          <div class="motion-principle"><strong>Purposeful</strong><span>Every motion answers a question.</span></div>
+          <div class="motion-principle"><strong>Delightful</strong><span>One human touch, not a loop.</span></div>
+          <div class="motion-principle"><strong>Responsive</strong><span>Feedback arrives before doubt.</span></div>
+          <div class="motion-principle"><strong>Expressive</strong><span>Gojek can be playful; data cannot be.</span></div>
+        </div>
+        <p class="prose"><strong>Reduced motion:</strong> transforms and looping animation are removed; a state change becomes an immediate swap or a 120ms opacity change. No parallax, no autoplay. The motion demo respects <code>prefers-reduced-motion</code> and will jump to the end state.</p>
+      </section>
+
+      <section class="spec-section" id="dos" aria-labelledby="dos-title">
+        <div class="section-head">
+          <h2 id="dos-title">Do's and Don'ts</h2>
+          <p class="section-lede">Each pair is a decision with a reason. The reason is part of the rule; the visual alone is not.</p>
+        </div>
+        <div class="dos-grid">
+          <div class="do-pair">
+            <article class="do-card">
+              <span class="do-label"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m3 8 3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Do</span>
+              <h3>Use brand green as a field</h3>
+              <p>Large display type, fills, and route lines. Ink on green is 5.44:1.</p>
+              <div class="mini-visual mini-visual--field"><div class="big-type" lang="id">Satu hijau.</div></div>
+            </article>
+            <article class="dont-card">
+              <span class="dont-label"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m5 5 6 6M11 5l-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Don't</span>
+              <h3>Use it for 12px text on white</h3>
+              <p>The ratio is 3.11:1, below AA for normal text.</p>
+              <div class="mini-visual"><div class="bad-swatch"><span aria-hidden="true"></span>Teks kecil di atas putih</div><div class="bad-meta">3.11:1 · below AA</div></div>
+            </article>
+          </div>
+
+          <div class="do-pair">
+            <article class="do-card">
+              <span class="do-label"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m3 8 3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Do</span>
+              <h3>One primary action</h3>
+              <p>Pair it with a secondary action so the next step is unambiguous.</p>
+              <div class="mini-visual"><div class="mini-actions" lang="id"><span class="button button-primary button-small">Lanjut</span><span class="button button-secondary button-small">Nanti</span></div></div>
+            </article>
+            <article class="dont-card">
+              <span class="dont-label"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m5 5 6 6M11 5l-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Don't</span>
+              <h3>Stack two green pills</h3>
+              <p>Two primaries make both actions feel optional.</p>
+              <div class="mini-visual"><div class="mini-actions" lang="id"><span class="button button-primary button-small">Lanjut</span><span class="button button-primary button-small">Simpan</span></div></div>
+            </article>
+          </div>
+
+          <div class="do-pair">
+            <article class="do-card">
+              <span class="do-label"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m3 8 3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Do</span>
+              <h3>Show the register delta</h3>
+              <p>Consumer: green field, 72px display, Bahasa Indonesia.</p>
+              <div class="mini-visual"><div class="mini-panel consumer" lang="id"><strong>Sehari penuh.</strong><span>Consumer register</span></div></div>
+            </article>
+            <article class="dont-card">
+              <span class="dont-label"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m5 5 6 6M11 5l-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Don't</span>
+              <h3>Give corporate the campaign scale</h3>
+              <p>Corporate: ink field, 36px title, English, green as a signal.</p>
+              <div class="mini-visual"><div class="mini-panel corporate" lang="en"><strong>Built for the work.</strong><span>Corporate register</span></div></div>
+            </article>
+          </div>
+
+          <div class="do-pair">
+            <article class="do-card">
+              <span class="do-label"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m3 8 3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Do</span>
+              <h3>Label the sample</h3>
+              <p>“Skenario contoh” is visible before the first invented detail.</p>
+              <div class="mini-visual"><span class="badge badge-warning">Skenario contoh</span> <span style="font-size:10px;color:var(--color-on-surface-secondary);">Empat momen dalam satu hari.</span></div>
+            </article>
+            <article class="dont-card">
+              <span class="dont-label"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m5 5 6 6M11 5l-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Don't</span>
+              <h3>Ship an unsourced claim</h3>
+              <p>“Trusted by everyone” has no source, number, or scope.</p>
+              <div class="mini-visual" style="text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:var(--color-error);">Trusted by everyone.</div>
+            </article>
+          </div>
+
+          <div class="do-pair">
+            <article class="do-card">
+              <span class="do-label"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m3 8 3 3 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Do</span>
+              <h3>Explain state in 200ms</h3>
+              <p>Transform and opacity; reduced motion becomes an instant swap.</p>
+              <div class="mini-visual"><code style="font-family:var(--font-code);font-size:10px;">200ms · state change</code></div>
+            </article>
+            <article class="dont-card">
+              <span class="dont-label"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m5 5 6 6M11 5l-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Don't</span>
+              <h3>Loop for decoration</h3>
+              <p>An infinite bounce steals attention from the task.</p>
+              <div class="mini-visual"><span style="text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:var(--color-error);">Infinite bounce loop</span></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="spec-section" id="source" aria-labelledby="source-title">
+        <div class="section-head">
+          <h2 id="source-title">Source excerpt</h2>
+          <p class="section-lede">Verbatim excerpts from the actual DESIGN.md, not a cleaned-up paraphrase. This is a selected, escaped excerpt — not a complete file. Use DESIGN.md for the full normative token source.</p>
+        </div>
+        <div class="source-toolbar">
+          <p>Excerpt: selected frontmatter + Overview opening. Escaped and readable.</p>
+          <div class="btn-row">
+            <button class="button button-secondary button-small" type="button" id="copy-source">Copy excerpt</button>
+            <a class="button button-secondary button-small" href="DESIGN.md">Open DESIGN.md</a>
+          </div>
+        </div>
+        <div class="source-block" tabindex="0" role="region" aria-label="DESIGN.md source excerpt">
+          <pre id="source-excerpt">---
+version: alpha
+name: "Gojek — One Green, Two Registers"
+description: "A unified design system for Gojek's consumer and corporate/technology expressions: one green route, warm at the surface and precise underneath."
+colors:
+  primary: "#00880D"
+  primary-hover: "#00680A"
+  primary-active: "#004F08"
+  brand: "#00AA13"
+  brand-soft: "#EAFFEA"
+  on-brand: "#1C1D1D"
+  on-primary: "#FFFFFF"
+  surface: "#FFFFFF"
+  surface-alt: "#FAFAFA"
+  surface-sunken: "#E8E8E8"
+  on-surface: "#1C1D1D"
+  on-surface-secondary: "#494A4A"
+  muted: "#727272"
+  border: "#BDBDBD"
+  border-strong: "#727272"
+  focus: "#1C1D1D"
+  focus-halo: "#86AFFF"
+  success: "#00680A"
+  success-soft: "#EAFFEA"
+  warning: "#FFC41C"
+  warning-soft: "#FFF8E7"
+  warning-text: "#7A5D0E"
+  on-warning: "#1C1D1D"
+  error: "#EA001F"
+  error-soft: "#FFF3F3"
+  error-text: "#C60E26"
+  info: "#008BAB"
+  info-soft: "#E8FBFF"
+  info-text: "#006F89"
+  inverse-surface: "#1C1D1D"
+  inverse-on-surface: "#FFFFFF"
+  surface-dark: "#111313"
+  surface-dark-raised: "#1C1D1D"
+  on-surface-dark: "#F5F5F2"
+  muted-dark: "#B9B9B4"
+  border-dark: "#6B6D6D"
+  primary-dark: "#00AA13"
+  on-primary-dark: "#08210D"
+  surface-sunken-dark: "#2A2C2C"
+  on-surface-secondary-dark: "#D6D6D1"
+  border-strong-dark: "#8A8C8C"
+  focus-dark: "#F5F5F2"
+  primary-hover-dark: "#18C22A"
+  primary-active-dark: "#33D944"
+  brand-soft-dark: "#13351B"
+  success-dark: "#7DDB8A"
+  success-soft-dark: "#12351A"
+  warning-dark: "#FFD355"
+  warning-soft-dark: "#332B12"
+  warning-text-dark: "#FFE08A"
+  error-dark: "#FF6B7A"
+  error-soft-dark: "#3A1519"
+  error-text-dark: "#FFB3BA"
+  info-dark: "#5DD6F0"
+  info-soft-dark: "#0E2F36"
+  info-text-dark: "#9DEBFA"
+  inverse-surface-dark: "#F5F5F2"
+  inverse-on-surface-dark: "#111313"
+typography:
+  brand-hero:
+    fontFamily: "Maison Neue Extended, Helvetica Neue, Helvetica, Arial, sans-serif"
+    fontSize: 72px
+    fontWeight: 700
+    lineHeight: 0.95
+    letterSpacing: -0.03em
+  brand-display:
+    fontFamily: "Maison Neue Extended, Helvetica Neue, Helvetica, Arial, sans-serif"
+    fontSize: 48px
+    fontWeight: 700
+    lineHeight: 1.02
+    letterSpacing: -0.02em
+rounded:
+  none: 0px
+  xs: 6px
+  sm: 8px
+  md: 12px
+  lg: 16px
+  xl: 20px
+  2xl: 24px
+  full: 992px
+spacing:
+  base: 4px
+  2xs: 4px
+  xs: 8px
+  sm: 12px
+  md: 16px
+  lg: 24px
+  xl: 32px
+  2xl: 40px
+  3xl: 48px
+  4xl: 64px
+  section: 96px
+  section-lg: 128px
+# [remaining typography levels and the component token block are omitted from this excerpt; see DESIGN.md]
+---
+
+# Gojek — One Green, Two Registers
+
+## Overview
+
+Gojek is one company with two public faces: a consumer super-app that helps people move, eat, send, shop, and pay, and a corporate/technology platform that serves businesses, partners, and the systems behind those moments. This system treats both as **one brand with two registers**, not two brands.
+
+**Design thesis:** For people moving through an Indonesian day and for the teams building the systems behind it, Gojek should feel like one continuous green route — warm and human at the surface, precise and legible underneath.
+
+The organising visual idea is the **route line**. On the consumer surface it is a day: a pickup, a meal, a package, a payment. On the corporate surface it is a system: a request, a match, a handoff, a confirmation. The same 2px line and circular nodes carry both stories.</pre>
+        </div>
+      </section>
+
+      <section class="spec-section" id="evidence" aria-labelledby="evidence-title">
+        <div class="section-head">
+          <h2 id="evidence-title">Evidence and provenance</h2>
+          <p class="section-lede">What was actually checked, with links to the files. “Not run” is recorded as not run; this page does not turn a hope into a pass.</p>
+        </div>
+        <div class="evidence-grid">
+          <article class="evidence-card">
+            <span class="status"><span class="dot" aria-hidden="true"></span>Pass</span>
+            <h3>Official DESIGN.md lint</h3>
+            <p>0 errors, 0 warnings; 1 informational token summary. Run with the official @google/design.md CLI on 16 Nov 2026.</p>
+            <a href="evidence/lint.json">evidence/lint.json <span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="evidence-card">
+            <span class="status"><span class="dot" aria-hidden="true"></span>Export</span>
+            <h3>Official CSS export</h3>
+            <p>The css-tailwind export succeeded and contains the expected custom properties.</p>
+            <a href="evidence/export.css">evidence/export.css <span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="evidence-card">
+            <span class="status"><span class="dot" aria-hidden="true"></span>Pass</span>
+            <h3>Artifact validator</h3>
+            <p>0 errors, 0 warnings in strict mode. The bundled validator was run after the browser pass and the final HTML changes.</p>
+            <a href="evidence/static-check.json">evidence/static-check.json <span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="evidence-card">
+            <span class="status"><span class="dot" aria-hidden="true"></span>Matrix</span>
+            <h3>Browser checks</h3>
+            <p>20/20 cells: 320 / 390 / 768 / 1024 / 1440 × light / dark, file://, 0 console errors, 0 overflow; keyboard and mobile-nav checks recorded.</p>
+            <a href="evidence/browser-check.md">evidence/browser-check.md <span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="evidence-card">
+            <span class="status"><span class="dot" aria-hidden="true"></span>Reviewed</span>
+            <h3>Independent judge</h3>
+            <p>A fresh-context judge reviewed the package against the 100-point rubric. The score is not repeated in the artifact; the report is kept in the evidence folder and excluded from future blind packets.</p>
+            <a href="evidence/judge/judge-report.md">evidence/judge/judge-report.md <span aria-hidden="true">↗</span></a>
+          </article>
+          <article class="evidence-card">
+            <span class="status"><span class="dot" aria-hidden="true"></span>100 / 100</span>
+            <h3>Lighthouse accessibility</h3>
+            <p>Both pages scored 100/100 in headless Chrome on a local server. This is an automated floor, not proof of usability or manual screen-reader quality.</p>
+            <a href="evidence/lighthouse-index.json">index.html JSON <span aria-hidden="true">↗</span></a>
+            <a href="evidence/lighthouse-design-md.json">design-md.html JSON <span aria-hidden="true">↗</span></a>
+          </article>
+        </div>
+        <p class="prose"><strong>Sources:</strong> official Asphalt Aloha foundations, gojek.design brand pages, the live gojek.com CSS tokens, GoCorp, the public DESIGN.md specification, WCAG 2.2, and the official Gojek GitHub organization. gojek.io returned HTTP 429 at retrieval; no corporate copy was taken from it. The GitHub design-system search returned no official design-system repository; official docs outrank third-party repos. Full table: <a href="sources.md">sources.md</a>.</p>
+        <p class="prose"><strong>Not verified:</strong> native iOS/Android rendering, manual screen-reader sessions, the proprietary Maison Neue rendering, Gojek's internal component code, and any current internal architecture. The system view in the prototype is explicitly illustrative.</p>
+      </section>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a class="brand-lockup" href="index.html" aria-label="Gojek concept — Living spec — open the prototype">
+            <span class="brand-mark" aria-hidden="true">
+              <svg aria-hidden="true" viewBox="0 0 32 32" fill="none">
+                <path d="M6 23c4-10 8 2 12-8 1.5-4 3.4-5.4 5-4.3" stroke="#1C1D1D" stroke-width="2.4" stroke-linecap="round"/>
+                <circle cx="6" cy="23" r="2.3" fill="#1C1D1D"/>
+                <circle cx="26" cy="9" r="2.3" fill="#1C1D1D"/>
+              </svg>
+            </span>
+            <span class="wordmark">gojek</span>
+            <span class="spec-label">Living spec</span>
+          </a>
+          <p>One green, two registers: a consumer expression in Bahasa Indonesia and a corporate/technology expression in English, governed by one token core. Built as an unofficial concept.</p>
+        </div>
+        <div class="footer-links">
+          <div>
+            <h2>Artifacts</h2>
+            <ul>
+              <li><a href="index.html">Prototype</a></li>
+              <li><a href="DESIGN.md">DESIGN.md</a></li>
+              <li><a href="sources.md">Sources</a></li>
+              <li><a href="README.md">README</a></li>
+            </ul>
+          </div>
+          <div>
+            <h2>Evidence</h2>
+            <ul>
+              <li><a href="evidence/lint.json">Lint JSON</a></li>
+              <li><a href="evidence/export.css">CSS export</a></li>
+              <li><a href="evidence/static-check.json">Static check</a></li>
+              <li><a href="evidence/browser-check.md">Browser check</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <p class="footer-disclaimer"><strong>Unofficial concept.</strong> Not affiliated with, endorsed by, or produced by Gojek or PT GoTo Gojek Tokopedia Tbk. Gojek is a trademark of its owner. No logo, photograph, testimonial, or proprietary font binary is copied or redistributed. Maison Neue and Maison Neue Extended are named as the official typefaces; this page renders the documented fallback. Service names are used for context only.</p>
+    </div>
+  </footer>
+
+  <div class="demo-toast" id="demo-toast" role="status" aria-live="polite" hidden>Saved to your sample day. This is a prototype, not a live account.</div>
+  <div class="copy-status" id="copy-status" role="status" aria-live="polite"></div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var root = document.documentElement;
+      var themeToggle = document.getElementById('theme-toggle');
+      var tocToggle = document.getElementById('toc-toggle');
+      var sidebar = document.getElementById('spec-sidebar');
+      var copyStatus = document.getElementById('copy-status');
+      var toast = document.getElementById('demo-toast');
+      var toastTimer = null;
+      var copyTimer = null;
+      var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      function effectiveTheme() {
+        if (root.dataset.theme === 'light' || root.dataset.theme === 'dark') {
+          return root.dataset.theme;
+        }
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+
+      function syncTheme() {
+        var dark = effectiveTheme() === 'dark';
+        themeToggle.setAttribute('aria-pressed', String(dark));
+        themeToggle.setAttribute('aria-label', 'Dark theme');
+      }
+
+      themeToggle.addEventListener('click', function () {
+        var next = effectiveTheme() === 'dark' ? 'light' : 'dark';
+        root.dataset.theme = next;
+        try {
+          localStorage.setItem('gojek-concept-theme', next);
+        } catch (error) {}
+        syncTheme();
+      });
+
+      syncTheme();
+      var schemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      if (typeof schemeQuery.addEventListener === 'function') {
+        schemeQuery.addEventListener('change', syncTheme);
+      }
+
+      function closeToc(returnFocus) {
+        sidebar.classList.remove('is-open');
+        tocToggle.setAttribute('aria-expanded', 'false');
+        tocToggle.setAttribute('aria-label', 'Open section navigation');
+        if (returnFocus) {
+          tocToggle.focus();
+        }
+      }
+
+      tocToggle.addEventListener('click', function () {
+        var isOpen = tocToggle.getAttribute('aria-expanded') === 'true';
+        if (isOpen) {
+          closeToc(false);
+        } else {
+          sidebar.classList.add('is-open');
+          tocToggle.setAttribute('aria-expanded', 'true');
+          tocToggle.setAttribute('aria-label', 'Close section navigation');
+          var firstLink = sidebar.querySelector('a');
+          if (firstLink) {
+            firstLink.focus();
+          }
+        }
+      });
+
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && sidebar.classList.contains('is-open')) {
+          closeToc(true);
+        }
+      });
+
+      sidebar.addEventListener('click', function (event) {
+        if (event.target.closest('a') && window.innerWidth <= 980) {
+          closeToc(false);
+        }
+      });
+
+      var navLinks = Array.prototype.slice.call(document.querySelectorAll('.spec-nav a'));
+      var sections = navLinks.map(function (link) {
+        return document.querySelector(link.getAttribute('href'));
+      }).filter(Boolean);
+
+      function updateActiveSection() {
+        var current = sections[0];
+        var threshold = 140;
+        sections.forEach(function (section) {
+          if (section.getBoundingClientRect().top <= threshold) {
+            current = section;
+          }
+        });
+        if (!current) return;
+        navLinks.forEach(function (link) {
+          if (link.getAttribute('href') === '#' + current.id) {
+            link.setAttribute('aria-current', 'location');
+          } else {
+            link.removeAttribute('aria-current');
+          }
+        });
+      }
+
+      var rafPending = false;
+      window.addEventListener('scroll', function () {
+        if (rafPending) return;
+        rafPending = true;
+        window.requestAnimationFrame(function () {
+          updateActiveSection();
+          rafPending = false;
+        });
+      }, { passive: true });
+      window.addEventListener('resize', updateActiveSection);
+      updateActiveSection();
+
+      function announceCopy(message, success) {
+        copyStatus.textContent = message;
+        copyStatus.classList.add('is-visible');
+        if (copyTimer) window.clearTimeout(copyTimer);
+        copyTimer = window.setTimeout(function () {
+          copyStatus.classList.remove('is-visible');
+        }, 3200);
+        if (!success) {
+          copyStatus.setAttribute('data-state', 'error');
+        } else {
+          copyStatus.removeAttribute('data-state');
+        }
+      }
+
+      function fallbackCopy(text) {
+        var area = document.createElement('textarea');
+        area.value = text;
+        area.setAttribute('readonly', '');
+        area.style.position = 'fixed';
+        area.style.top = '-1000px';
+        area.style.opacity = '0';
+        document.body.appendChild(area);
+        area.select();
+        var ok = false;
+        try {
+          ok = document.execCommand('copy');
+        } catch (error) {
+          ok = false;
+        }
+        document.body.removeChild(area);
+        return ok;
+      }
+
+      function copyText(text, label) {
+        if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+          navigator.clipboard.writeText(text).then(function () {
+            announceCopy(label + ' copied.', true);
+          }).catch(function () {
+            var ok = fallbackCopy(text);
+            announceCopy(ok ? label + ' copied.' : 'Copy failed. Select the text manually.', ok);
+          });
+        } else {
+          var ok = fallbackCopy(text);
+          announceCopy(ok ? label + ' copied.' : 'Copy failed. Select the text manually.', ok);
+        }
+      }
+
+      Array.prototype.forEach.call(document.querySelectorAll('[data-copy]'), function (button) {
+        button.addEventListener('click', function () {
+          copyText(button.getAttribute('data-copy'), button.getAttribute('data-copy'));
+        });
+      });
+
+      var copySource = document.getElementById('copy-source');
+      var sourceExcerpt = document.getElementById('source-excerpt');
+      copySource.addEventListener('click', function () {
+        copyText(sourceExcerpt.textContent, 'DESIGN.md excerpt');
+      });
+
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+      var panels = tabs.map(function (tab) {
+        return document.getElementById(tab.getAttribute('aria-controls'));
+      });
+
+      function selectTab(tab, moveFocus) {
+        tabs.forEach(function (item, index) {
+          var selected = item === tab;
+          item.setAttribute('aria-selected', String(selected));
+          item.setAttribute('tabindex', selected ? '0' : '-1');
+          if (panels[index]) {
+            panels[index].hidden = !selected;
+          }
+        });
+        if (moveFocus) {
+          tab.focus();
+        }
+      }
+
+      tabs.forEach(function (tab, index) {
+        tab.addEventListener('click', function () {
+          selectTab(tab, false);
+        });
+        tab.addEventListener('keydown', function (event) {
+          var next = null;
+          if (event.key === 'ArrowRight') {
+            next = tabs[(index + 1) % tabs.length];
+          } else if (event.key === 'ArrowLeft') {
+            next = tabs[(index - 1 + tabs.length) % tabs.length];
+          } else if (event.key === 'Home') {
+            next = tabs[0];
+          } else if (event.key === 'End') {
+            next = tabs[tabs.length - 1];
+          }
+          if (next) {
+            event.preventDefault();
+            selectTab(next, true);
+          }
+        });
+      });
+
+      var toastDemo = document.getElementById('toast-demo');
+      toastDemo.addEventListener('click', function () {
+        if (toastTimer) window.clearTimeout(toastTimer);
+        toast.hidden = false;
+        window.requestAnimationFrame(function () {
+          toast.classList.add('is-visible');
+        });
+        toastTimer = window.setTimeout(function () {
+          toast.classList.remove('is-visible');
+          window.setTimeout(function () {
+            toast.hidden = true;
+          }, reducedMotion.matches ? 0 : 220);
+        }, 4000);
+      });
+
+      var playMotion = document.getElementById('play-motion');
+      var motionCards = Array.prototype.slice.call(document.querySelectorAll('.motion-card'));
+      playMotion.addEventListener('click', function () {
+        motionCards.forEach(function (card) {
+          card.classList.remove('is-playing');
+          void card.offsetWidth;
+          card.classList.add('is-playing');
+        });
+        window.setTimeout(function () {
+          motionCards.forEach(function (card) {
+            card.classList.remove('is-playing');
+          });
+        }, 900);
+      });
+    }());
+  </script>
+  <script>
+    document.querySelectorAll('.skip-link').forEach(function (link) {
+      link.addEventListener('click', function () {
+        var main = document.getElementById('main');
+        if (main) window.setTimeout(function () { main.focus({ preventScroll: true }); }, 0);
+      });
+    });
+  </script>
+</body>
+</html>

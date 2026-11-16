@@ -1,0 +1,77 @@
+name: Validate skills
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Validate skill structure
+        run: |
+          node skills/skill-creator/scripts/validate-skill.mjs skills/skill-creator --strict
+          node skills/skill-creator/scripts/validate-skill.mjs skills/design-md-prototype --strict
+
+      - name: Validate with official skills-ref
+        run: |
+          npx -y skills-ref@0.1.5 validate skills/skill-creator
+          npx -y skills-ref@0.1.5 validate skills/design-md-prototype
+
+      - name: Syntax-check bundled scripts
+        run: |
+          find skills -name '*.mjs' -print0 | xargs -0 -n1 node --check
+
+      - name: Validate eval JSON
+        run: |
+          node -e "const fs=require('fs'); for (const f of process.argv.slice(1)) { JSON.parse(fs.readFileSync(f,'utf8')); console.log('valid JSON:', f); }" \
+            skills/skill-creator/evals/evals.json \
+            skills/design-md-prototype/evals/evals.json
+
+      - name: Validate archived applied package
+        run: |
+          node skills/design-md-prototype/scripts/validate-artifacts.mjs \
+            docs/evals/design-md-prototype/iteration-1/gojek-applied/with_skill/outputs --strict
+
+      - name: Check install payload size
+        run: |
+          max_kb=512
+          actual_kb=$(du -sk skills | cut -f1)
+          echo "skills/ payload: ${actual_kb} KB (limit: ${max_kb} KB)"
+          if [ "$actual_kb" -gt "$max_kb" ]; then
+            echo "::error::skills/ payload grew past ${max_kb} KB. Keep eval artifacts in docs/."
+            exit 1
+          fi
+
+      - name: Check for local path leaks
+        run: |
+          if grep -RIn 't3code' skills docs README.md NOTICE.md CONTRIBUTING.md SECURITY.md CHANGELOG.md skills-lock.json 2>/dev/null; then
+            echo "::error::Local workspace path found. Use placeholders or repository-relative paths."
+            exit 1
+          fi
+          if grep -RIn 'C:\\Users\\' skills docs README.md NOTICE.md CONTRIBUTING.md SECURITY.md CHANGELOG.md skills-lock.json 2>/dev/null; then
+            echo "::error::Local Windows user path found."
+            exit 1
+          fi
+
+      - name: Check for stray skill folders
+        run: |
+          found=$(find . -name SKILL.md -not -path './skills/*' -not -path './.git/*' | sort)
+          if [ -n "$found" ]; then
+            echo "::error::SKILL.md found outside skills/:"
+            echo "$found"
+            exit 1
+          fi

@@ -1,0 +1,10 @@
+{
+  "artifact": "gojek-design",
+  "path": "<out-dir>",
+  "ok": true,
+  "strict": true,
+  "errors": 0,
+  "warnings": 0,
+  "info": 0,
+  "findings": []
+}
