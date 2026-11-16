@@ -26,3 +26,4 @@ All notable changes to this repository are documented here. The format follows [
 - Updated both skill READMEs with `npx skills add` instructions.
 - Fixed the `skill-creator` frontmatter template, eval wording, and packaging skip rules.
 - Removed a duplicate lint-failure instruction from `design-md-prototype/SKILL.md`.
+- Added explicit untrusted-source handling to the design research protocol.
