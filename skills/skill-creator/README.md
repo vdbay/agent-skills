@@ -46,6 +46,8 @@ skills-ref validate .
 node scripts/package-skill.mjs .
 ```
 
+Packaging excludes `evals/results/` and `evals/files/`, so evaluation results and the intentionally broken fixture do not ship in the `.skill` archive.
+
 ## Files
 
 - `SKILL.md` — workflow
