@@ -48,7 +48,13 @@ A skill runs with your agent's permissions, so check what you are installing:
 
 - Review the source at <https://github.com/vdbay/agent-skills> — read `SKILL.md` and `scripts/` before installing.
 - Check [`SECURITY.md`](https://github.com/vdbay/agent-skills/blob/main/SECURITY.md) for how to report a problem.
-- Pin to a known state: `skills-lock.json` records the exact commit installed. Compare it against a published [release](https://github.com/vdbay/agent-skills/releases) before updating with `npx skills update`.
+- Pin to a known state: install a published [release](https://github.com/vdbay/agent-skills/releases) tag or a full commit SHA you have reviewed, instead of the moving `main` branch:
+
+  ```bash
+  npx skills add vdbay/agent-skills@<release-tag-or-full-commit-sha> --skill design-md-prototype
+  ```
+
+- `skills-lock.json` records the exact commit installed in your project. Compare it against a release before updating with `npx skills update`.
 
 ## Use
 

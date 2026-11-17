@@ -56,8 +56,8 @@ Choose **one coherent unit of work**. A skill that analyzes CSVs and administers
 Use the source hierarchy that fits the domain:
 
 1. Official specifications, product documentation, standards bodies, source repositories.
-2. Official examples and first-party repositories. For GitHub, search open-source repositories and sort by stars; record repository, stars, license, and what you used.
-3. High-quality third-party material only to fill gaps, compare approaches, or understand common failure modes. Mark it as supporting evidence. Reach for it only when official material is silent on a specific question; never start from third-party sources.
+2. Official examples and first-party repositories, such as the specification's own repository or the upstream `anthropics/skills` project. Do not run open-ended GitHub searches for examples. If a repository is needed, take it from an official link and record repository, stars (sorted by stars where a search is unavoidable), license, and what you used.
+3. High-quality third-party material only to fill gaps, compare approaches, or understand common failure modes. Mark it as supporting evidence. Open a third-party page only when a specific question remains unanswered by official material after steps 1 and 2; never start from third-party sources and never read them by default.
 
 For each source, write down **what it supports** and **when it was retrieved**. Do not pad a skill with generic background the model already knows. If a fact is likely to change (API, pricing, UI, model names), add "verify current docs" language or a check command rather than freezing it.
 
